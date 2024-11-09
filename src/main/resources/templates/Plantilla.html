@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" th:href="@{/css/output.css}">
+   <title>Plantilla</title>
+</head>
+
+<body>
+   <div th:fragment="footer">
+      <footer class="bg-gray-800 text-white py-5 text-center font-thin">
+         <p>&copy; 2024 FarmaciaUSO - Todos los derechos reservados</p>
+         <p>Contactanos: contacto@farmaciaUSO.com</p>
+      </footer>
+   </div>
+   <div th:fragment="search">
+      <input type="text" placeholder="Buscar..." class="border border-gray-300 rounded-lg px-4 py-2" />
+   </div>
+   <div th:fragment="paginacion">
+      <div class="flex space-x-1">
+         <button
+            class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-nuevo focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2">
+            Anterior
+         </button>
+         <button
+            class="min-w-9 rounded-md bg-nuevo py-2 px-3 border border-transparent text-center text-sm text-white transition-all shadow-md focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2">
+            1
+         </button>
+         <button
+            class="min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-nuevo hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2">
+            2
+         </button>
+         <button
+            class="min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-nuevo hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2">
+            3
+         </button>
+         <button
+            class="min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-nuevo hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2">
+            Siguiente
+         </button>
+      </div>
+   </div>
+</body>
+
+</html>

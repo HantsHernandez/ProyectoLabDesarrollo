@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Agregar Nuevo Empleado</title>
+   <link rel="stylesheet" th:href="@{./css/output.css}">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+   <div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
+      <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Agregar Nuevo Empleado</h2>
+      <form action="#" method="post" th:action="@{/empleados/agregar}" th:object="${empleado}">
+         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Nombres -->
+            <div>
+               <label for="nombresEmpleado" class="block text-gray-600 font-semibold">Nombres</label>
+               <input type="text" id="nombresEmpleado" name="nombresEmpleado"
+                  class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese nombres" required>
+            </div>
+
+            <!-- Apellidos -->
+            <div>
+               <label for="apellidosEmpleado" class="block text-gray-600 font-semibold">Apellidos</label>
+               <input type="text" id="apellidosEmpleado" name="apellidosEmpleado"
+                  class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese apellidos" required>
+            </div>
+
+            <!-- DUI -->
+            <div>
+               <label for="duiEmpleado" class="block text-gray-600 font-semibold">DUI</label>
+               <input type="text" id="duiEmpleado" name="duiEmpleado"
+                  class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="00000000-0" required>
+            </div>
+
+            <!-- ISSS -->
+            <div>
+               <label for="isssEmpleado" class="block text-gray-600 font-semibold">ISSS</label>
+               <input type="text" id="isssEmpleado" name="isssEmpleado"
+                  class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="000000000" required>
+            </div>
+
+            <!-- Fecha Nacimiento -->
+            <div>
+               <label for="fechaNacEmpleado" class="block text-gray-600 font-semibold">Fecha Nacimiento</label>
+               <input type="date" id="fechaNacEmpleado" name="fechaNacEmpleado"
+                  class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+
+            <!-- Teléfono -->
+            <div>
+               <label for="telefonoEmpleado" class="block text-gray-600 font-semibold">Teléfono</label>
+               <input type="tel" id="telefonoEmpleado" name="telefonoEmpleado"
+                  class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="0000-0000" required>
+            </div>
+
+            <!-- Género -->
+            <div>
+               <label for="genero" class="block text-gray-600 font-semibold">Género</label>
+               <select id="genero" name="genero" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                  <option value="" disabled selected>-- Selecciona un género --</option>
+                  <option value="1">F</option>
+                  <option value="2">M</option>
+               </select>
+            </div>
+
+            <!-- Correo -->
+            <div>
+               <label for="correo" class="block text-gray-600 font-semibold">Correo</label>
+               <input type="email" id="correo" name="correo" class="w-full p-2 border border-gray-300 rounded mt-1"
+                  placeholder="Ingrese correo" required>
+            </div>
+
+            <!-- Cargo -->
+            <div>
+               <label for="idCargo" class="block text-gray-600 font-semibold">Cargo</label>
+               <select id="idCargo" name="idCargo" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                  <option value="" disabled selected>-- Seleccione un cargo --</option>
+                  <option value="1">Cajero/a</option>
+                  <option value="2">Supervisor</option>
+               </select>
+            </div>
+
+            <!-- Direccion -->
+            <div>
+               <label for="idDireccion" class="block text-gray-600 font-semibold">Dirección</label>
+               <select id="idDireccion" name="idDireccion" class="w-full p-2 border border-gray-300 rounded mt-1"
+                  required>
+                  <option value="" disabled selected>-- Seleccione una dirección --</option>
+                  <option value="1">Col Madera, Calle 1, #1N</option>
+                  <option value="2">Barrio El Caldero</option>
+               </select>
+            </div>
+
+            <!-- Sucursal -->
+            <div>
+               <label for="idSucursal" class="block text-gray-600 font-semibold">Sucursal</label>
+               <select id="idSucursal" name="idSucursal" class="w-full p-2 border border-gray-300 rounded mt-1"
+                  required>
+                  <option value="" disabled selected>-- Seleccione una sucursal --</option>
+                  <option value="1">Sucursal Este</option>
+                  <option value="2">Sucursal Oeste</option>
+               </select>
+            </div>
+         </div>
+
+         <!-- Botones para enviar y limpiar el formulario -->
+         <div class="mt-6 flex justify-end space-x-4">
+            <button type="button" onclick="limpiarFormulario()"
+               class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+               Limpiar
+            </button>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+               Agregar Empleado
+            </button>
+         </div>
+      </form>
+   </div>
+</body>
+
+</html>

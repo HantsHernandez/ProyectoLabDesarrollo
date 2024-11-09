@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empleados</title>
+    <link rel="stylesheet" th:href="@{./css/output.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <div th:fragment="contenido" class="container mx-auto mt-10 overflow-x-auto">
+        <!-- Titulo -->
+        <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Empleados</h2>
+
+        <!-- Botón para agregar un nuevo empleado -->
+        <div class="flex justify-between items-center mb-4">
+            <a href="#" onclick="cargarContenido('/nuevoEmpleado')"
+                class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
+                <i class="fas fa-plus"></i>
+                <span>Agregar Empleado</span>
+            </a>
+        </div>
+
+        <!-- Tabla de empleados -->
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr class="bg-nuevo text-gray-200">
+                    <th class="py-2 px-4 whitespace-nowrap">ID Empleado</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Nombres</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Apellidos</th>
+                    <th class="py-2 px-4 whitespace-nowrap">DUI</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Teléfono</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Cargo</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Direccion</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center font-light">
+                <tr class="hover:bg-green-100">
+                    <td class="py-3 px-4 border-b border-r border-l">1</td>
+                    <td class="py-3 px-4 border-b border-r border-l">Daniel Alexander</td>
+                    <td class="py-3 px-4 border-b border-r border-l">Murcia Carpio</td>
+                    <td class="py-3 px-4 border-b border-r border-l">000000-0</td>
+                    <td class="py-3 px-4 border-b border-r border-l">6800-1200</td>
+                    <td class="py-3 px-4 border-b border-r border-l">Cajero/a</td>
+                    <td class="py-3 px-4 border-b border-r border-l">Colonia Buenos Aires #2</td>
+                    <td class="py-3 px-4 border-b border-r border-l">
+                        <div class="flex flex-col items-center space-y-2">
+                            <!-- Botón para Ver Detalles -->
+                            <button onclick="abrirModal(1)"
+                                class="bg-nuevo text-white p-2 rounded hover:bg-blue-700 font-semibold flex items-center justify-center">
+                                <i class="fas fa-eye"></i>
+                            </button>
+
+                            <!-- Enlace para Modificar -->
+                            <a href="modificar-empleado.html"
+                                class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <!-- Enlace para Eliminar -->
+                            <a href="#" class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
+                                onclick="eliminarEmpleado(empleadoId)">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
