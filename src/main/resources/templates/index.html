@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
    <meta charset="UTF-8">
@@ -36,9 +36,9 @@
                <i class="ri-arrow-right-s-line ml-auto"></i>
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
-               <li><a href="#" onclick="cargarContenido('/fragmentoEmpleados')"
+               <li><a onclick="cargarContenido('/fragmentoEmpleados')"
                      class="text-gray-300 text-sm hover:text-gray-100">Empleados</a></li>
-               <li><a href="#" onclick="cargarContenido('/fragmentoSucursales')"
+               <li><a href="" onclick="cargarContenido('/fragmentoSucursales')"
                      class="text-gray-300 text-sm hover:text-gray-100">Sucursales</a></li>
             </ul>
          </li>
@@ -156,6 +156,16 @@
    </main>
    <script src="../js/menu.js"></script>
    <script src="../js/contenidoPanel.js"></script>
+   <script>
+      function validarFormularioYEnviar() {
+          const form = document.getElementById('empleadoForm');
+          if (form.checkValidity()) {
+              form.submit();
+              cargarContenido('/fragmentoEmpleados')
+          } else {
+              form.reportValidity();
+          }
+      }
+   </script>
 </body>
-
 </html>
