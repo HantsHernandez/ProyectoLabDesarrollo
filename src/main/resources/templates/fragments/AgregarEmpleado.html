@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Agregar Nuevo Empleado</title>
-   <link rel="stylesheet" th:href="@{./css/output.css}">
-</head>
-
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<div class="bg-gray-100 min-h-screen flex items-center justify-center">
    <div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
       <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Agregar Nuevo Empleado</h2>
-      <form action="#" method="post" th:action="@{/empleados/agregar}" th:object="${empleado}">
+      <form action="#" method="post" th:action="@{/empleados/agregar}"
+       th:object="${empleado}" id="FormEmpleado">
          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Nombres -->
             <div>
@@ -111,12 +102,11 @@
                class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
                Limpiar
             </button>
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <button type="button" onclick="guardar_registros('FormEmpleado')"
+             class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                Agregar Empleado
             </button>
          </div>
       </form>
    </div>
-</body>
-
-</html>
+</div>
