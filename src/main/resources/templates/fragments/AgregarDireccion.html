@@ -1,0 +1,43 @@
+<div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
+   <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Agregar Nueva Dirección</h2>
+   <form action="#" method="post" th:action="@{/direccion/agregar}" th:object="${direccion}">
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+
+         <!--  Dirección -->
+         <div>
+            <label for="direccion" class="block text-gray-600 font-semibold">Dirección</label>
+            <input type="text" id="direccion" name="direccion" class="w-full p-2 border border-gray-300 rounded mt-1"
+               placeholder="Ingrese la dirección" required>
+         </div>
+
+         <!-- Distrito -->
+         <div>
+            <label for="idDistrito" class="block text-gray-600 font-semibold">Distrito</label>
+            <select id="idDistrito" name="idDistrito" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+               <option value="" disabled selected>-- Selecciona un distrito --</option>
+               <option value="1">Sonsonate</option>
+               <option value="2">Nahuizalco</option>
+            </select>
+         </div>
+
+         <!-- Código postal -->
+         <div>
+            <label for="codPostal" class="block text-gray-600 font-semibold">Código Postal</label>
+            <input type="number" id="codPostal" name="codPostal" class="w-full p-2 border border-gray-300 rounded mt-1"
+               placeholder="Ingrese el código postal" required>
+         </div>
+
+      </div>
+
+      <!-- Botones para enviar y limpiar el formulario -->
+      <div class="mt-8 flex justify-center space-x-4">
+         <button type="button" onclick="limpiarFormulario()"
+            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+            Limpiar
+         </button>
+         <button type="button" class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800">
+            Agregar Marca
+         </button>
+      </div>
+   </form>
+</div>
