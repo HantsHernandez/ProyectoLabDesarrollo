@@ -2,6 +2,7 @@ package com.farmacia.farmacia.controlador;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Controllers {
@@ -48,6 +49,15 @@ public class Controllers {
     @GetMapping("/fragmentoDirecciones")
     public String fragmentoDirecciones() {
         return "fragments/GestionDirecciones :: contenido";
+    }
+
+    @PostMapping("/empleados/agregar")
+    public String guardarEmpleado() {
+        //guardar informacion
+
+
+        //Obtener los registros y enviarlos a la vista
+        return "fragments/GestionEmpleados";
     }
 
     // Ruta para mostrar el formulario de agregar empleado
