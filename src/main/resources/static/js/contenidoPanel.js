@@ -1,5 +1,7 @@
 // Función para cargar fragmentos dinámicamente
 function cargarContenido(url) {
+
+  console.log(url);
   const contentDiv = document.getElementById('contenido-principal');
   /*if (contentDiv.dataset.current === url) {
     return; // Si el contenido ya está cargado, no se recarga
@@ -36,6 +38,7 @@ document.body.addEventListener('submit', function(event) {
 function guardar_registros(form){
     const formData = new FormData(document.getElementById(form));
     const formDataObject = {};
+
 
     formData.forEach((value, key) => {
         formDataObject[key] = value;

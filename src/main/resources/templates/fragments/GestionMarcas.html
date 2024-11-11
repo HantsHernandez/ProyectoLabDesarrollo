@@ -1,10 +1,11 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <div th:fragment="contenido" class="container mx-auto mt-10 overflow-x-auto">
    <!-- Titulo -->
    <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Marcas</h2>
 
    <!-- Botón para agregar una nueva marca -->
    <div class="flex justify-between items-center mb-4">
-      <a href="#" onclick="cargarContenido('/nuevaMarca')"
+      <a href="#" onclick="cargarContenido('/guardar-marca')"
          class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
          <i class="fas fa-plus"></i>
          <span>Agregar Marca</span>
@@ -22,12 +23,10 @@
          </tr>
       </thead>
       <tbody class="text-center font-light">
-         <tr class="hover:bg-green-100">
-            <td class="py-3 px-4 border-b border-r border-l">1</td>
-            <td class="py-3 px-4 border-b border-r border-l">Dibase</td>
-            <td class="py-3 px-4 border-b border-r border-l">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Delectus quisquam iste enim. Corrupti reprehenderit saepe, atque voluptatibus alias optio. Earum id
-               voluptas inventore ad modi, quod asperiores eos ab deleniti?</td>
+      <tr class="hover:bg-green-100" th:each="marca: ${listaMarcas}">
+         <td class="py-3 px-4 border-b border-r border-l" th:text="${marca.idMarca}"></td>
+         <td class="py-3 px-4 border-b border-r border-l" th:text="${marca.nombreMarca}"></td>
+         <td class="py-3 px-4 border-b border-r border-l" th:text="${marca.descripcionMarca}"></td>
             <td class="py-3 px-4 border-b border-r border-l">
                <div class="flex flex-col items-center space-y-2">
                   <!-- Botón para Ver Detalles -->
@@ -37,13 +36,17 @@
                   </button>
 
                   <!-- Enlace para Modificar -->
-                  <a href="modificar-empleado.html"
+                  <a th:data-id="${marca.idMarca}"
+                     th:data-action="actualizar-marca"
+                     onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))"
                      class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
                      <i class="fas fa-edit"></i>
                   </a>
                   <!-- Enlace para Eliminar -->
-                  <a href="#" class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
-                     onclick="eliminarEmpleado(empleadoId)">
+                  <a class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
+                     th:data-id="${marca.idMarca}"
+                     th:data-action="eliminar-marca"
+                     onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
                      <i class="fas fa-trash"></i>
                   </a>
                </div>

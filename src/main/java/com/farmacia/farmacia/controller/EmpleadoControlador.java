@@ -46,6 +46,7 @@ public class EmpleadoControlador {
 
     // Vistas
 
+    // METODO QUE DEBE DE PASAR AL HOME
     @GetMapping("/fragmentoEmpleados")
     public String fragmentoEmpleados(Model model) {
         model.addAttribute("listaEmpleados", this.empleadoService.listaEmpleados());

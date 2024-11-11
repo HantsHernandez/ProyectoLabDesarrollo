@@ -19,7 +19,7 @@ public class Controllers {
     public String mostrarDashboard() {
         return "index";
     }
-
+/*
     @GetMapping("/fragmentoCategorias")
     public String fragmentoCategorias() {
         return "fragments/GestionCategorias :: contenido";
@@ -29,7 +29,7 @@ public class Controllers {
     public String fragmentoMarcas() {
         return "fragments/GestionMarcas :: contenido";
     }
-
+*/
     @GetMapping("/fragmentoPresentacionMedicamentos")
     public String fragmentoPresentacionMedicamentos() {
         return "fragments/GestionPresentacionMedicamentos :: contenido";
@@ -68,12 +68,12 @@ public class Controllers {
     public String mostrarFormularioSucursal() {
         return "fragments/AgregarSucursal :: contenido";
     }
-
+/*
     @GetMapping("/nuevaCategoria")
     public String mostrarFormularioCategoria() {
         return "fragments/AgregarCategoria :: contenido";
     }
-
+*/
     @GetMapping("/nuevaMarca")
     public String mostrarFormularioMarca() {
         return "fragments/AgregarMarca:: contenido";
