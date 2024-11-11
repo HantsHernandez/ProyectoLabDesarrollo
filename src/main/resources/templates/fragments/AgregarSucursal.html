@@ -1,0 +1,62 @@
+<div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
+   <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Agregar Nueva Sucursal</h2>
+   <form action="#" method="post" th:action="@{/sucursal/agregar}" th:object="${sucursal}">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+         <!-- Nombre -->
+         <div>
+            <label for="nombreSucursal" class="block text-gray-600 font-semibold">Nombre</label>
+            <input type="text" id="nombreSucursal" name="nombreSucursal"
+               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese nombre" required>
+         </div>
+
+         <!-- Teléfono -->
+         <div>
+            <label for="telefonoSucursal" class="block text-gray-600 font-semibold">Teléfono</label>
+            <input type="tel" id="telefonoSucursal" name="telefonoSucursal"
+               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="0000-0000" required>
+         </div>
+
+         <!-- Correo -->
+         <div>
+            <label for="correo" class="block text-gray-600 font-semibold">Correo</label>
+            <input type="email" id="correo" name="correo" class="w-full p-2 border border-gray-300 rounded mt-1"
+               placeholder="Ingrese correo" required>
+         </div>
+
+         <!-- Hora de Apertura -->
+         <div>
+            <label for="horaApertura" class="block text-gray-600 font-semibold">Hora de Apertura</label>
+            <input type="time" id="horaApertura" name="horaApertura"
+               class="w-full p-2 border border-gray-300 rounded mt-1" required>
+         </div>
+
+         <!-- Hora de Cierre -->
+         <div>
+            <label for="horaCierre" class="block text-gray-600 font-semibold">Hora de Cierre</label>
+            <input type="time" id="horaCierre" name="horaCierre" class="w-full p-2 border border-gray-300 rounded mt-1"
+               required>
+         </div>
+
+         <!-- Direccion -->
+         <div>
+            <label for="idDireccion" class="block text-gray-600 font-semibold">Dirección</label>
+            <select id="idDireccion" name="idDireccion" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+               <option value="" disabled selected>-- Seleccione una dirección --</option>
+               <option value="1">Col Madera, Calle 1, #1N</option>
+               <option value="2">Barrio El Caldero</option>
+            </select>
+         </div>
+      </div>
+
+      <!-- Botones para enviar y limpiar el formulario -->
+      <div class="mt-8 flex justify-center space-x-4">
+         <button type="button" onclick="limpiarFormulario()"
+            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+            Limpiar
+         </button>
+         <button type="button" class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800">
+            Agregar Sucursal
+         </button>
+      </div>
+   </form>
+</div>

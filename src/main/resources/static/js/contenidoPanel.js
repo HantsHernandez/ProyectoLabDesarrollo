@@ -1,6 +1,5 @@
 // Función para cargar fragmentos dinámicamente
 function cargarContenido(url) {
-  console.log("URL de la solicitud:", url);
   const contentDiv = document.getElementById('contenido-principal');
   /*if (contentDiv.dataset.current === url) {
     return; // Si el contenido ya está cargado, no se recarga
@@ -17,7 +16,6 @@ function cargarContenido(url) {
       contentDiv.innerHTML = '<p>Error al cargar el contenido.</p>';
     });
 }
-
 
 // Función para mostrar el contenido principal del Dashboard sin recargar el contenedor
 function mostrarDashboard() {
