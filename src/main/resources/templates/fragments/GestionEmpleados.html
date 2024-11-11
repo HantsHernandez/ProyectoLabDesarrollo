@@ -17,7 +17,7 @@
 
         <!-- Botón para agregar un nuevo empleado -->
         <div class="flex justify-between items-center mb-4">
-            <a href="#" onclick="cargarContenido('/nuevoEmpleado')"
+            <a href="#" onclick="cargarContenido('/guardar-empleado')"
                 class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
                 <i class="fas fa-plus"></i>
                 <span>Agregar Empleado</span>
@@ -39,14 +39,14 @@
                 </tr>
             </thead>
             <tbody class="text-center font-light">
-                <tr class="hover:bg-green-100">
-                    <td class="py-3 px-4 border-b border-r border-l">1</td>
-                    <td class="py-3 px-4 border-b border-r border-l">Daniel Alexander</td>
-                    <td class="py-3 px-4 border-b border-r border-l">Murcia Carpio</td>
-                    <td class="py-3 px-4 border-b border-r border-l">000000-0</td>
-                    <td class="py-3 px-4 border-b border-r border-l">6800-1200</td>
-                    <td class="py-3 px-4 border-b border-r border-l">Cajero/a</td>
-                    <td class="py-3 px-4 border-b border-r border-l">Colonia Buenos Aires #2</td>
+                <tr class="hover:bg-green-100" th:each="empleado: ${listaEmpleados}">
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.idEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.nombreEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.apellidoEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.duiEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.telefonoEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.cargo.cargo}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.direccion.linea1}"></td>
                     <td class="py-3 px-4 border-b border-r border-l">
                         <div class="flex flex-col items-center space-y-2">
                             <!-- Botón para Ver Detalles -->
@@ -55,16 +55,22 @@
                                 <i class="fas fa-eye"></i>
                             </button>
 
-                            <!-- Enlace para Modificar -->
-                            <a href="modificar-empleado.html"
-                                class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
+                            <!-- Enlace para  -->
+                            <a href="#" class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo"
+                               th:data-id="${empleado.idEmpleado}"
+                               th:data-action="actualizar-empleado"
+                               onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
                                 <i class="fas fa-edit"></i>
                             </a>
+
                             <!-- Enlace para Eliminar -->
-                            <a href="#" class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
-                                onclick="eliminarEmpleado(empleadoId)">
-                                <i class="fas fa-trash"></i>
+                            <a href="#" class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo"
+                               th:data-id="${empleado.idEmpleado}"
+                               th:data-action="actualizar-empleado"
+                               onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
+                                <i class="fas fa-edit"></i>
                             </a>
+
                         </div>
                     </td>
                 </tr>

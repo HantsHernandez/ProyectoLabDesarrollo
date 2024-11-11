@@ -1,6 +1,7 @@
 package com.farmacia.farmacia.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Table(name = "empleados")
 public class Empleado {
     @Id
@@ -36,10 +36,12 @@ public class Empleado {
     private String correoEmpleado;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_direccion")
     private Direccion direccion;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_cargo")
     private Cargo cargo;
 

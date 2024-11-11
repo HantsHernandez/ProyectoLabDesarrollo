@@ -1,10 +1,8 @@
 package com.farmacia.farmacia.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -23,6 +21,7 @@ public class Cargo {
 
     private String descripcionCargo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Empleado>listaEmpleados;
 }
