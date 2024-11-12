@@ -11,6 +11,11 @@ public class Controllers {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String mostrarLogin() {
+        return "login";
+    }
+
     @GetMapping("/fragmentoEmpleados")
     public String fragmentoEmpleados() {
         return "fragments/GestionEmpleados :: contenido";
@@ -51,12 +56,26 @@ public class Controllers {
         return "fragments/GestionDirecciones :: contenido";
     }
 
+    @GetMapping("/fragmentoInventarios")
+    public String fragmentoInventarios() {
+        return "fragments/GestionInventarios :: contenido";
+    }
+
+    @GetMapping("/fragmentoLaboratorios")
+    public String fragmentoLaboratorios() {
+        return "fragments/GestionLaboratorios :: contenido";
+    }
+
+    @GetMapping("/fragmentoCompras")
+    public String fragmentoCompras() {
+        return "fragments/GestionCompras :: contenido";
+    }
+
     @PostMapping("/empleados/agregar")
     public String guardarEmpleado() {
-        //guardar informacion
+        // guardar informacion
 
-
-        //Obtener los registros y enviarlos a la vista
+        // Obtener los registros y enviarlos a la vista
         return "fragments/GestionEmpleados";
     }
 
@@ -99,5 +118,15 @@ public class Controllers {
     @GetMapping("/nuevaDireccion")
     public String mostrarFormularioDireccion() {
         return "fragments/AgregarDireccion :: contenido";
+    }
+
+    @GetMapping("/nuevoInventario")
+    public String mostrarFormularioInventario() {
+        return "fragments/AgregarInventario :: contenido";
+    }
+
+    @GetMapping("/nuevoLaboratorio")
+    public String mostrarFormularioLaboratorio() {
+        return "fragments/AgregarLaboratorio :: contenido";
     }
 }

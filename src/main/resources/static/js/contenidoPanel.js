@@ -17,41 +17,40 @@ function cargarContenido(url) {
     });
 }
 
-document.body.addEventListener('submit', function(event) {
-    if (event.target.tagName === 'FORM') {
-        event.preventDefault();
-    }
+document.body.addEventListener('submit', function (event) {
+  if (event.target.tagName === 'FORM') {
+    event.preventDefault();
+  }
 });
 
 function mostrarDashboard() {
   const contentDiv = document.getElementById('contenido-principal');
   contentDiv.dataset.current = 'dashboard';
   contentDiv.innerHTML = `
-        <h2 class="text-2xl font-semibold mb-4">Contenido Principal</h2>
-        <p>Esta área es para el contenido principal del panel...</p>
+        <img src="https://svgsilh.com/svg/312139-046c4e.svg" alt="logoFarmacia" srcset="" width="312px" height="280px">
     `;
 }
 
-function guardar_registros(form){
-    const formData = new FormData(document.getElementById(form));    
-    const formDataObject = {};
+function guardar_registros(form) {
+  const formData = new FormData(document.getElementById(form));
+  const formDataObject = {};
 
-    formData.forEach((value, key) => {
-        formDataObject[key] = value;
-    });
+  formData.forEach((value, key) => {
+    formDataObject[key] = value;
+  });
 
-    fetch(document.getElementById(form).getAttribute('action'), {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formDataObject)
-      })
-    .then(response => response.text())
-    .then(html => {
-        const divResultado = document.getElementById('contenido-principal');
-        divResultado.innerHTML = html;
+  fetch(document.getElementById(form).getAttribute('action'), {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formDataObject),
+  })
+    .then((response) => response.text())
+    .then((html) => {
+      const divResultado = document.getElementById('contenido-principal');
+      divResultado.innerHTML = html;
     })
-    .catch(error => console.error('Error en la petición:', error));
+    .catch((error) => console.error('Error en la petición:', error));
 }
