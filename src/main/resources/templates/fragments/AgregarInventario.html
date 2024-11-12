@@ -1,0 +1,40 @@
+<div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
+   <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Agregar Nueva Categoria</h2>
+   <form action="#" method="post" th:action="@{/inventario/agregar}" th:object="${inventario}">
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+
+         <!--  Cantidad de stock -->
+         <div>
+            <label for="cantidadStock" class="block text-gray-600 font-semibold">Stock</label>
+            <input type="number" id="cantidadStock" name="cantidadStock"
+               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese cantidad de stock" required>
+         </div>
+
+         <!--  Número de estantería -->
+         <div>
+            <label for="numeroEstanteria" class="block text-gray-600 font-semibold">No. Estantería</label>
+            <input type="number" id="numeroEstanteria" name="numeroEstanteria"
+               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese número de estantería"
+               required>
+         </div>
+
+         <!--  Número de pasillo -->
+         <div>
+            <label for="numeroPasillo" class="block text-gray-600 font-semibold">No. Pasillo</label>
+            <input type="number" id="numeroPasillo" name="numeroPasillo"
+               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese número de pasillo" required>
+         </div>
+      </div>
+
+      <!-- Botones para enviar y limpiar el formulario -->
+      <div class="mt-8 flex justify-center space-x-4">
+         <button type="button" onclick="limpiarFormulario()"
+            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+            Limpiar
+         </button>
+         <button type="button" class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800">
+            Agregar Inventario
+         </button>
+      </div>
+   </form>
+</div>
