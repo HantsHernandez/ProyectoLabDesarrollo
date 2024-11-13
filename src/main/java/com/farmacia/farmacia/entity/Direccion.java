@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Table(name = "direcciones")
 public class Direccion {
     @Id
@@ -23,11 +25,11 @@ public class Direccion {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Empleado>listaEmpleados;
+    private List<Empleado>listaEmpleados = new ArrayList<>();
 
     @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cliente>listaClientes;
+    private List<Cliente>listaClientes = new ArrayList<>();
 
     @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Laboratorio>listaLaboratorios;
+    private List<Laboratorio>listaLaboratorios = new ArrayList<>();
 }

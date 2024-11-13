@@ -1,11 +1,9 @@
 package com.farmacia.farmacia.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,17 +12,18 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "inventarios")
+@ToString
 public class Inventario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idInventario;
 
+    private String estanteria;
+
+    private String pasillo;
+
     private int cantidadStock;
 
-    private int noEstanteria;
-
-    private int noPasillo;
-
-    @OneToMany(mappedBy = "inventario",  cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Medicamento> listaMedicamentos;
+    @OneToMany(mappedBy = "inventario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Medicamento> listaMedicamentos = new ArrayList<>();
 }

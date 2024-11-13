@@ -13,27 +13,27 @@ public class DireccionService {
     @Autowired
     private DireccionRepository direccionRepository;
 
-    public void saveDireccion(Direccion direccion){
-        direccionRepository.save(direccion);
+    public Direccion guardarDireccion(Direccion direccion){
+        return direccionRepository.save(direccion);
     }
 
-    public Direccion getDireccion(Long id){
+    public Direccion obtenerDireccion(Long id){
         return direccionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("DIRECCION NO IDENTIFICADA"));
     }
 
-    public void updateDireccion(Direccion direccion){
+    public Direccion actualizarDireccion(Direccion direccion){
         Direccion direccionActualizada = direccionRepository.findById(direccion.getIdDireccion())
                 .map(direccion1 -> {
                     direccion1.setLinea1(direccion.getLinea1());
-                    //direccion1.setLinea2(direccion.getLinea2());
+
                     return direccion1;
                 })
                 .orElseThrow(() -> new RuntimeException("DIRECCION NO IDENTIFICADA"));
-        this.direccionRepository.save(direccion);
+        return this.direccionRepository.save(direccionActualizada);
     }
 
-    public void deleteDireccion(Long id){
+    public void eliminarDireccion(Long id){
         this.direccionRepository.findById(id)
                 .ifPresentOrElse(
                         direccion -> this.direccionRepository.delete(direccion),

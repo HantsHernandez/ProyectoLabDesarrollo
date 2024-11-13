@@ -1,5 +1,7 @@
 package com.farmacia.farmacia.controller;
 
+import com.farmacia.farmacia.DTO.EmpleadoDireccionDTO;
+import com.farmacia.farmacia.entity.Direccion;
 import com.farmacia.farmacia.entity.Empleado;
 import com.farmacia.farmacia.service.CargoService;
 import com.farmacia.farmacia.service.DireccionService;
@@ -25,16 +27,22 @@ public class EmpleadoControlador {
 
     // CRUD
     @PostMapping("/guardar-empleado")
-    public String guardarEmpleado(Empleado empleado) {
-        System.out.println(empleado);
-        System.out.println("GENERO EMPLEADO: " + empleado.getGeneroEmpleado());
-        empleadoService.guardarEmpleado(empleado);
+    public String guardarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO) {
+        System.out.println("EMPLEADO: " + empleadoDireccionDTO.getEmpleado());
+        System.out.println("CARGO ID: " + empleadoDireccionDTO.getEmpleado().getCargo().getIdCargo());
+        System.out.println("CARGO: " + empleadoDireccionDTO.getEmpleado().getCargo().getCargo());
+        Direccion direccion = this.direccionService.guardarDireccion(empleadoDireccionDTO.getDireccion());
+        empleadoDireccionDTO.getEmpleado().setDireccion(direccion);
+        Empleado empleado = this.empleadoService.guardarEmpleado(empleadoDireccionDTO.getEmpleado());
+        direccion.getListaEmpleados().add(empleado);
         return "redirect:/fragmentoEmpleados";
     }
 
     @PostMapping("/actualizar-empleado")
-    public String actualizarEmpleado(Empleado empleado){
-        this.empleadoService.actualizarEmpleado(empleado);
+    public String actualizarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO){
+        Direccion direccion = this.direccionService.actualizarDireccion(empleadoDireccionDTO.getDireccion());
+        empleadoDireccionDTO.getEmpleado().setDireccion(direccion);
+        this.empleadoService.actualizarEmpleado(empleadoDireccionDTO.getEmpleado());
         return "redirect:/fragmentoEmpleados";
     }
 

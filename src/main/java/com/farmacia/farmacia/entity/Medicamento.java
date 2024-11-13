@@ -1,12 +1,10 @@
 package com.farmacia.farmacia.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "medicamentos")
+@ToString
 public class Medicamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,17 +25,13 @@ public class Medicamento {
 
     private String descripcionMedicamento;
 
-    private String dosisMedicametno;
+    private String dosisMedicamento;
 
     private LocalDate fechaVencimiento;
 
     private float precioCompra;
 
     private float precioVenta;
-
-    @ManyToOne
-    @JoinColumn(name = "id_inventariio")
-    private Inventario inventario;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
@@ -47,12 +42,16 @@ public class Medicamento {
     private Marca marca;
 
     @ManyToOne
+    @JoinColumn(name = "id_inventario")
+    private Inventario inventario;
+
+    @ManyToOne
     @JoinColumn(name = "id_presentacion_medicamentos")
-    private PresentacionMedicamento presentacionMedicamento;
+    private PresentacionMedicamento presentacion;
 
     @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleVenta> listaDetalleVenta;
+    private List<DetalleVenta> listaDetalleVenta = new ArrayList<>();
 
     @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleCompra> listaDetalleCompra;
+    private List<DetalleCompra> listaDetalleCompra = new ArrayList<>();
 }

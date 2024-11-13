@@ -9,7 +9,7 @@
             <!-- Nombres -->
             <div>
                <label for="nombreEmpleado" class="block text-gray-600 font-semibold">Nombres</label>
-               <input type="text" id="nombreEmpleado" name="nombreEmpleado"
+               <input type="text" id="nombreEmpleado" name="empleado.nombreEmpleado"
                       th:value="${empleado != null ? empleado.nombreEmpleado : ''}"
                       class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese nombres" required>
             </div>
@@ -17,7 +17,7 @@
             <!-- Apellidos -->
             <div>
                <label for="apellidoEmpleado" class="block text-gray-600 font-semibold">Apellidos</label>
-               <input type="text" id="apellidoEmpleado" name="apellidoEmpleado"
+               <input type="text" id="apellidoEmpleado" name="empleado.apellidoEmpleado"
                       th:value="${empleado != null ? empleado.apellidoEmpleado : ''}"
                       class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese apellidos" required>
             </div>
@@ -25,7 +25,7 @@
             <!-- DUI -->
             <div>
                <label for="duiEmpleado" class="block text-gray-600 font-semibold">DUI</label>
-               <input type="text" id="duiEmpleado" name="duiEmpleado"
+               <input type="text" id="duiEmpleado" name="empleado.duiEmpleado"
                       th:value="${empleado != null ? empleado.duiEmpleado : ''}"
                       class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="00000000-0" required>
             </div>
@@ -33,7 +33,7 @@
             <!-- ISSS -->
             <div>
                <label for="isssEmpleado" class="block text-gray-600 font-semibold">ISSS</label>
-               <input type="text" id="isssEmpleado" name="isssEmpleado"
+               <input type="text" id="isssEmpleado" name="empleado.isssEmpleado"
                       th:value="${empleado != null ? empleado.isssEmpleado : ''}"
                       class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="000000000" required>
             </div>
@@ -41,7 +41,7 @@
             <!-- Fecha Nacimiento -->
             <div>
                <label for="fechaNacEmpleado" class="block text-gray-600 font-semibold">Fecha Nacimiento</label>
-               <input type="date" id="fechaNacEmpleado" name="fechaNacEmpleado"
+               <input type="date" id="fechaNacEmpleado" name="empleado.fechaNacEmpleado"
                       th:value="${empleado != null ? empleado.fechaNacEmpleado : ''}"
                       class="w-full p-2 border border-gray-300 rounded mt-1" required>
             </div>
@@ -49,7 +49,7 @@
             <!-- Teléfono -->
             <div>
                <label for="telefonoEmpleado" class="block text-gray-600 font-semibold">Teléfono</label>
-               <input type="tel" id="telefonoEmpleado" name="telefonoEmpleado"
+               <input type="tel" id="telefonoEmpleado" name="empleado.telefonoEmpleado"
                       th:value="${empleado != null ? empleado.telefonoEmpleado : ''}"
                       class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="0000-0000" required>
             </div>
@@ -57,7 +57,7 @@
             <!-- Género -->
             <div>
                <label for="generoEmpleado" class="block text-gray-600 font-semibold">Género</label>
-               <select id="generoEmpleado" name="generoEmpleado" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+               <select id="generoEmpleado" name="empleado.generoEmpleado" class="w-full p-2 border border-gray-300 rounded mt-1" required>
                   <option value="" disabled selected>-- Selecciona un género --</option>
                   <option value="F" th:selected="${empleado != null and empleado.generoEmpleado == 'F'}">F</option>
                   <option value="M" th:selected="${empleado != null and empleado.generoEmpleado == 'M'}">M</option>
@@ -67,14 +67,14 @@
             <!-- Correo -->
             <div>
                <label for="correoEmpleado" class="block text-gray-600 font-semibold">Correo</label>
-               <input type="email" id="correoEmpleado" name="correoEmpleado" class="w-full p-2 border border-gray-300 rounded mt-1"
+               <input type="email" id="correoEmpleado" name="empleado.correoEmpleado" class="w-full p-2 border border-gray-300 rounded mt-1"
                       placeholder="Ingrese correo"  th:value="${empleado != null ? empleado.correoEmpleado : ''}" required>
             </div>
 
             <!-- Cargo -->
             <div>
                <label for="cargo" class="block text-gray-600 font-semibold">Cargo</label>
-               <select id="cargo" name="cargo" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+               <select id="cargo" name="empleado.cargo" class="w-full p-2 border border-gray-300 rounded mt-1" required>
                   <option value="" disabled selected>-- Seleccione un cargo --</option>
                   <option th:each="cargo : ${listaCargos}"
                           th:value="${cargo.idCargo}"
@@ -85,15 +85,9 @@
 
             <!-- Direccion  -->
             <div>
-               <label for="direccion" class="block text-gray-600 font-semibold">Dirección</label>
-               <select id="direccion" name="direccion" class="w-full p-2 border border-gray-300 rounded mt-1"
-                  required>
-                  <option value="" disabled selected>-- Seleccione una dirección --</option>
-                  <option th:each="direccion: ${listaDirecciones}"
-                          th:value="${direccion.idDireccion}"
-                          th:text="${direccion.linea1}"
-                          th:selected="${empleado != null and empleado.direccion.idDireccion == direccion.idDireccion}"></option>
-               </select>
+               <label for="direccion" class="block text-gray-600 font-semibold">Direccion</label>
+               <input type="text" id="direccion" name="direccion.linea1" class="w-full p-2 border border-gray-300 rounded mt-1"
+                      placeholder="Ingrese su direccion"  th:value="${empleado != null ? empleado.direccion.linea1 : ''}" required>
             </div>
 
             <!-- Sucursal -->
@@ -106,8 +100,8 @@
                   <option value="2">Sucursal Oeste</option>
                </select>
             </div> -->
-            <input type="hidden" name="idEmpleado" th:value="${empleado != null ? empleado.idEmpleado : ''}">
-
+            <input type="hidden" name="empleado.idEmpleado" th:value="${empleado != null ? empleado.idEmpleado : ''}">
+            <input type="hidden" name="direccion.idDireccion" th:value="${empleado != null ? empleado.direccion.idDireccion : ''}">
          </div>
 
          <!-- Botones para enviar y limpiar el formulario -->

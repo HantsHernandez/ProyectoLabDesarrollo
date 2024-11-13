@@ -23,6 +23,6 @@ public class PresentacionMedicamento {
 
     private String descripcionPresentacion;
 
-    @OneToMany(mappedBy = "presentacionMedicamento", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "presentacion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Medicamento>listaMedicamentos;
 }

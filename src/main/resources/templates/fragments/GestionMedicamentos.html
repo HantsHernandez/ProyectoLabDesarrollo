@@ -1,17 +1,18 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <div th:fragment="contenido" class="container mx-auto mt-10 overflow-x-auto">
    <!-- Titulo -->
    <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Medicamentos</h2>
 
    <!-- Botón para agregar un nuevo medicamento -->
    <div class="flex justify-between items-center mb-4">
-      <a href="#" onclick="cargarContenido('/nuevoMedicamento')"
+      <a href="#" onclick="cargarContenido('/guardar-medicamento')"
          class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
          <i class="fas fa-plus"></i>
          <span>Agregar Medicamento</span>
       </a>
    </div>
 
-   <!-- Tabla de empleados -->
+   <!-- Tabla de Medicamentos -->
    <table class="min-w-full bg-white border border-gray-300">
       <thead>
          <tr class="bg-nuevo text-gray-200">
@@ -24,12 +25,12 @@
          </tr>
       </thead>
       <tbody class="text-center font-light">
-         <tr class="hover:bg-green-100">
-            <td class="py-3 px-4 border-b border-r border-l">1</td>
-            <td class="py-3 px-4 border-b border-r border-l">Acetaminofeno</td>
-            <td class="py-3 px-4 border-b border-r border-l">10/10/2028</td>
-            <td class="py-3 px-4 border-b border-r border-l">$1.30</td>
-            <td class="py-3 px-4 border-b border-r border-l">Sólido</td>
+         <tr class="hover:bg-green-100" th:each="medicamento : ${listaMedicamentos}">
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.idMedicamentos}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.nombreMedicamento}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.fechaVencimiento}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.precioVenta}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.presentacion.nombrePresentacion}"></td>
             <td class="py-3 px-4 border-b border-r border-l">
                <div class="flex flex-col items-center space-y-2">
                   <!-- Botón para Ver Detalles -->
@@ -39,13 +40,17 @@
                   </button>
 
                   <!-- Enlace para Modificar -->
-                  <a href="modificar-empleado.html"
-                     class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
+                  <a href="#" class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo"
+                     th:data-id="${medicamento.idMedicamentos}"
+                     th:data-action="actualizar-medicamento"
+                     onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
                      <i class="fas fa-edit"></i>
                   </a>
                   <!-- Enlace para Eliminar -->
                   <a href="#" class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
-                     onclick="eliminarEmpleado(empleadoId)">
+                     th:data-id="${medicamento.idMedicamentos}"
+                     th:data-action="eliminar-medicamento"
+                     onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
                      <i class="fas fa-trash"></i>
                   </a>
                </div>

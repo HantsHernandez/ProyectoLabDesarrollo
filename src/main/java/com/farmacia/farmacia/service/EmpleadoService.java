@@ -15,15 +15,15 @@ public class EmpleadoService {
     @Autowired
     private EmpleadoRepository empleadoRepository;
 
-    public void guardarEmpleado(Empleado empleado){
-        this.empleadoRepository.save(empleado);
+    public Empleado guardarEmpleado(Empleado empleado){
+        return this.empleadoRepository.save(empleado);
     }
 
     public Empleado obtenerEmpleado(Long id){
         return this.empleadoRepository.findById(id).orElseThrow(() -> new RuntimeException("USUARIO NO ENCONTRADO"));
     }
 
-    public void actualizarEmpleado(Empleado nuevoEmpleado){
+    public Empleado actualizarEmpleado(Empleado nuevoEmpleado){
         Empleado empleado = this.empleadoRepository.findById(nuevoEmpleado.getIdEmpleado())
                 .map(viejoEmpleado -> {
                     viejoEmpleado.setNombreEmpleado(nuevoEmpleado.getNombreEmpleado());
@@ -36,9 +36,10 @@ public class EmpleadoService {
                     viejoEmpleado.setFechaNacEmpleado(nuevoEmpleado.getFechaNacEmpleado());
                     viejoEmpleado.setTelefonoEmpleado(nuevoEmpleado.getTelefonoEmpleado());
                     viejoEmpleado.setDireccion(nuevoEmpleado.getDireccion());
+                    System.out.println("DIRECCION: " + nuevoEmpleado.getDireccion().getLinea1());
                     return viejoEmpleado;
                 }).orElseThrow(() -> new RuntimeException("USUARIO NO ENCONTRADO"));
-        this.empleadoRepository.save(empleado);
+        return this.empleadoRepository.save(empleado);
     }
 
     public void eliminarEmpleado(Long id){

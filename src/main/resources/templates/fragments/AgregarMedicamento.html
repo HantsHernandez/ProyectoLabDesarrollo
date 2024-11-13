@@ -1,97 +1,144 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
-   <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Agregar Nuevo Medicamento</h2>
-   <form action="#" method="post" th:action="@{/medicamento/agregar}" th:object="${medicamento}">
+   <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center"
+       th:text="${medicamento == null ?  'Agregar Nuevo Medicamento' : 'Modificar Medicamento' }"></h2>
+   <form method="post" th:action="@{${medicamento == null ? '/guardar-medicamento' : '/actualizar-medicamento'}}" id="FormMedicamento">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
          <!-- Nombre -->
          <div>
             <label for="nombreMedicamento" class="block text-gray-600 font-semibold">Nombre</label>
-            <input type="text" id="nombreMedicamento" name="nombreMedicamento"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese nombre" required>
+            <input   type="text" id="nombreMedicamento" name="medicamento.nombreMedicamento"
+                     th:value="${medicamento != null ? medicamento.nombreMedicamento : ''}"
+                  class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese nombre" required>
          </div>
 
          <!-- Fórmula -->
          <div>
             <label for="formulaMedicamento" class="block text-gray-600 font-semibold">Fórmula</label>
-            <input type="text" id="formulaMedicamento" name="formulaMedicamento"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese fórmula" required>
+            <input   type="text" id="formulaMedicamento" name="medicamento.formulaMedicamento"
+                     th:value="${medicamento != null ? medicamento.formulaMedicamento : ''}"
+                     class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese fórmula" required>
+         </div>
+
+         <!-- Cantidad Stock -->
+         <div>
+            <label for="cantidadStock" class="block text-gray-600 font-semibold">Cantidad</label>
+            <input   type="number" id="cantidadStock" name="inventario.cantidadStock"
+                     th:value="${medicamento != null ? medicamento.inventario.cantidadStock : ''}"
+                     class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese el Stock" required>
          </div>
 
          <!-- Dosis -->
          <div>
             <label for="dosisMedicamento" class="block text-gray-600 font-semibold">Dósis</label>
-            <input type="text" id="dosisMedicamento" name="dosisMedicamento"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese la dosis" required>
+            <input   type="text" id="dosisMedicamento" name="medicamento.dosisMedicamento"
+                     th:value="${medicamento != null ? medicamento.dosisMedicamento : ''}"
+                     class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese la dosis" required>
          </div>
 
          <!-- Fecha vencimiento -->
          <div>
-            <label for="fechaVencimientoMedicamento" class="block text-gray-600 font-semibold">Fecha Vencimiento</label>
-            <input type="date" id="fechaVencimientoMedicamento" name="fechaVencimientoMedicamento"
-               class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            <label for="fechaVencimiento" class="block text-gray-600 font-semibold">Fecha Vencimiento</label>
+            <input   type="date" id="fechaVencimiento" name="medicamento.fechaVencimiento"
+                     th:value="${medicamento != null ? medicamento.fechaVencimiento : ''}"
+                     class="w-full p-2 border border-gray-300 rounded mt-1" required>
          </div>
 
          <!-- Precio de compra -->
          <div>
-            <label for="precioCompra" class="block text-gray-600 font-semibold">Precion de Compra</label>
-            <input type="number" id="precioCompra" name="precioCompra"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese el precio de compra"
-               required>
+            <label for="precioCompra" class="block text-gray-600 font-semibold">Precio de Compra</label>
+            <input   type="number" id="precioCompra" name="medicamento.precioCompra"
+                     th:value="${medicamento != null ? medicamento.precioCompra : ''}"
+                     class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese el precio de compra"
+                     required>
          </div>
 
          <!-- Precio de venta -->
          <div>
             <label for="precioVenta" class="block text-gray-600 font-semibold">Precio de Venta</label>
-            <input type="number" id="precioVenta" name="precioVenta"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese el precio de venta" required>
+            <input   type="number" id="precioVenta" name="medicamento.precioVenta"
+                     th:value="${medicamento != null ? medicamento.precioVenta : ''}"
+                     class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese el precio de venta" required>
          </div>
 
          <!-- Categoria -->
          <div>
-            <label for="idCategoria" class="block text-gray-600 font-semibold">Categoría</label>
-            <select id="idCategoria" name="idCategoria" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            <label for="categoria" class="block text-gray-600 font-semibold">Categoría</label>
+            <select id="categoria" name="medicamento.categoria" class="w-full p-2 border border-gray-300 rounded mt-1" required>
                <option value="" disabled selected>-- Seleccione una categoría --</option>
-               <option value="1">Categoria A</option>
-               <option value="2">Categoria B</option>
+               <option  th:each="categoria : ${listaCategorias}"
+                        th:value="${categoria.idCategoria}"
+                        th:text="${categoria.nombreCategoria}"
+                        th:selected="${medicamento != null and medicamento.categoria.idCategoria == categoria.idCategoria}">
+               </option>
             </select>
          </div>
 
          <!-- Marca -->
          <div>
-            <label for="idMarca" class="block text-gray-600 font-semibold">Marca</label>
-            <select id="idMarca" name="idMarca" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            <label for="marca" class="block text-gray-600 font-semibold">Marca</label>
+            <select id="marca" name="medicamento.marca" class="w-full p-2 border border-gray-300 rounded mt-1" required>
                <option value="" disabled selected>-- Seleccione una marca --</option>
-               <option value="1">Marca A</option>
-               <option value="2">Marca B</option>
+               <option  th:each="marca : ${listaMarcas}"
+                        th:value="${marca.idMarca}"
+                        th:text="${marca.nombreMarca}"
+                        th:selected="${medicamento != null and medicamento.marca.idMarca == marca.idMarca}">
+               </option>
             </select>
          </div>
 
          <!-- Presentación de medicamento -->
          <div>
-            <label for="idPresentacionMedicamento" class="block text-gray-600 font-semibold">Presentación de
+            <label for="presentacionMedicamento" class="block text-gray-600 font-semibold">Presentación de
                Medicamento</label>
-            <select id="idPresentacionMedicamento" name="idPresentacionMedicamento"
+            <select id="presentacionMedicamento" name="medicamento.presentacion"
                class="w-full p-2 border border-gray-300 rounded mt-1" required>
                <option value="" disabled selected>-- Seleccione la Presentación --</option>
                <option value="1">Presentación A</option>
-               <option value="2">Presentación B</option>
+               <option th:each="presentacion : ${listaPresentacion}"
+                       th:value="${presentacion.idPresentacionMedicamento}"
+                       th:text="${presentacion.nombrePresentacion}"
+                       th:selected="${medicamento != null and medicamento.presentacion.idPresentacionMedicamento == presentacion.idPresentacionMedicamento}">
+               </option>
+            </select>
+         </div>
+
+         <!-- Inventario pasillo y estanteria -->
+
+         <div>
+            <label for="pasillo" class="block text-gray-600 font-semibold">Pasillo: </label>
+            <select id="pasillo" name="inventario.pasillo" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+               <option value="" disabled selected>-- Seleccione el pasillo --</option>
+               <option  th:each="pasillo : ${listaPasillos}"
+                        th:text="${pasillo}"
+                        th:selected="${medicamento != null and pasillo.equals(medicamento.inventario.pasillo)}"></option>
+            </select>
+         </div>
+
+         <div>
+            <label for="estanteria" class="block text-gray-600 font-semibold">Estanteria: </label>
+            <select id="estanteria" name="inventario.estanteria" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+               <option value="" disabled selected>-- Seleccione la estanteria --</option>
+               <option  th:each="estanteria : ${listaEstanterias}"
+                        th:text="${estanteria}"
+                        th:selected="${medicamento != null and estanteria.equals(medicamento.inventario.estanteria)}"></option>
             </select>
          </div>
 
          <!-- Descripción medicamento -->
          <div>
             <label for="descripcionMedicamento" class="block text-gray-600 font-semibold">Descripción</label>
-            <textarea id="descripcionMedicamento" name="descripcionMedicamento"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese descripción del medicamento"
-               required></textarea>
+            <textarea id="descripcionMedicamento" name="medicamento.descripcionMedicamento"
+                      class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese descripción del medicamento"
+                      th:text="${medicamento != null ? medicamento.descripcionMedicamento : ''}"
+                      required>
+            </textarea>
          </div>
 
-         <!-- Inventario -->
-         <div>
-            <label for="idInventario" class="block text-gray-600 font-semibold">Inventario</label>
-            <input type="number" id="idInventario" name="idInventario"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="" required>
-         </div>
+         <input type="hidden" name="medicamento.idMedicamentos" th:value="${medicamento != null ? medicamento.idMedicamentos : ''}">
+         <input type="hidden" name="inventario.idInventario" th:value="${medicamento != null ? medicamento.inventario.idInventario : ''}">
+
       </div>
 
       <!-- Botones para enviar y limpiar el formulario -->
@@ -100,8 +147,9 @@
             class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
             Limpiar
          </button>
-         <button type="button" class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800">
-            Agregar Cliente
+         <button  type="button" class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800"
+                  onclick="guardar_registros('FormMedicamento')"
+                  th:text="${medicamento == null  ? 'Agregar Medicamento' : 'Modificar Medicamento'}">
          </button>
       </div>
    </form>

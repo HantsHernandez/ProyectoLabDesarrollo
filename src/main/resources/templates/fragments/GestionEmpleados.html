@@ -52,11 +52,11 @@
                             </a>
 
                             <!-- Enlace para Eliminar -->
-                            <a href="#" class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo"
+                            <a href="#" class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
                                th:data-id="${empleado.idEmpleado}"
                                th:data-action="eliminar-empleado"
                                onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
-                                <i class="fas fa-edit"></i>
+                                <i class="fas fa-trash"></i>
                             </a>
 
                         </div>

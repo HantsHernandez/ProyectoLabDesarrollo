@@ -6,12 +6,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString
 @Setter
 @Table(name = "empleados")
 public class Empleado {
@@ -46,5 +48,5 @@ public class Empleado {
     private Cargo cargo;
 
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Venta>listaVenta;
+    private List<Venta>listaVenta = new ArrayList<>();
 }
