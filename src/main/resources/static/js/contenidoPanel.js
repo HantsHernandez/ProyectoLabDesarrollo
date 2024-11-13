@@ -3,9 +3,9 @@ function cargarContenido(url) {
 
   console.log(url);
   const contentDiv = document.getElementById('contenido-principal');
-  /*if (contentDiv.dataset.current === url) {
+  /* if (contentDiv.dataset.current === url) {
     return; // Si el contenido ya está cargado, no se recarga
-  }*/
+  } */
 
   fetch(url)
     .then((response) => response.text())

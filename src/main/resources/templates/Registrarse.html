@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <meta charset=" UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" th:href="@{./css/output.css}">
+   <title>Registrarse</title>
+</head>
+
+<body class="max-h-screen">
+   <section class="min-h-screen flex items-center justify-center bg-gradient-to-r from-emerald-500 to-emerald-900">
+      <div class="bg-gray-100 p-4 flex rounded-2xl shadow-lg max-w-2xl">
+         <div class="max-w-full px-10">
+            <h2 class="text-2xl font-bold text-[#002D74] text-center">REGISTRO</h2>
+            <form class="mt-6" action="#" method="POST">
+               <div>
+                  <label class="block text-gray-700">Usuario</label>
+                  <input type="text" name="" id="" placeholder="Ingrese un usuario"
+                     class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-green-800 focus:bg-white focus:outline-none"
+                     autofocus autocomplete required>
+               </div>
+               <div class="mt-4">
+                  <label class="block text-gray-700">Contraseña</label>
+                  <input type="password" name="" id="" placeholder="Ingrese una contraseña" class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-green-800
+                      focus:bg-white focus:outline-none" required>
+               </div>
+               <div class="mt-4">
+                  <label for="idEmpleado" class="block text-gray-700">Empleado</label>
+                  <select id="idEmpleado" name="idEmpleado"
+                     class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-green-800 focus:bg-white focus:outline-none text-gray-700"
+                     required>
+                     <option class="text-gray-700" disabled selected>-- Seleccione su nombre --</option>
+                     <option class="text-gray-700" value="1">Jose Miguel Valdivieso</option>
+                     <option class="text-gray-700" value="2">Kevin Alexander Rondan</option>
+                  </select>
+               </div>
+               <button type="button" class="w-full block bg-nuevo hover:bg-greeb-800 focus:bg-green-400 text-white font-semibold rounded-lg
+                    px-4 py-3 mt-6">Registrarse</button>
+            </form>
+            <div class="text-center mt-4">
+               <p>¿Ya tienes una cuenta? <a href="/login" class="text-gray-700 hover:underline">Inicia Sesión</a></p>
+            </div>
+         </div>
+      </div>
+   </section>
+</body>
+
+</html>

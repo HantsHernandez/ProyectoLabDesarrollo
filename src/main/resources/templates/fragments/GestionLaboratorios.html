@@ -1,35 +1,35 @@
 <div th:fragment="contenido" class="container bg-white/65 rounded-lg py-6 px-6 shadow-md">
    <!-- Titulo -->
-   <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Inventario</h2>
+   <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Laboratorios</h2>
 
-   <!-- Botón para agregar un nuevo inventario -->
+   <!-- Botón para agregar una nuevo laboratorio -->
    <div class="flex justify-between items-center mb-4">
-      <a href="#" onclick="cargarContenido('/nuevoInventario')"
+      <a href="#" onclick="cargarContenido('/nuevoLaboratorio')"
          class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
          <i class="fas fa-plus"></i>
-         <span>Agregar Inventario</span>
+         <span>Agregar Laboratorio</span>
       </a>
    </div>
 
-   <!-- Tabla de inventario -->
+   <!-- Tabla de laboratorios -->
    <table class="min-w-full bg-white border border-gray-300">
       <thead>
          <tr class="bg-nuevo text-gray-200">
-            <th class="py-2 px-4 whitespace-nowrap">ID Inventario</th>
-            <th class="py-2 px-4 whitespace-nowrap">Medicamento</th>
-            <th class="py-2 px-4 whitespace-nowrap">Stock</th>
-            <th class="py-2 px-4 whitespace-nowrap">No. Estantería</th>
-            <th class="py-2 px-4 whitespace-nowrap">No. Pasillo</th>
+            <th class="py-2 px-4 whitespace-nowrap">ID Laboratorio</th>
+            <th class="py-2 px-4 whitespace-nowrap">Nombre Laboratorio</th>
+            <th class="py-2 px-4 whitespace-nowrap">Número Contacto</th>
+            <th class="py-2 px-4 whitespace-nowrap">Correo</th>
+            <th class="py-2 px-4 whitespace-nowrap">Direccion</th>
             <th class="py-2 px-4 whitespace-nowrap">Acciones</th>
          </tr>
       </thead>
       <tbody class="text-center font-light">
          <tr class="hover:bg-green-100">
             <td class="py-3 px-4 border-b border-r border-l">1</td>
-            <td class="py-3 px-4 border-b border-r border-l">Acetaminofeno</td>
-            <td class="py-3 px-4 border-b border-r border-l">300</td>
-            <td class="py-3 px-4 border-b border-r border-l">12</td>
-            <td class="py-3 px-4 border-b border-r border-l">2</td>
+            <td class="py-3 px-4 border-b border-r border-l">Laboratorio A</td>
+            <td class="py-3 px-4 border-b border-r border-l">2410-1200</td>
+            <td class="py-3 px-4 border-b border-r border-l">laboratorioA@gmail.com</td>
+            <td class="py-3 px-4 border-b border-r border-l">Colonia Belén, Calles San Benites</td>
             <td class="py-3 px-4 border-b border-r border-l">
                <div class="flex items-center justify-center">
                   <!-- Botón para Ver Detalles -->
@@ -45,7 +45,7 @@
                   </a>
                   <!-- Enlace para Eliminar -->
                   <a href="#" class="text-white py-1 px-2 m-1 rounded hover:bg-red-600 font-semibold bg-nuevo"
-                     onclick="eliminarInventario(idInventario)">
+                     onclick="eliminarEmpleado(idLaboratorio)">
                      <i class="fas fa-trash"></i>
                   </a>
                </div>
