@@ -13,7 +13,17 @@ public class Controllers {
 
     @GetMapping("/login")
     public String mostrarLogin() {
-        return "login";
+        return "Login";
+    }
+
+    @GetMapping("/registrarse")
+    public String mostrarFormularioRegistro() {
+        return "registrarse";
+    }
+
+    @GetMapping("/restablecer-password")
+    public String mostrarFormularioRecuperar() {
+        return "RestablecerPassword";
     }
 
     @GetMapping("/fragmentoEmpleados")
