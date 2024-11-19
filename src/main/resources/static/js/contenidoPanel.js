@@ -27,7 +27,7 @@ function mostrarDashboard() {
   const contentDiv = document.getElementById('contenido-principal');
   contentDiv.dataset.current = 'dashboard';
   contentDiv.innerHTML = `
-        <img src="https://svgsilh.com/svg/312139-046c4e.svg" alt="logoFarmacia" srcset="" width="312px" height="280px">
+        <img src="../img/logoFarmaciaPanel.svg" alt="logoFarmacia" srcset="" width="312px" height="280px">
     `;
 }
 
