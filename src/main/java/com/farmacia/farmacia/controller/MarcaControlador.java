@@ -35,14 +35,7 @@ public class MarcaControlador {
         return "redirect:/fragmentoMarcas";
     }
 
-
     // VISTAS
-
-    @GetMapping("/fragmentoMarcas")
-    public String fragmentoMarca(Model model) {
-        model.addAttribute("listaMarcas", this.marcaService.listaMarcas());
-        return "fragments/GestionMarcas :: contenido";
-    }
 
     @GetMapping("/guardar-marca")
     public String mostrarFormularioGuardar(Model model){

@@ -1,8 +1,12 @@
 package com.farmacia.farmacia.service;
 
 import com.farmacia.farmacia.entity.Categoria;
+import com.farmacia.farmacia.entity.Medicamento;
 import com.farmacia.farmacia.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +46,10 @@ public class CategoriaService {
 
     public List<Categoria> listaCategorias(){
         return this.categoriaRepository.findAll();
+    }
+
+    public Page<Categoria> listaCategoriasPaginados(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return this.categoriaRepository.findAll(pageable);
     }
 }

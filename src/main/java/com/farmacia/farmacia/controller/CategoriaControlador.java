@@ -35,14 +35,7 @@ public class CategoriaControlador {
         return "redirect:/fragmentoCategorias";
     }
 
-
     // VISTAS
-
-    @GetMapping("/fragmentoCategorias")
-    public String fragmentoCategorias(Model model) {
-        model.addAttribute("listaCategorias", this.categoriaService.listaCategorias());
-        return "fragments/GestionCategorias :: contenido";
-    }
 
     @GetMapping("/guardar-categoria")
     public String mostrarFormularioGuardar(Model model){

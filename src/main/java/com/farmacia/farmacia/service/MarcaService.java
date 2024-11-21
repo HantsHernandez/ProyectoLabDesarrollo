@@ -1,8 +1,12 @@
 package com.farmacia.farmacia.service;
 
+import com.farmacia.farmacia.entity.Categoria;
 import com.farmacia.farmacia.entity.Marca;
 import com.farmacia.farmacia.repository.MarcaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +46,10 @@ public class MarcaService {
 
     public List<Marca> listaMarcas(){
         return this.marcaRepository.findAll();
+    }
+
+    public Page<Marca> listaMarcasPaginados(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return this.marcaRepository.findAll(pageable);
     }
 }

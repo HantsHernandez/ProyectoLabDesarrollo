@@ -26,7 +26,6 @@ public class DireccionService {
         Direccion direccionActualizada = direccionRepository.findById(direccion.getIdDireccion())
                 .map(direccion1 -> {
                     direccion1.setLinea1(direccion.getLinea1());
-
                     return direccion1;
                 })
                 .orElseThrow(() -> new RuntimeException("DIRECCION NO IDENTIFICADA"));
@@ -44,4 +43,5 @@ public class DireccionService {
     public List<Direccion> listaDirecciones(){
         return this.direccionRepository.findAll();
     }
+
 }

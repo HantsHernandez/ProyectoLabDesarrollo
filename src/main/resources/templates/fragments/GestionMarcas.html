@@ -54,4 +54,23 @@
          </tr>
       </tbody>
    </table>
+  <!-- <div id="fragmento-paginacion" class="pt-5 flex justify-center space-x-2">
+      <button th:if="${currentPage > 0}"
+              th:onclick="'cargarContenido(\'/fragmentoMarcas?page=' + (${currentPage} - 1) + '&size=5\')'"
+              class="rounded-md border border-slate-300 py-2 px-3 text-sm text-gray-600 hover:bg-nuevo hover:text-white">
+         Anterior
+      </button>
+      <button th:if="${currentPage < totalPages - 1}"
+              th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+              th:classappend="${i == currentPage} ? 'bg-nuevo text-white' : 'border-slate-300 text-gray-600 hover:bg-nuevo hover:text-white'"
+              th:onclick="'cargarContenido(\'/fragmentoMarcas?page=' + ${i} + '&size=5\')'"
+              class="rounded-md border py-2 px-3 text-sm">
+         <span th:text="${i + 1}"></span>
+      </button>
+      <button th:if="${currentPage < totalPages - 1}"
+              th:onclick="'cargarContenido(\'/fragmentoMarcas?page=' + (${currentPage} + 1) + '&size=5\')'"
+              class="rounded-md border border-slate-300 py-2 px-3 text-sm text-gray-600 hover:bg-nuevo hover:text-white">
+         Siguiente
+      </button>
+   </div>-->
 </div>

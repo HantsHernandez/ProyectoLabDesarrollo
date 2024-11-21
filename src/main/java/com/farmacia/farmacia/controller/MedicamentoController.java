@@ -1,15 +1,16 @@
 package com.farmacia.farmacia.controller;
 
-import com.farmacia.farmacia.DTO.EmpleadoDireccionDTO;
 import com.farmacia.farmacia.DTO.MedicamentoInventarioDTO;
 import com.farmacia.farmacia.entity.*;
 import com.farmacia.farmacia.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -50,41 +51,23 @@ public class MedicamentoController {
     // CRUD
     @PostMapping("/guardar-medicamento")
     public String guardarMedicamento(MedicamentoInventarioDTO medicamentoDTO) {
-        System.out.println("Medicamento: " + medicamentoDTO.getMedicamento());
-        System.out.println("Inventario: "  + medicamentoDTO.getInventario());
-
-        Inventario inventario = this.inventarioService.agregarInventario(medicamentoDTO.getInventario());
-        medicamentoDTO.getMedicamento().setInventario(inventario);
-        Medicamento medicamento = this.medicamentosService.agregarMedicamento(medicamentoDTO.getMedicamento());
-        inventario.getListaMedicamentos().add(medicamento);
+        this.medicamentosService.agregarMedicamento(medicamentoDTO);
         return "redirect:/fragmentoMedicamentos";
     }
 
     @PostMapping("/actualizar-medicamento")
     public String actualizarEmpleado(MedicamentoInventarioDTO medicamentoInventarioDTO){
-        Inventario inventario = this.inventarioService.actualizarInventario(medicamentoInventarioDTO.getInventario());
-        medicamentoInventarioDTO.getMedicamento().setInventario(inventario);
-        this.medicamentosService.actualizarMedicamento(medicamentoInventarioDTO.getMedicamento());
+        this.medicamentosService.actualizarMedicamento(medicamentoInventarioDTO);
         return "redirect:/fragmentoMedicamentos";
     }
 
     @GetMapping("/eliminar-medicamento/{id}")
     public String eliminarEmpleado(@PathVariable Long id){
-        Long idInventario = this.medicamentosService.obtenerMedicamento(id).getInventario().getIdInventario();
-        this.medicamentosService.eliminarCategoria(id);
-        this.inventarioService.eliminarInventario(idInventario);
+        this.medicamentosService.eliminarMedicamento(id);
         return "redirect:/fragmentoMedicamentos";
     }
 
     // Vistas
-
-    // METODO QUE DEBE DE PASAR AL HOME
-    @GetMapping("/fragmentoMedicamentos")
-    public String fragmentoEmpleados(Model model) {
-        model.addAttribute("listaMedicamentos", this.medicamentosService.listaMedicamentos());
-        return "fragments/GestionMedicamentos :: contenido";
-    }
-
     @GetMapping("/guardar-medicamento")
     public String mostrarFormularioMedicamento(Model model) {
         model.addAttribute("medicamento", null);
@@ -98,13 +81,7 @@ public class MedicamentoController {
 
     @GetMapping("/actualizar-medicamento/{id}")
     public String mostrarFormularioActualizar(Model model, @PathVariable Long id) {
-        System.out.println("INVENTARIO: ID" + this.medicamentosService.obtenerMedicamento(id).getInventario().getIdInventario());
-        System.out.println("INVENTARIO: PAsillo: " + this.medicamentosService.obtenerMedicamento(id).getInventario().getPasillo());
-        System.out.println("INVENTARIO: estanteria: " + this.medicamentosService.obtenerMedicamento(id).getInventario().getEstanteria());
-        System.out.println("INVENTARIO: stock: " + this.medicamentosService.obtenerMedicamento(id).getInventario().getCantidadStock());
-
         model.addAttribute("medicamento", this.medicamentosService.obtenerMedicamento(id));
-        //model.addAttribute("inventario", this.inventarioService.obtenerInventario())
         model.addAttribute("listaCategorias", this.categoriaService.listaCategorias());
         model.addAttribute("listaMarcas", this.marcaService.listaMarcas());
         model.addAttribute("listaPresentacion", this.presentacionMedicamentosService.listaPresentacionMedicamentos());
