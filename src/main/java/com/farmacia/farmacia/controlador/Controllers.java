@@ -140,4 +140,8 @@ public class Controllers {
         return "fragments/AgregarLaboratorio :: contenido";
     }
 
+    @GetMapping("/fragmentoVentas")
+    public String mostrarVenta() {
+        return "fragments/NuevaVenta";
+    }
 }

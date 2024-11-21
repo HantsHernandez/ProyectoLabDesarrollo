@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
    <meta charset="UTF-8">
@@ -39,11 +39,9 @@
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
                <li><a href="#" onclick="cargarContenido('/fragmentoEmpleados')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Empleados</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Empleados</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoSucursales')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Sucursales</a></li>
-               <li><a href="#" onclick="cargarContenido('/fragmentoDirecciones')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Direcciones</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Sucursales</a></li>
             </ul>
          </li>
 
@@ -56,23 +54,23 @@
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
                <li><a href="#" onclick="cargarContenido('/fragmentoCategorias')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Categorías</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Categorías</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoMarcas')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Marcas</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Marcas</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoPresentacionMedicamentos')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Presentaciones de Medicamentos</a></li>
-               <li><a href="#" onclick="cargarContenido('/fragmentoInventarios')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Inventario</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Presentaciones de Medicamentos</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoInventario')"
+                     class="text-gray-300 text-sm hover:text-gray-100">Inventario</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoMedicamentos')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Medicamentos</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Medicamentos</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoCompras')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Compras</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Compras</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoLaboratorios')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Laboratorios</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Laboratorios</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoFacturasCompra')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Facturas de Compra</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Facturas de Compra</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoDetallesCompra')"
-                     class="text-gray-300 text-sm hover:text-gray-100">- Detalles de Compra</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">Detalles de Compra</a></li>
             </ul>
          </li>
 
@@ -106,7 +104,7 @@
                <i class="ri-arrow-right-s-line ml-auto"></i>
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
-               <li><a href="#" onclick="cargarContenido('/ConfiguracionUsuarios')"
+               <li><a href="#" onclick="cargarContenido('/fragmentoUsuario')"
                      class="text-gray-300 text-sm hover:text-gray-100">- Usuarios</a></li>
                <li><a href="#" onclick="cargarContenido('/ConfiguracionRoles')"
                      class="text-gray-300 text-sm hover:text-gray-100">- Roles</a></li>
@@ -134,8 +132,18 @@
             </ul>
          </div>
          <div class="flex items-center space-x-4">
-            <span class="text-sm text-gray-500">User: UserName</span>
-            <a href="#" class="text-red-500 hover:text-red-700 text-sm font-medium">Cerrar Sesión</a>
+                <span class="text-sm text-gray-500">
+                    <span sec:authorize="isAuthenticated()">
+                        User: <span th:text="${#authentication.principal.username}"></span>
+                    </span>
+                    <span sec:authorize="isAnonymous()">
+                        Invitado
+                    </span>
+                </span>
+               <a sec:authorize="isAuthenticated()" th:href="@{/logout}"
+                  class="text-red-500 hover:text-red-700 text-sm font-medium">Cerrar Sesión</a>
+               <a sec:authorize="isAnonymous()" th:href="@{/login}"
+                  class="text-blue-500 hover:text-blue-700 text-sm font-medium">Iniciar Sesión</a>
          </div>
       </div>
 
@@ -146,11 +154,11 @@
 
    </main>
 
-   <!-- JS -->
    <script src="../js/menu.js"></script>
    <script src="../js/contenidoPanel.js"></script>
    <script src="../js/ventanasModales.js"></script>
-
+   <script src="../js/ventas.js"></script>
+   <script src="../js/filtrado.js"></script>
 </body>
 
 </html>

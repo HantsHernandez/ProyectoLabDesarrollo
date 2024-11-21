@@ -1,0 +1,140 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{./css/ventas.css}">
+
+<div class="row">
+    <div class="col-xl-8 col-md-8 col-sm-12">
+        <div class="card">
+            <div class="card-body pt-0">
+                <div class="row">
+                    <div class="col-xl-8 col-md-7 col-sm-12">
+                        <strong>MEDICAMENTOS DISPONIBLES</strong>
+                    </div>
+                    <div class="col-xl-4 col-md-5 col-sm-12 form-group">
+                        <label for="" class="small text-black">Realizar busqueda</label>
+                        <input type="text" class="form-control buscador-medicamentos">
+                    </div>
+                </div>
+
+                <div class="row mt-3" id="listadoMedicamentos">
+                    <div class="col-xl-4 col-md-4 col-sm-12">
+                        <div class="card cursor item-medicamento" medicamento="1" precio="16.50" disponibles="5">
+                            <div class="card-body p-1">
+                                <div class="d-flex justify-content-center bg-image">
+                                    <img src="https://walmartsv.vtexassets.com/arquivos/ids/446757/Acetaminof-n-Mk-500-Mg-20-Tabletas-2-1308.jpg?v=638503797665300000"
+                                     alt="imagen-del-medicamento" class="img-medicamento">
+                                </div>
+                                <div><strong class="nombre-medicamento text-center">Medicamentos</strong></div>
+                                <div class="small texto-truncado descripcion-medicamento">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, n</div>
+                                <hr class="mt-0 mb-2">
+
+                                <div class="row">
+                                    <div class="col-6 text-center">
+                                        Precio:
+                                        <br>
+                                        $16.50
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        Cantidad:
+                                        <br>
+                                        7
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="col-xl-4 col-md-4-col-sm-12"
+            id="FormVenta" method="POST" th:action="@{/ventas/agregar}">
+        <div class="card">
+            <div class="card-body listado-ventas">
+                <div>Listado de medicamentos</div>
+
+                <div id="lstMedicamentos" class=" p-2">
+                </div>
+                
+                <table class="table table-bordered mt-2">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                <label for="" class="text-blac small">Cliente</label>
+                                <select name="idCliente" id="idCliente" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total:</strong></td>
+                            <td>
+                                <input type="hidden" name="totalVenta" class="subtotal-venta" value="0">
+                                $ <span id="totalVenta">0.00</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <button class="btn btn-success col-12" type="button"
+                                onclick="guardar_registros('FormVenta')">
+                                   <i class="fas fa-save"></i> &nbsp; Guardar venta
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div hidden id="itemVenta">
+    <div class="card card-content card-body pt-2 pb-2">
+        <input type="hidden" name="medicamentos[]['precioUnitario']" value=""
+         class="precio-unitario">
+
+        <input type="hidden" name="medicamentos[]['idMedicamento']" value=""
+         class="registro-medicamento">
+
+        <div class="row">
+            <div class="col-4">
+                <div class="text-center m-auto bg-image">
+                    <img src="" alt="imagen-del-medicamento" class="img-compra bg-image">
+                </div>
+            </div>
+            <div class="row col-8 pe-0">
+                <div class="nombre-medicamento text-center"><strong></strong></div>
+
+                <div class="col-6 m-auto">
+                    <div class="text-center small text-black">$ <span class="precioUnitario"></span></div>
+                    <input type="hidden" name="medicamentos[]['subTotalVenta']" class="precio-total"
+                    value="">
+                </div>
+
+                <div class="col-6 p-0">
+                    <input type="number" name="medicamentos[]['cantidadVendida']"
+                    class="form-control cantidad-vendida" value="1" min="1">
+                </div>
+            </div>
+            
+            <div class="col-4">
+                <div class="text-center small">Precio:<br> $<span class="precio"></span></div>
+            </div>
+
+            <div class="col-8 row mt-2 btns-item-compra">
+                <button class="btn btn-danger col-4 p-1 btn-restar align-middle" type="button">
+                    <i class="fas fa-minus btn-restar"></i>
+                </button>
+                
+                <button class="btn btn-success col-4 p-1 btn-sumar align-middle" type="button">
+                    <i class="fas fa-plus btn-sumar"></i>
+                </button>
+
+                <button class="btn btn-danger col-4 p-1 btn-eliminar" type="button">
+                    <i class="fas fa-trash btn-eliminar"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

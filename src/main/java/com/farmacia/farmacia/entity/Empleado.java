@@ -38,15 +38,16 @@ public class Empleado {
     private String correoEmpleado;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "id_direccion")
     private Direccion direccion;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "id_cargo")
     private Cargo cargo;
 
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Venta>listaVenta = new ArrayList<>();
+
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Usuario>listaUsuarios;
 }

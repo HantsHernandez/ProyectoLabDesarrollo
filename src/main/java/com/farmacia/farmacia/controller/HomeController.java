@@ -1,9 +1,6 @@
 package com.farmacia.farmacia.controller;
 
-import com.farmacia.farmacia.entity.Categoria;
-import com.farmacia.farmacia.entity.Empleado;
-import com.farmacia.farmacia.entity.Marca;
-import com.farmacia.farmacia.entity.Medicamento;
+import com.farmacia.farmacia.entity.*;
 import com.farmacia.farmacia.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +23,9 @@ public class HomeController {
 
     @Autowired
     private MedicamentosService medicamentosService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/index")
     public String getIndex(){
@@ -83,5 +83,11 @@ public class HomeController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", paginacionMedicamentos.getTotalPages());
         return "fragments/GestionMedicamentos :: contenido";
+    }
+
+    @GetMapping("/fragmentoUsuario")
+    public String fragmentoUsuario(Model model){
+        model.addAttribute("listaUsuarios", this.usuarioService.listaUsuarios());
+        return "fragments/GestionarUsuario :: contenido";
     }
 }

@@ -20,9 +20,12 @@ public class Usuario implements UserDetails{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String correo;
+    private String nombre;
 
     private String password;
+
+    @ManyToOne
+    private Empleado empleado;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Rol.class)
     @JoinTable(
@@ -38,13 +41,12 @@ public class Usuario implements UserDetails{
                 .map(rol ->{
                     System.out.println("ROL: " + rol.getRol().name());
                     return new SimpleGrantedAuthority(rol.getRol().name());
-                    //return new SimpleGrantedAuthority("ROLE_" + rol.getRol().name());
                 })
                 .toList();
     }
 
     @Override
     public String getUsername() {
-        return correo;
+        return nombre;
     }
 }

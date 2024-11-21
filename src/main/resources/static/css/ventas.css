@@ -1,0 +1,38 @@
+.listado-ventas{
+    height: 85vh !important;
+}
+
+#lstMedicamentos{
+    height: 60% !important;
+    overflow-y: scroll;
+}
+
+#listadoMedicamentos{
+    height: 70vh !important;
+    overflow-y: scroll;
+}
+
+.img-compra{
+    max-width: 100% !important;
+}
+
+.img-medicamento{
+    max-width: 100%!important;
+    max-height: 90px !important;
+}
+
+.bg-image{
+    background-color: gray;
+}
+
+.texto-truncado {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: gray;
+}
+
+.cursor{
+    cursor: pointer;
+}

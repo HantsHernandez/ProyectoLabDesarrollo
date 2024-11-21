@@ -1,0 +1,68 @@
+<div th:fragment="contenido" class="container bg-white/65 rounded-lg py-6 px-6 shadow-md"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <!-- Titulo -->
+    <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Usuario</h2>
+
+    <!-- Botón para agregar una nueva marca -->
+    <div class="flex justify-between items-center mb-4">
+        <a href="#" onclick="cargarContenido('/guardar-usuario')"
+           class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
+            <i class="fas fa-plus"></i>
+            <span>Agregar Usuario</span>
+        </a>
+        <div class="flex items-center space-x-4 mb-4">
+            <input id="filtro-texto" type="text" placeholder="Buscar..."
+                   class="border border-gray-300 rounded-lg px-4 py-2" />
+            <select id="filtro-select" class="border border-gray-300 rounded-lg px-4 py-2">
+                <option value="" disabled selected>-- Selecciona por --</option>
+                <option value="marca">Marca</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Tabla de marcas -->
+    <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+        <tr class="bg-nuevo text-gray-200">
+            <th class="py-2 px-4 whitespace-nowrap">ID Usuario</th>
+            <th class="py-2 px-4 whitespace-nowrap">Nombre Usuario</th>
+            <th class="py-2 px-4 whitespace-nowrap">Empleado</th>
+            <th class="py-2 px-4 whitespace-nowrap">Rol</th>
+            <th class="py-2 px-4 whitespace-nowrap">Acciones</th>
+        </tr>
+        </thead>
+        <tbody class="text-center font-light">
+        <tr class="hover:bg-green-100" th:each="usuario: ${listaUsuarios}">
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${usuario.id}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${usuario.nombre}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${usuario.empleado.nombreEmpleado}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${#lists.isEmpty(usuario.roles) ? 'Sin rol' : usuario.roles.iterator().next().rol.name()}"></td>
+            <td class="py-3 px-4 border-b border-r border-l">
+                <div class="flex items-center justify-center">
+                    <!-- Botón para Ver Detalles -->
+                    <button onclick="abrirModal()"
+                            class="bg-nuevo text-white py-2 px-2 m-1 rounded hover:bg-blue-700 font-semibold flex items-center justify-center">
+                        <i class="fas fa-eye"></i>
+                    </button>
+
+                    <!-- Enlace para Modificar -->
+                    <a th:data-id="${usuario.id}"
+                       th:data-action="actualizar-usuario"
+                       onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))"
+                       class="text-white py-1 px-2 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <!-- Enlace para Eliminar -->
+                    <a class="text-white py-1 px-2 m-1 rounded hover:bg-red-600 font-semibold bg-nuevo"
+                       th:data-id="${usuario.id}"
+                       th:data-action="eliminar-usuario"
+                       onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--<div th:insert="Plantilla :: paginacion"></div>-->
+</div>

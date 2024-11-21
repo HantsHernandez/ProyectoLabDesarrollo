@@ -5,6 +5,7 @@ import com.farmacia.farmacia.utils.ERol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,6 +24,7 @@ public class WebSecurityConfig {
     }
 
     @Autowired
+    @Lazy
     private UsuarioService usuarioService;
 
     @Bean
@@ -31,13 +33,13 @@ public class WebSecurityConfig {
                 .userDetailsService(usuarioService)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
-                            //.requestMatchers("/index").hasAnyAuthority(ERol.ROLE_USER.name())
-                            //.requestMatchers("/prueba").hasAnyAuthority(ERol.ROLE_ADMIN.name())
-                            //.requestMatchers("/dashboard").hasAuthority(ERol.ROLE_ADMIN.name())
-                            //.permitAll()
-                            //.anyRequest()
-                            //.authenticated();
-                            .anyRequest().permitAll();
+                            .requestMatchers("/index","/css/**", "/js/**", "/img/**")
+                            .permitAll()
+                            .anyRequest()
+                            .permitAll();
+                    // Activar al final o minimo tener un usuario creado
+                            /*.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                            .anyRequest().authenticated();*/
                 }).formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer
                             .loginPage("/login")

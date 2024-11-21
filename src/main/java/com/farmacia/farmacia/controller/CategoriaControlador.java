@@ -3,11 +3,15 @@ package com.farmacia.farmacia.controller;
 import com.farmacia.farmacia.entity.Categoria;
 import com.farmacia.farmacia.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class CategoriaControlador {
@@ -48,5 +52,12 @@ public class CategoriaControlador {
         model.addAttribute("categoria", this.categoriaService.obtenerCategoria(id));
         return "fragments/AgregarCategoria :: contenido";
     }
+
+
+    /*@GetMapping("/filtrar-categorias")
+    public ResponseEntity<List<Categoria>> filtrarCategorias(@RequestParam String filtroTexto, @RequestParam String filtroSelect) {
+        List<Categoria> categoriasFiltradas = categoriaService.filtrarCategorias(filtroTexto, filtroSelect);
+        return ResponseEntity.ok(categoriasFiltradas);
+    }*/
 
 }
