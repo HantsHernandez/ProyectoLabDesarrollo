@@ -138,16 +138,6 @@
 
    <script src="../js/menu.js"></script>
    <script src="../js/contenidoPanel.js"></script>
-   <script>
-      function validarFormularioYEnviar() {
-          const form = document.getElementById('empleadoForm');
-          if (form.checkValidity()) {
-              form.submit();
-              cargarContenido('/fragmentoEmpleados')
-          } else {
-              form.reportValidity();
-          }
-      }
-   </script>
+   <script src="../js/ventas.js"></script>
 </body>
 </html>
