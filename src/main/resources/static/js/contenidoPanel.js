@@ -20,8 +20,7 @@ function mostrarDashboard() {
   const contentDiv = document.getElementById('contenido-principal');
   contentDiv.dataset.current = 'dashboard';
   contentDiv.innerHTML = `
-        <h2 class="text-2xl font-semibold mb-4">Contenido Principal</h2>
-        <p>Esta área es para el contenido principal del panel...</p>
+        <img src="../img/logoFarmaciaPanel.svg" alt="logoFarmacia" srcset="" width="312px" height="280px">
     `;
 }
 

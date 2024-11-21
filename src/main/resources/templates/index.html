@@ -8,16 +8,17 @@
    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
    <link rel="stylesheet" th:href="@{./css/output.css}">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="icon" type="image/svg+xml" href="../img/logoFarmacia.svg">
    <title>Dashboard</title>
 </head>
 
 <body class="text-gray-800 font-inter flex flex-col min-h-screen">
 
    <!-- Sidebar -->
-   <div class="fixed left-0 top-0 w-64 h-full bg-nuevo p-4 z-50 sidebar-menu transition-transform font-semibold">
+   <div class="fixed left-0 top-0 w-64 h-full bg-nuevo p-4 z-50 sidebar-menu transition-transform font-medium">
       <a href="#" class="flex items-center pb-4 border-b border-b-gray-800">
-         <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover">
-         <span class="text-lg font-bold text-white ml-3">Farmacia</span>
+         <img src="../img/logoFarmacia.svg" alt="Icono Farmacia" class="w-8 h-8 rounded object-cover">
+         <span class="text-lg font-bold text-white ml-4">FarmaLink</span>
       </a>
       <ul class="mt-4">
 
@@ -33,14 +34,16 @@
          <li class="mb-1 group">
             <a href="#"
                class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md sidebar-dropdown-toggle">
-               <i class="ri-team-line mr-3 text-lg"></i> <span class="text-sm">Gestión de Empleados y Usuarios</span>
+               <i class="ri-team-line mr-3 text-lg"></i> <span class="text-sm">Gestión de Empleados</span>
                <i class="ri-arrow-right-s-line ml-auto"></i>
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
-               <li><a onclick="cargarContenido('/fragmentoEmpleados')"
-                     class="text-gray-300 text-sm hover:text-gray-100">Empleados</a></li>
-               <li><a href="#" onclick="cargarContenido('/ConfiguracionUsuarios')"
-                      class="text-gray-300 text-sm hover:text-gray-100">Usuarios</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoEmpleados')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Empleados</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoSucursales')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Sucursales</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoDirecciones')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Direcciones</a></li>
             </ul>
          </li>
 
@@ -52,38 +55,24 @@
                <i class="ri-arrow-right-s-line ml-auto"></i>
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
-               <li>
-                  <a href="#" onclick="cargarContenido('/fragmentoMedicamentos')"
-                     class="flex items-left py-2 px-4 text-sm text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md sidebar-dropdown-toggle">
-                     Medicamentos
-                     <i class="ri-arrow-right-s-line ml-auto"></i>
-                  </a>
-                  <ul class="pl-7 mt-2 hidden group-[.active]:block">
-                     <li><a href="#" onclick="cargarContenido('/fragmentoCategorias')"
-                            class="text-gray-300 text-sm hover:text-gray-100">Categorías</a></li>
-                     <li><a href="#" onclick="cargarContenido('/fragmentoMarcas')"
-                            class="text-gray-300 text-sm hover:text-gray-100">Marcas</a></li>
-                     <li><a href="#" onclick="cargarContenido('/fragmentoPresentacionMedicamentos')"
-                            class="text-gray-300 text-sm hover:text-gray-100">Presentaciones de Medicamentos</a></li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#" onclick="cargarContenido('/fragmentoCompras')"
-                     class="flex items-left py-2 px-4 text-sm text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md sidebar-dropdown-toggle">
-                     Compras
-                     <i class="ri-arrow-right-s-line ml-auto"></i>
-                  </a>
-                  <ul class="pl-7 mt-2 hidden group-[.active]:block">
-                     <li><a href="#" onclick="cargarContenido('/fragmentoLaboratorios')"
-                            class="text-gray-300 text-sm hover:text-gray-100">Laboratorios</a></li>
-                     <li><a href="#" onclick="cargarContenido('/fragmentoFacturasCompra')"
-                            class="text-gray-300 text-sm hover:text-gray-100">Facturas de Compra</a></li>
-                     <li><a href="#" onclick="cargarContenido('/fragmentoDetallesCompra')"
-                            class="text-gray-300 text-sm hover:text-gray-100">Detalles de Compra</a></li>
-                  </ul>
-               </li>
-               <li><a href="#" onclick="cargarContenido('/fragmentoInventario')"
-                      class="text-gray-300 text-sm hover:text-gray-100">Inventario</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoCategorias')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Categorías</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoMarcas')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Marcas</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoPresentacionMedicamentos')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Presentaciones de Medicamentos</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoInventarios')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Inventario</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoMedicamentos')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Medicamentos</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoCompras')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Compras</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoLaboratorios')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Laboratorios</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoFacturasCompra')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Facturas de Compra</a></li>
+               <li><a href="#" onclick="cargarContenido('/fragmentoDetallesCompra')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Detalles de Compra</a></li>
             </ul>
          </li>
 
@@ -95,6 +84,8 @@
                <i class="ri-arrow-right-s-line ml-auto"></i>
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
+               <li><a href="#" onclick="cargarContenido('/fragmentoMetodosPago')"
+                     class="text-gray-300 text-sm hover:text-gray-100">Métodos de Pago</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoFacturasVenta')"
                      class="text-gray-300 text-sm hover:text-gray-100">Facturas de Venta</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoClientes')"
@@ -102,7 +93,27 @@
                <li><a href="#" onclick="cargarContenido('/fragmentoVentas')"
                      class="text-gray-300 text-sm hover:text-gray-100">Ventas</a></li>
                <li><a href="#" onclick="cargarContenido('/fragmentoDetallesVenta')"
-                     class="text-gray-300 text-sm hover:text-gray-100">Detalles de Venta</a></li>
+                     class="text-gray-300 text-sm hover:text-gray-100">- Detalles de Venta</a></li>
+            </ul>
+         </li>
+
+         <!-- Gestión de Usuarios y Roles -->
+         <li class="mb-1 group">
+            <a href="#"
+               class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md sidebar-dropdown-toggle">
+               <i class="ri-user-settings-line mr-3 text-lg"></i> <span class="text-sm">Gestión de Usuarios y
+                  Roles</span>
+               <i class="ri-arrow-right-s-line ml-auto"></i>
+            </a>
+            <ul class="pl-7 mt-2 hidden group-[.active]:block">
+               <li><a href="#" onclick="cargarContenido('/ConfiguracionUsuarios')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Usuarios</a></li>
+               <li><a href="#" onclick="cargarContenido('/ConfiguracionRoles')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Roles</a></li>
+               <li><a href="#" onclick="cargarContenido('/ConfiguracionOpciones')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Opciones</a></li>
+               <li><a href="#" onclick="cargarContenido('/AsignacionRolesOpciones')"
+                     class="text-gray-300 text-sm hover:text-gray-100">- Asignación de Roles y Opciones</a></li>
             </ul>
          </li>
       </ul>
@@ -129,25 +140,17 @@
       </div>
 
       <!-- Contenedor del contenido dinámico -->
-      <div id="contenido-principal" class="p-6 font-medium">
-         <h2 class="text-2xl font-semibold mb-4">Contenido Principal</h2>
-         <p>Esta área es para el contenido principal del panel...</p>
-      </div> 
-           
+      <div id="contenido-principal" class="p-6 font-medium flex items-center justify-center text-center">
+         <img src="https://svgsilh.com/svg/312139-046c4e.svg" alt="logoFarmacia" srcset="" width="312px" height="280px">
+      </div>
+
    </main>
 
+   <!-- JS -->
    <script src="../js/menu.js"></script>
    <script src="../js/contenidoPanel.js"></script>
-   <script>
-      function validarFormularioYEnviar() {
-          const form = document.getElementById('empleadoForm');
-          if (form.checkValidity()) {
-              form.submit();
-              cargarContenido('/fragmentoEmpleados')
-          } else {
-              form.reportValidity();
-          }
-      }
-   </script>
+   <script src="../js/ventanasModales.js"></script>
+
 </body>
+
 </html>

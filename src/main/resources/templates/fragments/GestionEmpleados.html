@@ -3,14 +3,23 @@
     <!-- Titulo -->
     <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Empleados</h2>
 
-        <!-- Botón para agregar un nuevo empleado -->
-        <div class="flex justify-between items-center mb-4">
-            <a href="#" onclick="cargarContenido('/guardar-empleado')"
-                class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
-                <i class="fas fa-plus"></i>
-                <span>Agregar Empleado</span>
-            </a>
+    <!-- Botón para agregar un nuevo empleado -->
+    <div class="flex justify-between items-center mb-4">
+        <a href="#" onclick="cargarContenido('/nuevoEmpleado')"
+            class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
+            <i class="fas fa-plus"></i>
+            <span>Agregar Empleado</span>
+        </a>
+        <div class="flex items-center space-x-4 mb-4">
+            <input id="filtro-texto" type="text" placeholder="Buscar..."
+                class="border border-gray-300 rounded-lg px-4 py-2" />
+            <select id="filtro-select" class="border border-gray-300 rounded-lg px-4 py-2">
+                <option value="" disabled selected>-- Selecciona por --</option>
+                <option value="nombres">Nombres</option>
+                <option value="roles">Roles</option>
+            </select>
         </div>
+    </div>
 
         <!-- Tabla de empleados -->
         <table class="min-w-full bg-white border border-gray-300">
@@ -38,13 +47,13 @@
                     <td class="py-3 px-4 border-b border-r border-l">
                         <div class="flex flex-col items-center space-y-2">
                             <!-- Botón para Ver Detalles -->
-                            <button onclick="abrirModal(1)"
-                                class="bg-nuevo text-white p-2 rounded hover:bg-blue-700 font-semibold flex items-center justify-center">
+                            <button onclick="abrirModal()" class=" bg-nuevo text-white py-2 px-2 m-1 rounded hover:bg-blue-700 font-semibold flex
+                            items-center justify-center">
                                 <i class="fas fa-eye"></i>
                             </button>
 
                             <!-- Enlace para Actualizaar -->
-                            <a href="#" class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo"
+                            <a href="#" class="text-white py-1 px-2 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo"
                                th:data-id="${empleado.idEmpleado}"
                                th:data-action="actualizar-empleado"
                                onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
@@ -52,7 +61,7 @@
                             </a>
 
                             <!-- Enlace para Eliminar -->
-                            <a href="#" class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
+                            <a href="#" class="text-white py-1 px-2 m-1 rounded hover:bg-red-600 font-semibold bg-nuevo"
                                th:data-id="${empleado.idEmpleado}"
                                th:data-action="eliminar-empleado"
                                onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
