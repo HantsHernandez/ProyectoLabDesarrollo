@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Controllers {
-    @GetMapping("/dashboard")
+ /*   @GetMapping("/dashboard")
     public String mostrarDashboard() {
         return "index";
     }
@@ -15,7 +15,7 @@ public class Controllers {
     public String mostrarLogin() {
         return "Login";
     }
-
+*/
     @GetMapping("/registrarse")
     public String mostrarFormularioRegistro() {
         return "registrarse";
@@ -26,11 +26,11 @@ public class Controllers {
         return "RestablecerPassword";
     }
 
-    @GetMapping("/fragmentoEmpleados")
+    /*@GetMapping("/fragmentoEmpleados")
     public String fragmentoEmpleados() {
         return "fragments/GestionEmpleados :: contenido";
     }
-
+*/
     @GetMapping("/fragmentoClientes")
     public String fragmentoClientes() {
         return "fragments/GestionClientes :: contenido";
@@ -40,7 +40,7 @@ public class Controllers {
     public String fragmentoSucursales() {
         return "fragments/GestionSucursales :: contenido";
     }
-
+/*
     @GetMapping("/fragmentoCategorias")
     public String fragmentoCategorias() {
         return "fragments/GestionCategorias :: contenido";
@@ -50,17 +50,17 @@ public class Controllers {
     public String fragmentoMarcas() {
         return "fragments/GestionMarcas :: contenido";
     }
-
+*/
     @GetMapping("/fragmentoPresentacionMedicamentos")
     public String fragmentoPresentacionMedicamentos() {
         return "fragments/GestionPresentacionMedicamentos :: contenido";
     }
-
+/*
     @GetMapping("/fragmentoMedicamentos")
     public String fragmentoMedicamentos() {
         return "fragments/GestionMedicamentos :: contenido";
     }
-
+*/
     @GetMapping("/fragmentoDirecciones")
     public String fragmentoDirecciones() {
         return "fragments/GestionDirecciones :: contenido";
@@ -80,7 +80,7 @@ public class Controllers {
     public String fragmentoCompras() {
         return "fragments/GestionCompras :: contenido";
     }
-
+/*
     @PostMapping("/empleados/agregar")
     public String guardarEmpleado() {
         // guardar informacion
@@ -94,7 +94,7 @@ public class Controllers {
     public String mostrarFormularioEmpleado() {
         return "fragments/AgregarEmpleado :: contenido";
     }
-
+*/
     @GetMapping("/nuevoCliente")
     public String mostrarFormularioCliente() {
         return "fragments/AgregarCliente :: contenido";
@@ -139,4 +139,5 @@ public class Controllers {
     public String mostrarFormularioLaboratorio() {
         return "fragments/AgregarLaboratorio :: contenido";
     }
+
 }

@@ -46,11 +46,11 @@
                   <a th:data-id="${marca.idMarca}"
                      th:data-action="actualizar-marca"
                      onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))"
-                     class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
+                     class="text-white py-1 px-2 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
                      <i class="fas fa-edit"></i>
                   </a>
                   <!-- Enlace para Eliminar -->
-                  <a class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
+                  <a class="text-white py-1 px-2 m-1 rounded hover:bg-red-600 font-semibold bg-nuevo"
                      th:data-id="${marca.idMarca}"
                      th:data-action="eliminar-marca"
                      onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
@@ -61,5 +61,5 @@
          </tr>
       </tbody>
    </table>
-   <div th:insert="Plantilla :: paginacion"></div>
+   <!--<div th:insert="Plantilla :: paginacion"></div>-->
 </div>
