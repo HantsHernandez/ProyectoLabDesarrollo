@@ -1,61 +1,86 @@
-<div th:fragment="contenido" class="container bg-white/65 rounded-lg py-6 px-6 shadow-md">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="contenido" class="container mx-auto mt-10 overflow-x-auto">
     <!-- Titulo -->
     <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Empleados</h2>
 
-    <!-- Botón para agregar un nuevo empleado -->
-    <div class="flex justify-between items-center mb-4">
-        <a href="#" onclick="cargarContenido('/nuevoEmpleado')"
-            class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
-            <i class="fas fa-plus"></i>
-            <span>Agregar Empleado</span>
-        </a>
+        <!-- Botón para agregar un nuevo empleado -->
+        <div class="flex justify-between items-center mb-4">
+            <a href="#" onclick="cargarContenido('/guardar-empleado')"
+                class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
+                <i class="fas fa-plus"></i>
+                <span>Agregar Empleado</span>
+            </a>
+        </div>
+
+        <!-- Tabla de empleados -->
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr class="bg-nuevo text-gray-200">
+                    <th class="py-2 px-4 whitespace-nowrap">ID Empleado</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Nombres</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Apellidos</th>
+                    <th class="py-2 px-4 whitespace-nowrap">DUI</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Teléfono</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Cargo</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Direccion</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center font-light">
+                <tr class="hover:bg-green-100" th:each="empleado: ${listaEmpleados}">
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.idEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.nombreEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.apellidoEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.duiEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.telefonoEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.cargo.cargo}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.direccion.linea1}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l">
+                        <div class="flex flex-col items-center space-y-2">
+                            <!-- Botón para Ver Detalles -->
+                            <button onclick="abrirModal(1)"
+                                class="bg-nuevo text-white p-2 rounded hover:bg-blue-700 font-semibold flex items-center justify-center">
+                                <i class="fas fa-eye"></i>
+                            </button>
+
+                            <!-- Enlace para Actualizaar -->
+                            <a href="#" class="text-white p-2 rounded hover:bg-yellow-600 font-semibold bg-nuevo"
+                               th:data-id="${empleado.idEmpleado}"
+                               th:data-action="actualizar-empleado"
+                               onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <!-- Enlace para Eliminar -->
+                            <a href="#" class="text-white p-2 rounded hover:bg-red-600 font-semibold bg-nuevo"
+                               th:data-id="${empleado.idEmpleado}"
+                               th:data-action="eliminar-empleado"
+                               onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <div id="fragmento-paginacion" class="pt-5 flex justify-center space-x-2">
+        <button th:if="${currentPage > 0}"
+                th:onclick="'cargarContenido(\'/fragmentoEmpleados?page=' + (${currentPage} - 1) + '&size=5\')'"
+                class="rounded-md border border-slate-300 py-2 px-3 text-sm text-gray-600 hover:bg-nuevo hover:text-white">
+            Anterior
+        </button>
+        <button th:if="${currentPage < totalPages - 1}"
+                th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'bg-nuevo text-white' : 'border-slate-300 text-gray-600 hover:bg-nuevo hover:text-white'"
+                th:onclick="'cargarContenido(\'/fragmentoEmpleados?page=' + ${i} + '&size=5\')'"
+                class="rounded-md border py-2 px-3 text-sm">
+            <span th:text="${i + 1}"></span>
+        </button>
+        <button th:if="${currentPage < totalPages - 1}"
+                th:onclick="'cargarContenido(\'/fragmentoEmpleados?page=' + (${currentPage} + 1) + '&size=5\')'"
+                class="rounded-md border border-slate-300 py-2 px-3 text-sm text-gray-600 hover:bg-nuevo hover:text-white">
+            Siguiente
+        </button>
     </div>
-
-    <!-- Tabla de empleados -->
-    <table class="min-w-full bg-white border">
-        <thead>
-            <tr class="bg-nuevo text-gray-200">
-                <th class="py-2 px-4 whitespace-nowrap">ID Empleado</th>
-                <th class="py-2 px-4 whitespace-nowrap">Nombres</th>
-                <th class="py-2 px-4 whitespace-nowrap">Apellidos</th>
-                <th class="py-2 px-4 whitespace-nowrap">DUI</th>
-                <th class="py-2 px-4 whitespace-nowrap">Teléfono</th>
-                <th class="py-2 px-4 whitespace-nowrap">Cargo</th>
-                <th class="py-2 px-4 whitespace-nowrap">Direccion</th>
-                <th class="py-2 px-4 whitespace-nowrap">Acciones</th>
-            </tr>
-        </thead>
-        <tbody class="text-center font-light">
-            <tr class="hover:bg-green-100">
-                <td class="py-3 px-4 border-b border-r border-l">1</td>
-                <td class="py-3 px-4 border-b border-r border-l">Daniel Alexander</td>
-                <td class="py-3 px-4 border-b border-r border-l">Murcia Carpio</td>
-                <td class="py-3 px-4 border-b border-r border-l">000000-0</td>
-                <td class="py-3 px-4 border-b border-r border-l">6800-1200</td>
-                <td class="py-3 px-4 border-b border-r border-l">Cajero/a</td>
-                <td class="py-3 px-4 border-b border-r border-l">Colonia Buenos Aires #2</td>
-                <td class="py-3 px-4 border-b border-r border-l">
-                    <div class="flex items-center justify-center">
-                        <!-- Botón para Ver Detalles -->
-                        <button onclick="abrirModal(1)"
-                            class="bg-nuevo text-white py-2 px-2 m-1 rounded hover:bg-blue-700 font-semibold flex items-center justify-center">
-                            <i class="fas fa-eye"></i>
-                        </button>
-
-                        <!-- Enlace para Modificar -->
-                        <a href="modificar-empleado.html"
-                            class="text-white py-1 px-2 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <!-- Enlace para Eliminar -->
-                        <a href="#" class="text-white py-1 px-2 m-1 rounded hover:bg-red-600 font-semibold bg-nuevo"
-                            onclick="eliminarEmpleado(empleadoId)">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div th:insert="Plantilla :: paginacion"></div>
 </div>
