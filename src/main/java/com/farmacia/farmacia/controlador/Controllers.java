@@ -30,12 +30,12 @@ public class Controllers {
     public String fragmentoEmpleados() {
         return "fragments/GestionEmpleados :: contenido";
     }
-*/
+*//*
     @GetMapping("/fragmentoClientes")
     public String fragmentoClientes() {
         return "fragments/GestionClientes :: contenido";
     }
-
+*/
     @GetMapping("/fragmentoSucursales")
     public String fragmentoSucursales() {
         return "fragments/GestionSucursales :: contenido";
@@ -70,12 +70,12 @@ public class Controllers {
     public String fragmentoInventarios() {
         return "fragments/GestionInventarios :: contenido";
     }
-
+/*
     @GetMapping("/fragmentoLaboratorios")
     public String fragmentoLaboratorios() {
         return "fragments/GestionLaboratorios :: contenido";
     }
-
+*/
     @GetMapping("/fragmentoCompras")
     public String fragmentoCompras() {
         return "fragments/GestionCompras :: contenido";

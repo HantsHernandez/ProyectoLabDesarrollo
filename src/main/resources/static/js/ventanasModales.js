@@ -1,27 +1,47 @@
-// Función para abrir el modal y cargar datos
-function abrirModal() {
-  const titulo = `Detalles del Empleado`;
-  const contenido = `
-        ID: 1
-        Nombre: Daniel Alexander Murcia Carpio
-        DUI: 000000-0
-        Teléfono: 6800-1200
-        Cargo: Cajero/a
-        Dirección: Colonia Buenos Aires #2
-    `;
+function abrirModal(endpoint, id) {
+    console.log(`Abriendo modal para ${endpoint} con ID ${id}`);
 
-  document.getElementById('modal-title').textContent = titulo;
-  document.getElementById('modal-content').textContent = contenido;
+    const modal = document.getElementById('modal');
+    console.log(modal);
 
-  // Abrir Modal
-  const modal = document.getElementById('modal');
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    fetch(`/${endpoint}/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("No se pudo obtener la información.");
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('modal-title').textContent = `Detalles de ${capitalize(endpoint)}`;
+
+            let contenido = "";
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    contenido += `<p><strong>${capitalize(key)}:</strong> ${data[key]}</p>`;
+                }
+            }
+
+            document.getElementById('modal-content').innerHTML = contenido;
+
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Hubo un error al cargar los datos.");
+        });
 }
 
-// Función para cerrar el modal
 function closeModal() {
-  const modal = document.getElementById('modal');
-  modal.classList.add('hidden');
-  modal.classList.remove('flex');
+    const modal = document.getElementById('modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }

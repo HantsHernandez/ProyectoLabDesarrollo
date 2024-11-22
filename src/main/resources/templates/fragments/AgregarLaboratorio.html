@@ -1,50 +1,49 @@
-<div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
-   <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Agregar Nuevo Laboratorio</h2>
-   <form action="#" method="post" th:action="@{/laboratorio/agregar}" th:object="${laboratorio}">
-      <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<div class="bg-gray-100 min-h-screen flex items-center justify-center">
+   <div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
+      <h2   class="text-2xl font-semibold text-gray-700 mb-6 text-center"
+            th:text="${laboratorio == null ? 'Agregar Nuevo Laboratorio' : 'Modificar Laboratorio'}"></h2>
 
-         <!--  Nombre laboratorio -->
-         <div>
-            <label for="nombreLaboratorio" class="block text-gray-600 font-semibold">Laboratorio</label>
-            <input type="text" id="nombreLaboratorio" name="nombreLaboratorio"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese el nombre" required>
+      <form th:action="@{${laboratorio == null ? '/guardar-laboratorio' : '/actualizar-laboratorio'}}"  method="post" id="FormEmpleado">
+         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Nombres Laboratorio -->
+            <div>
+               <label for="nombreLaboratorio" class="block text-gray-600 font-semibold">Nombres</label>
+               <input type="text" id="nombreLaboratorio" name="laboratorio.nombreLaboratorio"
+                      th:value="${laboratorio != null ? laboratorio.nombreLaboratorio : ''}"
+                      class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese nombre" required>
+            </div>
+
+            <!-- Contacto -->
+            <div>
+               <label for="numeroContacto" class="block text-gray-600 font-semibold">Teléfono</label>
+               <input type="tel" id="numeroContacto" name="laboratorio.numeroContacto"
+                      th:value="${laboratorio != null ? laboratorio.numeroContacto : ''}"
+                      class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="0000-0000" required>
+            </div>
+
+            <!-- Direccion  -->
+            <div>
+               <label for="direccion" class="block text-gray-600 font-semibold">Direccion</label>
+               <input type="text" id="direccion" name="direccion.linea1" class="w-full p-2 border border-gray-300 rounded mt-1"
+                      placeholder="Ingrese su direccion"  th:value="${laboratorio != null ? laboratorio.direccion.linea1 : ''}" required>
+            </div>
+
+            <input type="hidden" name="laboratorio.idLaboratorio" th:value="${laboratorio != null ? laboratorio.idLaboratorio : ''}">
+            <input type="hidden" name="direccion.idDireccion" th:value="${laboratorio != null ? laboratorio.direccion.idDireccion : ''}">
          </div>
 
-         <!--  Número contacto -->
-         <div>
-            <label for="numeroContacto" class="block text-gray-600 font-semibold">Numero Contacto</label>
-            <input type="tel" id="numeroContacto" name="numeroContacto"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese el número de contacto"
-               required>
+         <!-- Botones para enviar y limpiar el formulario -->
+         <div class="mt-6 flex justify-end space-x-4">
+            <button type="button" onclick="limpiarFormulario()"
+                    class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+               Limpiar
+            </button>
+            <button type="button" onclick="guardar_registros('FormEmpleado')" th:text="${laboratorio != null ? 'Actualizar Laboratorio' : 'Agregar Laboratorio'}"
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            </button>
          </div>
-
-         <!-- Correo electrónico -->
-         <div>
-            <label for="correo" class="block text-gray-600 font-semibold">Correo Electrónico</label>
-            <input type="email" id="correo" name="correo" class="w-full p-2 border border-gray-300 rounded mt-1"
-               placeholder="Ingrese el correo electrónico" required>
-         </div>
-
-         <!-- Dirección -->
-         <div>
-            <label for="idDireccion" class="block text-gray-600 font-semibold">Dirección</label>
-            <select id="idDireccion" name="idDireccion" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-               <option value="" disabled selected>-- Selecciona un distrito --</option>
-               <option value="1">Dirección A</option>
-               <option value="2">Dirección B</option>
-            </select>
-         </div>
-      </div>
-
-      <!-- Botones para enviar y limpiar el formulario -->
-      <div class="mt-8 flex justify-end space-x-4">
-         <button type="button" onclick="limpiarFormulario()"
-            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
-            Limpiar
-         </button>
-         <button type="button" class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800">
-            Agregar Laboratorio
-         </button>
-      </div>
-   </form>
+      </form>
+   </div>
 </div>

@@ -1,7 +1,7 @@
 package com.farmacia.farmacia.DTO;
 
-import com.farmacia.farmacia.entity.Cliente;
 import com.farmacia.farmacia.entity.Direccion;
+import com.farmacia.farmacia.entity.Laboratorio;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ClienteDireccionDTO {
+public class LaboratorioDireccionDTO {
 
-    private Cliente cliente;
+    private Laboratorio laboratorio;
 
     private Direccion direccion;
 }

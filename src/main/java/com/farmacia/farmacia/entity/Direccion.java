@@ -27,9 +27,11 @@ public class Direccion {
     @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Empleado>listaEmpleados = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cliente>listaClientes = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Laboratorio>listaLaboratorios = new ArrayList<>();
 }

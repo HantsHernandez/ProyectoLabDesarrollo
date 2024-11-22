@@ -1,5 +1,6 @@
 package com.farmacia.farmacia.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Laboratorio {
     private String numeroContacto;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_direccion")
     private Direccion direccion;
 

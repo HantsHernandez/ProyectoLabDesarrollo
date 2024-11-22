@@ -27,8 +27,6 @@ public class Cliente {
 
     private String telefonoCliente;
 
-    private String generoCliente;
-
     private String duiCliente;
 
     private LocalDate fechaNacimientoCliente;

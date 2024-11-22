@@ -27,6 +27,12 @@ public class HomeController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private LaboratorioService laboratorioService;
+
     @GetMapping("/index")
     public String getIndex(){
         return "index";
@@ -90,4 +96,17 @@ public class HomeController {
         model.addAttribute("listaUsuarios", this.usuarioService.listaUsuarios());
         return "fragments/GestionarUsuario :: contenido";
     }
+
+    @GetMapping("/fragmentoClientes")
+    public String fragmentoClientes(Model model) {
+        model.addAttribute("listaClientes", this.clienteService.listaClientes());
+        return "fragments/GestionClientes :: contenido";
+    }
+
+    @GetMapping("/fragmentoLaboratorios")
+    public String fragmentoLaboratorio(Model model) {
+        model.addAttribute("listaLaboratorio",  this.laboratorioService.listaLaboratorios());
+        return "fragments/GestionLaboratorios :: contenido";
+    }
+
 }

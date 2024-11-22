@@ -34,7 +34,7 @@ public class EmpleadoService {
 
     public Empleado actualizarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO){
         Direccion direccion = this.direccionService.actualizarDireccion(empleadoDireccionDTO.getDireccion());
-        empleadoDireccionDTO.setDireccion(direccion);
+        empleadoDireccionDTO.getEmpleado().setDireccion(direccion);
         Empleado empleadoActualizado = empleadoDireccionDTO.getEmpleado();
         return this.empleadoRepository.save(this.empleadoRepository.findById(empleadoActualizado.getIdEmpleado())
                 .map(empleado -> {

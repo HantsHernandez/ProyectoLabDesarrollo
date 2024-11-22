@@ -1,10 +1,11 @@
-<div th:fragment="contenido" class="container bg-white/65 rounded-lg py-6 px-6 shadow-md">
+<div th:fragment="contenido" class="container bg-white/65 rounded-lg py-6 px-6 shadow-md"
+     xmlns:th="http://www.w3.org/1999/xhtml">
    <!-- Titulo -->
    <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Clientes</h2>
 
    <!-- Botón para agregar un nuevo cliente -->
    <div class="flex justify-between items-center mb-4">
-      <a href="#" onclick="cargarContenido('/nuevoCliente')"
+      <a href="#" onclick="cargarContenido('/guardar-cliente')"
          class="bg-nuevo text-white px-4 py-2 rounded-lg hover:bg-green-800 font-semibold flex items-center space-x-2">
          <i class="fas fa-plus"></i>
          <span>Agregar Cliente</span>
@@ -29,20 +30,18 @@
             <th class="py-2 px-4 whitespace-nowrap">Apellidos</th>
             <th class="py-2 px-4 whitespace-nowrap">DUI</th>
             <th class="py-2 px-4 whitespace-nowrap">Teléfono</th>
-            <th class="py-2 px-4 whitespace-nowrap">Genero</th>
             <th class="py-2 px-4 whitespace-nowrap">Dirección</th>
             <th class="py-2 px-4 whitespace-nowrap">Acciones</th>
          </tr>
       </thead>
       <tbody class="text-center font-light">
-         <tr class="hover:bg-green-100">
-            <td class="py-3 px-4 border-b border-r border-l">1</td>
-            <td class="py-3 px-4 border-b border-r border-l">José Manuel</td>
-            <td class="py-3 px-4 border-b border-r border-l">Hernandez Romero</td>
-            <td class="py-3 px-4 border-b border-r border-l">000000-1</td>
-            <td class="py-3 px-4 border-b border-r border-l">6800-1211</td>
-            <td class="py-3 px-4 border-b border-r border-l">M</td>
-            <td class="py-3 px-4 border-b border-r border-l">Colonia Buenos Aires #1, Ruta De La Flores</td>
+         <tr class="hover:bg-green-100" th:each="cliente : ${listaClientes}">
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${cliente.idCliente}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${cliente.nombresCliente}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${cliente.apellidosCliennte}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${cliente.telefonoCliente}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${cliente.duiCliente}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${cliente.direccion.linea1}"></td>
             <td class="py-3 px-4 border-b border-r border-l">
                <div class="flex items-center justify-center ">
                   <!-- Botón para Ver Detalles -->
@@ -52,13 +51,17 @@
                   </button>
 
                   <!-- Enlace para Modificar -->
-                  <a href="modificar-empleado.html"
-                     class="text-white py-1 px-2 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
+                  <a class="text-white py-1 px-2 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo"
+                     th:data-id="${cliente.idCliente}"
+                     th:data-action="actualizar-cliente"
+                     onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
                      <i class="fas fa-edit"></i>
                   </a>
                   <!-- Enlace para Eliminar -->
-                  <a href="#" class="text-white py-1 px-2 m-1 rounded hover:bg-red-600 font-semibold bg-nuevo"
-                     onclick="eliminarEmpleado(empleadoId)">
+                  <a class="text-white py-1 px-2 m-1 rounded hover:bg-red-600 font-semibold bg-nuevo"
+                     th:data-id="${cliente.idCliente}"
+                     th:data-action="eliminar-cliente"
+                     onclick="cargarContenido('/' + this.getAttribute('data-action') + '/' + this.getAttribute('data-id'))">
                      <i class="fas fa-trash"></i>
                   </a>
                </div>
@@ -66,7 +69,7 @@
          </tr>
       </tbody>
    </table>
-   <div th:insert="Plantilla :: paginacion"></div>
+   <!--<div th:insert="Plantilla :: paginacion"></div>-->
    <!-- Ventana modal para ver más detalles -->
    <div th:insert="Plantilla :: ventanaModal"></div>
 </div>

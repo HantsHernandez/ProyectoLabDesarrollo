@@ -1,78 +1,79 @@
-<div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
-   <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Agregar Nuevo Cliente</h2>
-   <form action="#" method="post" th:action="@{/clientes/agregar}" th:object="${cliente}">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-         <!-- Nombres -->
-         <div>
-            <label for="nombresCliente" class="block text-gray-600 font-semibold">Nombres</label>
-            <input type="text" id="nombresCliente" name="nombresCliente"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese nombres" required>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<div class="bg-gray-100 min-h-screen flex items-center justify-center">
+   <div th:fragment="contenido" class="bg-white p-8 rounded-lg shadow-md w-full max-w-5xl mx-auto">
+      <h2   class="text-2xl font-semibold text-gray-700 mb-6 text-center"
+            th:text="${cliente == null ? 'Agregar Nuevo Cliente' : 'Modificar Cliente'}"></h2>
+
+      <form th:action="@{${cliente == null ? '/guardar-cliente' : '/actualizar-cliente'}}"  method="post" id="FormEmpleado">
+         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Nombres -->
+            <div>
+               <label for="nombresCliente" class="block text-gray-600 font-semibold">Nombres</label>
+               <input type="text" id="nombresCliente" name="cliente.nombresCliente"
+                      th:value="${cliente != null ? cliente.nombresCliente : ''}"
+                      class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese nombres" required>
+            </div>
+
+            <!-- Apellidos -->
+            <div>
+               <label for="apellidosCliennte" class="block text-gray-600 font-semibold">Apellidos</label>
+               <input type="text" id="apellidosCliennte" name="cliente.apellidosCliennte"
+                      th:value="${cliente != null ? cliente.apellidosCliennte : ''}"
+                      class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese apellidos" required>
+            </div>
+
+            <!-- DUI -->
+            <div>
+               <label for="duiCliente" class="block text-gray-600 font-semibold">DUI</label>
+               <input type="number" id="duiCliente" name="cliente.duiCliente"
+                      th:value="${cliente != null ? cliente.duiCliente : ''}"
+                      class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="00000000-0" required>
+            </div>
+
+            <!-- Fecha Nacimiento -->
+            <div>
+               <label for="fechaNacimientoCliente" class="block text-gray-600 font-semibold">Fecha Nacimiento</label>
+               <input type="date" id="fechaNacimientoCliente" name="cliente.fechaNacimientoCliente"
+                      th:value="${cliente != null ? cliente.fechaNacimientoCliente : ''}"
+                      class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+
+            <!-- Teléfono -->
+            <div>
+               <label for="telefonoCliente" class="block text-gray-600 font-semibold">Teléfono</label>
+               <input type="tel" id="telefonoCliente" name="cliente.telefonoCliente"
+                      th:value="${cliente != null ? cliente.telefonoCliente : ''}"
+                      class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="0000-0000" required>
+            </div>
+
+            <!-- Correo -->
+            <div>
+               <label for="correoCliente" class="block text-gray-600 font-semibold">Correo</label>
+               <input type="email" id="correoCliente" name="cliente.correoCliente" class="w-full p-2 border border-gray-300 rounded mt-1"
+                      placeholder="Ingrese correo"  th:value="${cliente != null ? cliente.correoCliente : ''}" required>
+            </div>
+
+            <!-- Direccion  -->
+            <div>
+               <label for="direccion" class="block text-gray-600 font-semibold">Direccion</label>
+               <input type="text" id="direccion" name="direccion.linea1" class="w-full p-2 border border-gray-300 rounded mt-1"
+                      placeholder="Ingrese su direccion"  th:value="${cliente != null ? cliente.direccion.linea1 : ''}" required>
+            </div>
+
+            <input type="hidden" name="cliente.idCliente" th:value="${cliente != null ? cliente.idCliente : ''}">
+            <input type="hidden" name="direccion.idDireccion" th:value="${cliente != null ? cliente.direccion.idDireccion : ''}">
          </div>
 
-         <!-- Apellidos -->
-         <div>
-            <label for="apellidosCliente" class="block text-gray-600 font-semibold">Apellidos</label>
-            <input type="text" id="apellidosCliente" name="apellidosCliente"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Ingrese apellidos" required>
+         <!-- Botones para enviar y limpiar el formulario -->
+         <div class="mt-6 flex justify-end space-x-4">
+            <button type="button" onclick="limpiarFormulario()"
+                    class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+               Limpiar
+            </button>
+            <button type="button" onclick="guardar_registros('FormEmpleado')" th:text="${empleado != null ? 'Actualizar Cliente' : 'Agregar Cliente'}"
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            </button>
          </div>
-
-         <!-- Teléfono -->
-         <div>
-            <label for="telefonoCliente" class="block text-gray-600 font-semibold">Teléfono</label>
-            <input type="tel" id="telefonoCliente" name="telefonoCliente"
-               class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="0000-0000" required>
-         </div>
-
-         <!-- Género -->
-         <div>
-            <label for="genero" class="block text-gray-600 font-semibold">Género</label>
-            <select id="genero" name="genero" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-               <option value="" disabled selected>-- Selecciona un género --</option>
-               <option value="1">F</option>
-               <option value="2">M</option>
-            </select>
-         </div>
-
-         <!-- DUI -->
-         <div>
-            <label for="duiCliente" class="block text-gray-600 font-semibold">DUI</label>
-            <input type="text" id="duiCliente" name="duiCliente" class="w-full p-2 border border-gray-300 rounded mt-1"
-               placeholder="00000000-0" required>
-         </div>
-
-         <!-- Fecha Nacimiento -->
-         <div>
-            <label for="fechaNacCliente" class="block text-gray-600 font-semibold">Fecha Nacimiento</label>
-            <input type="date" id="fechaNacCliente" name="fechaNacCliente"
-               class="w-full p-2 border border-gray-300 rounded mt-1" required>
-         </div>
-
-         <!-- Correo -->
-         <div>
-            <label for="correo" class="block text-gray-600 font-semibold">Correo</label>
-            <input type="email" id="correo" name="correo" class="w-full p-2 border border-gray-300 rounded mt-1"
-               placeholder="Ingrese correo" required>
-         </div>
-
-         <!-- Direccion -->
-         <div>
-            <label for="idDireccion" class="block text-gray-600 font-semibold">Dirección</label>
-            <select id="idDireccion" name="idDireccion" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-               <option value="" disabled selected>-- Seleccione una dirección --</option>
-               <option value="1">Col Madera, Calle 1, #1N</option>
-               <option value="2">Barrio El Caldero</option>
-            </select>
-         </div>
-      </div>
-      <!-- Botones para enviar y limpiar el formulario -->
-      <div class="mt-8 flex justify-center space-x-4">
-         <button type="button" onclick="limpiarFormulario()"
-            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
-            Limpiar
-         </button>
-         <button type="button" class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800">
-            Agregar Cliente
-         </button>
-      </div>
-   </form>
+      </form>
+   </div>
 </div>
