@@ -1,14 +1,18 @@
 package com.farmacia.farmacia.controller;
 
+import com.farmacia.farmacia.DTO.ClienteDTO;
 import com.farmacia.farmacia.DTO.ClienteDireccionDTO;
 import com.farmacia.farmacia.service.ClienteService;
 import com.farmacia.farmacia.service.DireccionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ClienteController {
@@ -52,5 +56,15 @@ public class ClienteController {
         model.addAttribute("cliente", this.clienteService.obtenerCliente(id));
         model.addAttribute("listaDirecciones", this.direccionService.listaDirecciones());
         return "fragments/AgregarCliente :: contenido";
+    }
+
+    @GetMapping("/cliente/{id}")
+    @ResponseBody
+    public ResponseEntity<?> obtenerDetallesCliente(@PathVariable Long id) {
+        ClienteDTO cliente = clienteService.obtenerClienteDTO(id);
+        if (cliente != null) {
+            return ResponseEntity.ok(cliente);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado");
     }
 }

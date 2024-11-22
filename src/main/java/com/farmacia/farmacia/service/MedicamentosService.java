@@ -1,5 +1,6 @@
 package com.farmacia.farmacia.service;
 
+import com.farmacia.farmacia.DTO.MedicamentoDTO;
 import com.farmacia.farmacia.DTO.MedicamentoInventarioDTO;
 import com.farmacia.farmacia.entity.Empleado;
 import com.farmacia.farmacia.entity.Inventario;
@@ -78,6 +79,22 @@ public class MedicamentosService {
     public Page<Medicamento> listaMedicamentosPaginados(int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         return medicamentoRepository.findAll(pageable);
+    }
+
+    public MedicamentoDTO obtenerMedicamentoDTO(Long id){
+        Medicamento medicamento = this.obtenerMedicamento(id);
+        MedicamentoDTO medicamentoDTO = new MedicamentoDTO();
+        medicamentoDTO.setNombre(medicamento.getNombreMedicamento());
+        medicamentoDTO.setFormula(medicamento.getFormulaMedicamento());
+        medicamentoDTO.setDescripcion(medicamento.getDescripcionMedicamento());
+        medicamentoDTO.setDosis(medicamento.getDosisMedicamento());
+        medicamentoDTO.setFechaVencimiento(medicamento.getFechaVencimiento());
+        medicamentoDTO.setPrecioCompra(medicamento.getPrecioCompra());
+        medicamentoDTO.setPrecioVenta(medicamento.getPrecioVenta());
+        medicamentoDTO.setMarca(medicamento.getMarca().getNombreMarca());
+        medicamentoDTO.setPresentacion(medicamento.getPresentacion().getNombrePresentacion());
+        medicamentoDTO.setDosis(medicamento.getDosisMedicamento());
+        return medicamentoDTO;
     }
 
 }

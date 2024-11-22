@@ -1,5 +1,6 @@
 package com.farmacia.farmacia.service;
 
+import com.farmacia.farmacia.DTO.EmpleadoDTO;
 import com.farmacia.farmacia.DTO.EmpleadoDireccionDTO;
 import com.farmacia.farmacia.entity.Categoria;
 import com.farmacia.farmacia.entity.Direccion;
@@ -72,4 +73,21 @@ public class EmpleadoService {
         return this.empleadoRepository.findAll(pageable);
     }
 
+    public EmpleadoDTO obtenerEmpleadoDTO(Long id){
+        Empleado empleado = this.obtenerEmpleado(id);
+        EmpleadoDTO empleadoDTO = new EmpleadoDTO();
+
+        empleadoDTO.setNombre(empleado.getNombreEmpleado());
+        empleadoDTO.setApellido(empleado.getApellidoEmpleado());
+        empleadoDTO.setDui(empleado.getDuiEmpleado());
+        empleadoDTO.setIsss(empleado.getIsssEmpleado());
+        empleadoDTO.setFechaNac(empleado.getFechaNacEmpleado());
+        empleadoDTO.setTelefono(empleado.getTelefonoEmpleado());
+        empleadoDTO.setGenero(empleado.getGeneroEmpleado());
+        empleadoDTO.setCorreo(empleado.getCorreoEmpleado());
+        empleadoDTO.setCargo(empleado.getCargo().getCargo());
+        empleadoDTO.setDireccion(empleado.getDireccion().getLinea1());
+
+        return empleadoDTO;
+    }
 }

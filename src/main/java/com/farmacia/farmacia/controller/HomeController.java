@@ -1,9 +1,11 @@
 package com.farmacia.farmacia.controller;
 
 import com.farmacia.farmacia.entity.*;
+import com.farmacia.farmacia.repository.UsuarioRepository;
 import com.farmacia.farmacia.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,9 @@ public class HomeController {
 
     @Autowired
     private LaboratorioService laboratorioService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping("/index")
     public String getIndex(){
