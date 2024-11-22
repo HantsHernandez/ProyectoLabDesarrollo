@@ -1,44 +1,47 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-crossorigin="anonymous">
+
 <link rel="stylesheet" th:href="@{./css/ventas.css}">
 
 <div class="row">
-    <div class="col-xl-8 col-md-8 col-sm-12">
+    <div class="col-8">
         <div class="card">
             <div class="card-body pt-0">
                 <div class="row">
-                    <div class="col-xl-8 col-md-7 col-sm-12">
+                    <div class="col-8">
                         <strong>MEDICAMENTOS DISPONIBLES</strong>
                     </div>
-                    <div class="col-xl-4 col-md-5 col-sm-12 form-group">
+                    <div class="col-4 form-group">
                         <label for="" class="small text-black">Realizar busqueda</label>
                         <input type="text" class="form-control buscador-medicamentos">
                     </div>
                 </div>
 
                 <div class="row mt-3" id="listadoMedicamentos">
-                    <div class="col-xl-4 col-md-4 col-sm-12">
-                        <div class="card cursor item-medicamento" medicamento="1" precio="16.50" disponibles="5">
+                    <div class="col-4 mb-3" 
+                        th:each="item : ${listaMedicamentos}">
+                        <div class="card cursor item-medicamento"
+                            th:medicamento="${ item.idMedicamentos }"
+                            th:precio="${ item.precioVenta }"
+                            th:disponibles="${ item.inventario.cantidadStock }">
+
                             <div class="card-body p-1">
                                 <div class="d-flex justify-content-center bg-image">
                                     <img src="https://walmartsv.vtexassets.com/arquivos/ids/446757/Acetaminof-n-Mk-500-Mg-20-Tabletas-2-1308.jpg?v=638503797665300000"
                                      alt="imagen-del-medicamento" class="img-medicamento">
                                 </div>
-                                <div><strong class="nombre-medicamento text-center">Medicamentos</strong></div>
-                                <div class="small texto-truncado descripcion-medicamento">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, n</div>
+                                <div><strong class="nombre-medicamento text-center" th:text="${ item.nombreMedicamento }"></strong></div>
+                                <div class="small texto-truncado descripcion-medicamento" th:text="${ item.descripcionMedicamento }"></div>
                                 <hr class="mt-0 mb-2">
 
                                 <div class="row">
-                                    <div class="col-6 text-center">
+                                    <div class="col-6 text-center small">
                                         Precio:
                                         <br>
-                                        $16.50
+                                        $ <span th:text="${ item.precioVenta }"></span>
                                     </div>
-                                    <div class="col-6 text-center">
+                                    <div class="col-6 text-center small">
                                         Cantidad:
                                         <br>
-                                        7
+                                        <span th:text="${ item.inventario.cantidadStock }"></span>
                                     </div>
                                 </div>
                             </div>
@@ -48,8 +51,9 @@ crossorigin="anonymous">
             </div>
         </div>
     </div>
-    <form class="col-xl-4 col-md-4-col-sm-12"
-            id="FormVenta" method="POST" th:action="@{/ventas/agregar}">
+
+    <form class="col-4"
+            id="FormVenta" method="POST" th:action="@{/guardarVenta}">
         <div class="card">
             <div class="card-body listado-ventas">
                 <div>Listado de medicamentos</div>
@@ -63,7 +67,7 @@ crossorigin="anonymous">
                             <td colspan="2">
                                 <label for="" class="text-blac small">Cliente</label>
                                 <select name="idCliente" id="idCliente" class="form-control">
-                                    <option value="">Seleccionar</option>
+                                    <option th:each="cliente : ${listaCliente}" th:value="${ cliente.idCliente }" th:text='${ cliente.nombresCliente + " " + cliente.apellidosCliennte }' >Seleccionar</option>
                                 </select>
                             </td>
                         </tr>
@@ -90,31 +94,33 @@ crossorigin="anonymous">
 </div>
 
 <div hidden id="itemVenta">
-    <div class="card card-content card-body pt-2 pb-2">
-        <input type="hidden" name="medicamentos[]['precioUnitario']" value=""
+    <div class="card card-content card-body pt-0 pb-0 mb-3">
+        <input type="hidden" name="detalleVenta[]['precioUnitario']" value=""
          class="precio-unitario">
 
-        <input type="hidden" name="medicamentos[]['idMedicamento']" value=""
+        <input type="hidden" name="detalleVenta[]['idMedicamento']" value=""
          class="registro-medicamento">
 
         <div class="row">
-            <div class="col-4">
-                <div class="text-center m-auto bg-image">
+            <div class="col-4 p-0">
+                <div class="text-center m-auto bg-image pb-0">
                     <img src="" alt="imagen-del-medicamento" class="img-compra bg-image">
                 </div>
             </div>
-            <div class="row col-8 pe-0">
+            <div class="col-8 p-0">
                 <div class="nombre-medicamento text-center"><strong></strong></div>
 
-                <div class="col-6 m-auto">
-                    <div class="text-center small text-black">$ <span class="precioUnitario"></span></div>
-                    <input type="hidden" name="medicamentos[]['subTotalVenta']" class="precio-total"
-                    value="">
-                </div>
-
-                <div class="col-6 p-0">
-                    <input type="number" name="medicamentos[]['cantidadVendida']"
-                    class="form-control cantidad-vendida" value="1" min="1">
+                <div class="row">
+                    <div class="col-5 align-middle">
+                        <div class="text-center small text-black">$ <span class="precioUnitario"></span></div>
+                        <input type="hidden" name="detalleVenta[]['subTotalVenta']" class="precio-total"
+                        value="">
+                    </div>
+    
+                    <div class="col-5">
+                        <input type="number" name="detalleVenta[]['cantidadVendida']"
+                        class="form-control cantidad-vendida" value="1" min="1">
+                    </div>
                 </div>
             </div>
             

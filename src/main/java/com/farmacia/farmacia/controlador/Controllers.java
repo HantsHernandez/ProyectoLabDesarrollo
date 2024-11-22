@@ -2,7 +2,6 @@ package com.farmacia.farmacia.controlador;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Controllers {
@@ -138,10 +137,5 @@ public class Controllers {
     @GetMapping("/nuevoLaboratorio")
     public String mostrarFormularioLaboratorio() {
         return "fragments/AgregarLaboratorio :: contenido";
-    }
-
-    @GetMapping("/fragmentoVentas")
-    public String mostrarVenta() {
-        return "fragments/NuevaVenta";
     }
 }
