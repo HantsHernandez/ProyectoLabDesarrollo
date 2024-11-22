@@ -48,8 +48,11 @@ public class CategoriaService {
         return this.categoriaRepository.findAll();
     }
 
-    public Page<Categoria> listaCategoriasPaginados(int page, int size){
+    public Page<Categoria> listaCategoriasPaginados(int page, int size, String palabraBuscar){
         Pageable pageable = PageRequest.of(page, size);
+        if(palabraBuscar != null){
+            return this.categoriaRepository.findAll(palabraBuscar, pageable);
+        }
         return this.categoriaRepository.findAll(pageable);
     }
 }

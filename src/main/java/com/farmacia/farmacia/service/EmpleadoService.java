@@ -5,6 +5,7 @@ import com.farmacia.farmacia.DTO.EmpleadoDireccionDTO;
 import com.farmacia.farmacia.entity.Categoria;
 import com.farmacia.farmacia.entity.Direccion;
 import com.farmacia.farmacia.entity.Empleado;
+import com.farmacia.farmacia.entity.Medicamento;
 import com.farmacia.farmacia.repository.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -68,8 +69,11 @@ public class EmpleadoService {
         return this.empleadoRepository.findAll();
     }
 
-    public Page<Empleado> listaEmpleadosPaginados(int page, int size){
+    public Page<Empleado> listaEmpleadosPaginados(int page, int size, String palabraBuscar){
         Pageable pageable = PageRequest.of(page, size);
+        if(palabraBuscar != null){
+            return this.empleadoRepository.findAll(palabraBuscar, pageable);
+        }
         return this.empleadoRepository.findAll(pageable);
     }
 

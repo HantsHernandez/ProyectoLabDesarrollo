@@ -30,6 +30,45 @@ document.body.addEventListener('submit', function(event) {
     }
 });
 
+
+function enviarBusqueda() {
+    const form = document.getElementById("FormFiltro");
+
+    const formData = new FormData(form);
+
+    const formDataObject = {};
+
+    formData.forEach((value, key) => {
+        formDataObject[key] = value;
+    });
+
+        const actionUrl = form.getAttribute('action');
+        console.log("URL de acción: ", actionUrl);
+
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+
+   const params = new URLSearchParams(formDataObject);
+    const url = `${actionUrl}?${params.toString()}&_csrf=${csrfToken}`;
+
+    fetch(url, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            'X-CSRF-Token': csrfToken
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        const divResultado = document.getElementById('contenido-principal');
+                divResultado.innerHTML = html;
+    })
+    .catch(error => {
+        console.error("Error al enviar el formulario: ", error);
+    });
+}
+
+
+
 function guardar_registros(form){
     const formData = new FormData(document.getElementById(form));
     const formDataObject = {};
@@ -56,3 +95,8 @@ function guardar_registros(form){
     })
     .catch(error => console.error('Error en la petición:', error));
 }
+
+
+
+
+

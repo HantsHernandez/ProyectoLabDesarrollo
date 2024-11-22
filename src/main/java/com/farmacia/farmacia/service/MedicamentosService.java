@@ -2,6 +2,7 @@ package com.farmacia.farmacia.service;
 
 import com.farmacia.farmacia.DTO.MedicamentoDTO;
 import com.farmacia.farmacia.DTO.MedicamentoInventarioDTO;
+import com.farmacia.farmacia.entity.Categoria;
 import com.farmacia.farmacia.entity.Empleado;
 import com.farmacia.farmacia.entity.Inventario;
 import com.farmacia.farmacia.entity.Medicamento;
@@ -76,9 +77,12 @@ public class MedicamentosService {
         return this.medicamentoRepository.findAll();
     }
 
-    public Page<Medicamento> listaMedicamentosPaginados(int page, int size){
+    public Page<Medicamento> listaCategoriasPaginados(int page, int size, String palabraBuscar){
         Pageable pageable = PageRequest.of(page, size);
-        return medicamentoRepository.findAll(pageable);
+        if(palabraBuscar != null){
+            return this.medicamentoRepository.findAll(palabraBuscar, pageable);
+        }
+        return this.medicamentoRepository.findAll(pageable);
     }
 
     public MedicamentoDTO obtenerMedicamentoDTO(Long id){

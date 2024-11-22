@@ -1,4 +1,4 @@
-
+/*
 // Seleccionamos los elementos
 const filtroTexto = document.getElementById("filtro-texto");
 const filtroSelect = document.getElementById("filtro-select");
@@ -25,3 +25,4 @@ function filtrarDatos() {
 filtroTexto.addEventListener("input", filtrarDatos); // Al escribir en el input
 filtroSelect.addEventListener("change", filtrarDatos); // Al cambiar la selección
 
+*/

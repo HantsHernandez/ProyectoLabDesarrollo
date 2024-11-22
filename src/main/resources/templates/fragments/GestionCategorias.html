@@ -9,14 +9,17 @@
          <i class="fas fa-plus"></i>
          <span>Agregar Categoría</span>
       </a>
-      <div class="flex items-center space-x-4 mb-4">
-         <input id="filtro-texto" type="text" placeholder="Buscar..."
-            class="border border-gray-300 rounded-lg px-4 py-2" />
-         <select id="filtro-select" class="border border-gray-300 rounded-lg px-4 py-2">
-            <option value="" disabled selected>-- Selecciona por --</option>
-            <option value="categoria">Categoria</option>
-         </select>
+      <div class="flex items-center space-x-4 mb-4" >
+         <form method="get" th:action="@{/fragmentoCategorias}" id="FormFiltro" class="flex items-center space-x-2">
+            <input id="filtro" type="text" placeholder="Buscar..." name="palabraBuscar" th:value="${palabraBuscar}"
+                   class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <button type="submit" onclick="enviarBusqueda()"
+                    class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800">
+               Buscar
+            </button>
+         </form>
       </div>
+
    </div>
 
    <!-- Tabla de categoria -->
@@ -61,10 +64,8 @@
          </tr>
       </tbody>
    </table>
-  <!-- <div th:insert="Plantilla :: paginacion"></div> -->
-   <!-- Ventana modal para ver más detalles -->
    <div th:insert="Plantilla :: ventanaModal"></div>
-  <!-- <div id="fragmento-paginacion" class="pt-5 flex justify-center space-x-2">
+   <div id="fragmento-paginacion" class="pt-5 flex justify-center space-x-2">
       <button th:if="${currentPage > 0}"
               th:onclick="'cargarContenido(\'/fragmentoCategorias?page=' + (${currentPage} - 1) + '&size=5\')'"
               class="rounded-md border border-slate-300 py-2 px-3 text-sm text-gray-600 hover:bg-nuevo hover:text-white">
@@ -82,5 +83,5 @@
               class="rounded-md border border-slate-300 py-2 px-3 text-sm text-gray-600 hover:bg-nuevo hover:text-white">
          Siguiente
       </button>
-   </div>-->
+   </div>
 </div>

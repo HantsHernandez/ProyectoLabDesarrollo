@@ -21,10 +21,6 @@ public class FacturaVenta {
 
     private String fechaHoraFacturacion;
 
-    private float ivaFacturaVenta;
-
-    private float credictoFiscalFacturaVenta;
-
     @ManyToOne
     @JoinColumn(name = "id_metodo_pago")
     private MetodoPago metodoPago;

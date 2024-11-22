@@ -52,11 +52,13 @@ public class HomeController {
     public String fragmentoEmpleados(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
+            @RequestParam(value = "palabraBuscar", required = false) String palabraBuscar,
             Model model) {
-        Page<Empleado> paginacionEmpleados = empleadoService.listaEmpleadosPaginados(page, size);
+        Page<Empleado> paginacionEmpleados = empleadoService.listaEmpleadosPaginados(page, size, palabraBuscar);
         model.addAttribute("listaEmpleados", paginacionEmpleados.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", paginacionEmpleados.getTotalPages());
+        model.addAttribute("palabraBuscar", palabraBuscar);
         return "fragments/GestionEmpleados :: contenido";
     }
 
@@ -64,18 +66,22 @@ public class HomeController {
     public String fragmentoCategorias(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
+            @RequestParam(value = "palabraBuscar", required = false) String palabraBuscar,
             Model model) {
-        Page<Categoria> paginacionCategorias = this.categoriaService.listaCategoriasPaginados(page, size);
+        Page<Categoria> paginacionCategorias = this.categoriaService.listaCategoriasPaginados(page, size, palabraBuscar);
         model.addAttribute("listaCategorias", paginacionCategorias.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", paginacionCategorias.getTotalPages());
+        model.addAttribute("palabraBuscar", palabraBuscar); // Para persistir la búsqueda en la vista
         return "fragments/GestionCategorias :: contenido";
     }
+
 
     @GetMapping("/fragmentoMarcas")
     public String fragmentoMarca(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
+
             Model model) {
         Page<Marca> paginacionMarca = this.marcaService.listaMarcasPaginados(page, size);
         model.addAttribute("listaMarcas", paginacionMarca.getContent());
@@ -88,11 +94,13 @@ public class HomeController {
     public String fragmentoMedicamentos(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
+            @RequestParam(value = "palabraBuscar", required = false) String palabraBuscar,
             Model model) {
-        Page<Medicamento> paginacionMedicamentos = medicamentosService.listaMedicamentosPaginados(page, size);
+        Page<Medicamento> paginacionMedicamentos = medicamentosService.listaCategoriasPaginados(page, size,palabraBuscar);
         model.addAttribute("listaMedicamentos", paginacionMedicamentos.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", paginacionMedicamentos.getTotalPages());
+        model.addAttribute("palabraBuscar", palabraBuscar);
         return "fragments/GestionMedicamentos :: contenido";
     }
 

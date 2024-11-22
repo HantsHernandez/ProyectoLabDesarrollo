@@ -1,4 +1,7 @@
 package com.farmacia.farmacia.controller;
+import com.farmacia.farmacia.entity.FacturaVenta;
+import com.farmacia.farmacia.entity.Venta;
+import com.farmacia.farmacia.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,9 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
-import com.farmacia.farmacia.service.ClienteService;
-import com.farmacia.farmacia.service.MedicamentosService;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +29,15 @@ public class VentaController {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private VentaService ventaService;
+
+    @Autowired
+    private DetalleVentaService detalleVentaService;
+
+    @Autowired
+    private FacturasVentaService facturasVentaService;
+
     @GetMapping("/fragmentoVentas")
     public String mostrarVenta(Model model) {
         model.addAttribute("listaMedicamentos", medicamentosService.listaMedicamentos());
@@ -36,21 +45,27 @@ public class VentaController {
         return "fragments/NuevaVenta";
     }
 
-    
     @PostMapping("/guardarVenta")
     public String guardarVenta(
         @RequestParam("detalleVenta[]['idMedicamento']") List<Long> idsMedicamentos,
         @RequestParam("detalleVenta[]['precioUnitario']") List<Float> precios,
         @RequestParam("detalleVenta[]['cantidadVendida']") List<Integer> cantidades,
-        @RequestParam("totalVenta") Double totalVenta,
+        @RequestParam("totalVenta") float totalVenta,
         @RequestParam("idCliente") Long idCliente,
         Model model
     ) {
+        Venta venta = this.ventaService.agregarVenta(totalVenta, idCliente);
+        FacturaVenta facturaVenta = this.facturasVentaService.agregarFactura(totalVenta);
+
+
         List<DetalleVenta> detalleVenta = new ArrayList<>();
         for (int i = 0; i < idsMedicamentos.size(); i++) {
             DetalleVenta detalle = new DetalleVenta();
             detalle.setPrecioUnitario(precios.get(i));
             detalle.setCantidadVendida(cantidades.get(i));
+            detalle.setVenta(venta);
+            detalle.setFacturaVenta(facturaVenta);
+            detalle.setMedicamento(this.medicamentosService.obtenerMedicamento(idsMedicamentos.get(i)));
             detalleVenta.add(detalle);
         }
     
@@ -59,7 +74,7 @@ public class VentaController {
             System.out.println("Precio Unitario: " + detalle.getPrecioUnitario());
             System.out.println("Cantidad Vendida: " + detalle.getCantidadVendida());
         }
-        System.out.println("Total venta: " + totalVenta.toString());
+        System.out.println("Total venta: " + totalVenta);
         System.out.println("idCliente: " + idCliente.toString());
 
         model.addAttribute("listaMedicamentos", medicamentosService.listaMedicamentos());
