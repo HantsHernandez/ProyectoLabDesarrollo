@@ -136,6 +136,21 @@
             </textarea>
          </div>
 
+         <!-- Imagen  -->
+         <div>
+            <label for="imagen" class="block text-gray-600 font-semibold mb-2">Imagen</label>
+
+            <div>
+               <img id="previewImagen" th:src="${medicamento != null && medicamento.urlImagen != null ? medicamento.urlImagen : '/img/imgMedPredeterminado.jpg'}"
+                    alt="Imagen actual" class="w-20 h-20 object-cover rounded-full mb-4">
+            </div>
+
+            <input type="file" id="imagen" name="imagen"
+                   class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 file:bg-blue-500 file:text-white file:border-0 file:rounded file:py-2 file:px-4 hover:file:bg-blue-600"
+                   accept="image/*" onchange="actualizarVistaPrevia(this)">
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG o GIF (MAX. 800x400px).</p>
+         </div>
+
          <input type="hidden" name="medicamento.idMedicamentos" th:value="${medicamento != null ? medicamento.idMedicamentos : ''}">
          <input type="hidden" name="inventario.idInventario" th:value="${medicamento != null ? medicamento.inventario.idInventario : ''}">
 

@@ -27,6 +27,7 @@
       <thead>
          <tr class="bg-nuevo text-gray-200">
             <th class="py-2 px-4 whitespace-nowrap">ID Medicamento</th>
+            <th class="py-2 px-4 whitespace-nowrap">Imagen</th>
             <th class="py-2 px-4 whitespace-nowrap">Medicamento</th>
             <th class="py-2 px-4 whitespace-nowrap">Fecha Vencimiento</th>
             <th class="py-2 px-4 whitespace-nowrap">Precio Venta</th>
@@ -38,6 +39,9 @@
       <tbody class="text-center font-light">
          <tr class="hover:bg-green-100" th:each="medicamento : ${listaMedicamentos}">
             <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.idMedicamentos}"></td>
+            <td class="py-3 px-4 border-b border-r border-l">
+               <img th:src="@{${medicamento.urlImagen}}" alt="Imagen de empleado" class="w-8 h-8 object-cover rounded-full mx-auto">
+            </td>
             <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.nombreMedicamento}"></td>
             <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.fechaVencimiento}"></td>
             <td class="py-3 px-4 border-b border-r border-l" th:text="${medicamento.precioVenta}"></td>

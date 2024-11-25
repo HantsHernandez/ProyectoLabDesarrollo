@@ -44,9 +44,7 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String login(){
-        return "Login";
-    }
+    public String login(){ return "login"; }
 
     @GetMapping("/fragmentoEmpleados")
     public String fragmentoEmpleados(

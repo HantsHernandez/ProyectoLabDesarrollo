@@ -1,12 +1,14 @@
 package com.farmacia.farmacia.service;
 
 import com.farmacia.farmacia.entity.FacturaVenta;
+import com.farmacia.farmacia.entity.Venta;
 import com.farmacia.farmacia.repository.FacturasVentaRepository;
 import com.farmacia.farmacia.repository.MetodoPagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class FacturasVentaService {
@@ -15,13 +17,14 @@ public class FacturasVentaService {
     private FacturasVentaRepository facturasVentaRepository;
 
     @Autowired
-    private MetodoPagoRepository metodoPagoService;
+    private MetodoPagoService metodoPagoService;
 
-    public FacturaVenta agregarFactura(float total){
+    public FacturaVenta agregarFactura(Venta venta){
         FacturaVenta facturaVenta = new FacturaVenta();
-        //facturaVenta.setIvaFacturaVenta(total * (16/100));
-        //facturaVenta.setMetodoPago(metodoPagoService.findById(1L).get());
+        facturaVenta.setNumeroFactura(UUID.randomUUID().toString());
         facturaVenta.setFechaHoraFacturacion(LocalDateTime.now().toString());
+        facturaVenta.setVenta(venta);
+        facturaVenta.setMetodoPago(this.metodoPagoService.obtenerMetodoPago(1L));
         return facturasVentaRepository.save(facturaVenta);
     }
 

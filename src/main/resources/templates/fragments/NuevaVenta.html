@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" th:href="@{./css/ventas.css}" xmlns:th="http://www.w3.org/1999/xhtml">
 <div class="row">
     <div class="col-8">
@@ -24,7 +23,7 @@
 
                             <div class="card-body p-1">
                                 <div class="d-flex justify-content-center bg-image">
-                                    <img src="https://walmartsv.vtexassets.com/arquivos/ids/446757/Acetaminof-n-Mk-500-Mg-20-Tabletas-2-1308.jpg?v=638503797665300000"
+                                    <img th:src="${item.urlImagen}"
                                      alt="imagen-del-medicamento" class="img-medicamento">
                                 </div>
                                 <div><strong class="nombre-medicamento text-center" th:text="${ item.nombreMedicamento }"></strong></div>

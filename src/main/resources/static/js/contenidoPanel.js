@@ -23,33 +23,25 @@ function mostrarDashboard() {
         <img src="../img/logoFarmaciaPanel.svg" alt="logoFarmacia" srcset="" width="312px" height="280px">
     `;
 }
-
+/*
 document.body.addEventListener('submit', function(event) {
     if (event.target.tagName === 'FORM') {
         event.preventDefault();
     }
 });
-
-
+*/
 function enviarBusqueda() {
     const form = document.getElementById("FormFiltro");
-
     const formData = new FormData(form);
-
     const formDataObject = {};
-
     formData.forEach((value, key) => {
         formDataObject[key] = value;
     });
-
         const actionUrl = form.getAttribute('action');
         console.log("URL de acción: ", actionUrl);
-
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-
-   const params = new URLSearchParams(formDataObject);
+    const params = new URLSearchParams(formDataObject);
     const url = `${actionUrl}?${params.toString()}&_csrf=${csrfToken}`;
-
     fetch(url, {
         method: "GET",
         headers: {
@@ -67,12 +59,9 @@ function enviarBusqueda() {
     });
 }
 
-
-
 function guardar_registros(form){
     const formData = new FormData(document.getElementById(form));
     const formDataObject = {};
-
 
     formData.forEach((value, key) => {
         formDataObject[key] = value;
@@ -96,7 +85,23 @@ function guardar_registros(form){
     .catch(error => console.error('Error en la petición:', error));
 }
 
+function actualizarVistaPrevia(input) {
+    console.log("Intentando cargar nueva imagen...");
 
+    const preview = document.getElementById('previewImagen');
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(input.files[0]); // Lee el archivo seleccionado
+    } else {
+        preview.src = '/img/imgEmpPredeterminado.jpg'; // Restaura la imagen predeterminada
+    }
+}
 
 
 

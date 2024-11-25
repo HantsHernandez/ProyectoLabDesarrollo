@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MetodoPagoRepository extends JpaRepository<MetodoPago, Long> {
+
 }

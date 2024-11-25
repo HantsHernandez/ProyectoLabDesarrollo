@@ -37,6 +37,8 @@ public class Empleado {
 
     private String correoEmpleado;
 
+    private String urlImagen;
+
     @ManyToOne
     @JoinColumn(name = "id_direccion")
     private Direccion direccion;

@@ -12,10 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @Controller
 public class EmpleadoControlador {
@@ -31,13 +35,29 @@ public class EmpleadoControlador {
 
     // CRUD
     @PostMapping("/guardar-empleado")
-    public String guardarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO) {
+    public String guardarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO,
+                                  @RequestParam(required = false) MultipartFile imagen) throws IOException {
+        if(imagen.isEmpty()){
+            empleadoDireccionDTO.getEmpleado().setUrlImagen("/img/imgEmpPredeterminado.jpg");
+        }else{
+            String direccionImagen = UUID.randomUUID().toString() + imagen.getOriginalFilename();
+            Path path = Paths.get("C:/aplicacionFarmacia/img/" + direccionImagen);
+            Files.write(path, imagen.getBytes());
+            empleadoDireccionDTO.getEmpleado().setUrlImagen("/img/" + direccionImagen);
+        }
         this.empleadoService.guardarEmpleado(empleadoDireccionDTO);
         return "redirect:/fragmentoEmpleados";
     }
 
     @PostMapping("/actualizar-empleado")
-    public String actualizarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO){
+    public String actualizarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO,
+                                     @RequestParam(required = false) MultipartFile imagen) throws IOException {
+        if(!imagen.isEmpty()){
+            String direccionImagen = UUID.randomUUID().toString() + imagen.getOriginalFilename();
+            Path path = Paths.get("C:/aplicacionFarmacia/img/" + direccionImagen);
+            Files.write(path, imagen.getBytes());
+            empleadoDireccionDTO.getEmpleado().setUrlImagen("/img/" + direccionImagen);
+        }
         this.empleadoService.actualizarEmpleado(empleadoDireccionDTO);
         return "redirect:/fragmentoEmpleados";
     }
@@ -49,7 +69,6 @@ public class EmpleadoControlador {
     }
 
     // Vistas
-
     @GetMapping("/guardar-empleado")
     public String mostrarFormularioGuardar(Model model) {
         model.addAttribute("empleado", null);

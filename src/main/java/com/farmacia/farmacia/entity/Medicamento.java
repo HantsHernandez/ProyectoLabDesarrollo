@@ -33,6 +33,8 @@ public class Medicamento {
 
     private float precioVenta;
 
+    private String urlImagen;
+
     @ManyToOne
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;

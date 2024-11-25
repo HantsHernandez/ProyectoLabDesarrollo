@@ -14,7 +14,7 @@
             <form method="get" th:action="@{/fragmentoEmpleados}" id="FormFiltro" class="flex items-center space-x-2">
                 <input id="filtro" type="text" placeholder="Buscar..." name="palabraBuscar" th:value="${palabraBuscar}"
                        class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                <button type="submit" onclick="enviarBusqueda()"
+                <button type="button" onclick="enviarBusqueda()"
                         class="bg-nuevo text-white px-4 py-2 rounded hover:bg-green-800">
                     Buscar
                 </button>
@@ -27,6 +27,7 @@
             <thead>
                 <tr class="bg-nuevo text-gray-200">
                     <th class="py-2 px-4 whitespace-nowrap">ID Empleado</th>
+                    <th class="py-2 px-4 whitespace-nowrap">Imagen</th>
                     <th class="py-2 px-4 whitespace-nowrap">Nombres</th>
                     <th class="py-2 px-4 whitespace-nowrap">Apellidos</th>
                     <th class="py-2 px-4 whitespace-nowrap">DUI</th>
@@ -39,6 +40,9 @@
             <tbody class="text-center font-light">
                 <tr class="hover:bg-green-100" th:each="empleado: ${listaEmpleados}">
                     <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.idEmpleado}"></td>
+                    <td class="py-3 px-4 border-b border-r border-l">
+                        <img th:src="@{${empleado.urlImagen}}" alt="Imagen de empleado" class="w-8 h-8 object-cover rounded-full mx-auto">
+                    </td>
                     <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.nombreEmpleado}"></td>
                     <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.apellidoEmpleado}"></td>
                     <td class="py-3 px-4 border-b border-r border-l" th:text="${empleado.duiEmpleado}"></td>

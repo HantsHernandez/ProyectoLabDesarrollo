@@ -19,12 +19,16 @@ public class FacturaVenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFacturaVenta;
 
+    private String numeroFactura;
+
     private String fechaHoraFacturacion;
+
+    @OneToOne()
+    @JoinColumn(name = "id_venta", nullable = false)
+    private Venta venta;
 
     @ManyToOne
     @JoinColumn(name = "id_metodo_pago")
     private MetodoPago metodoPago;
 
-    @OneToMany(mappedBy = "facturaVenta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleVenta>listaDetalleVenta;
 }

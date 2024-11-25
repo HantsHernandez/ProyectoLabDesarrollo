@@ -87,19 +87,26 @@
             <div>
                <label for="direccion" class="block text-gray-600 font-semibold">Direccion</label>
                <input type="text" id="direccion" name="direccion.linea1" class="w-full p-2 border border-gray-300 rounded mt-1"
-                      placeholder="Ingrese su direccion"  th:value="${empleado != null ? empleado.direccion.linea1 : ''}" required>
+                      placeholder="Ingrese una imagen"  th:value="${empleado != null ? empleado.direccion.linea1 : ''}" required>
             </div>
 
-            <!-- Sucursal -->
-            <!--<div>
-               <label for="idSucursal" class="block text-gray-600 font-semibold">Sucursal</label>
-               <select id="idSucursal" name="idSucursal" class="w-full p-2 border border-gray-300 rounded mt-1"
-                  required>
-                  <option value="" disabled selected>-- Seleccione una sucursal --</option>
-                  <option value="1">Sucursal Este</option>
-                  <option value="2">Sucursal Oeste</option>
-               </select>
-            </div> -->
+            <!-- Imagen  -->
+            <div>
+               <label for="imagen" class="block text-gray-600 font-semibold mb-2">Imagen</label>
+
+               <div>
+                  <img id="previewImagen" th:src="${empleado != null && empleado.urlImagen != null ? empleado.urlImagen : '/img/imgEmpPredeterminado.jpg'}"
+                       alt="Imagen actual" class="w-20 h-20 object-cover rounded-full mb-4">
+               </div>
+
+               <input type="file" id="imagen" name="imagen"
+                      class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 file:bg-blue-500 file:text-white file:border-0 file:rounded file:py-2 file:px-4 hover:file:bg-blue-600"
+                      accept="image/*" onchange="actualizarVistaPrevia(this)">
+               <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG o GIF (MAX. 800x400px).</p>
+            </div>
+
+
+
             <input type="hidden" name="empleado.idEmpleado" th:value="${empleado != null ? empleado.idEmpleado : ''}">
             <input type="hidden" name="direccion.idDireccion" th:value="${empleado != null ? empleado.direccion.idDireccion : ''}">
          </div>

@@ -2,8 +2,6 @@ package com.farmacia.farmacia.service;
 
 import com.farmacia.farmacia.DTO.MedicamentoDTO;
 import com.farmacia.farmacia.DTO.MedicamentoInventarioDTO;
-import com.farmacia.farmacia.entity.Categoria;
-import com.farmacia.farmacia.entity.Empleado;
 import com.farmacia.farmacia.entity.Inventario;
 import com.farmacia.farmacia.entity.Medicamento;
 import com.farmacia.farmacia.repository.MedicamentoRepository;
@@ -13,6 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -57,6 +59,19 @@ public class MedicamentosService {
                             medicamento.setPrecioCompra(medicamentoActualizado.getPrecioCompra());
                             medicamento.setPrecioVenta(medicamentoActualizado.getPrecioVenta());
                             medicamento.setInventario(medicamentoActualizado.getInventario());
+                            if(medicamento.getUrlImagen().equals("/img/imgMedPredeterminado.jpg") && medicamentoActualizado.getUrlImagen() != null){
+                                medicamento.setUrlImagen(medicamentoActualizado.getUrlImagen());
+                            }else if(!medicamento.getUrlImagen().equals("/img/imgEmpPredeterminado.jpg") && medicamentoActualizado.getUrlImagen() != null) {
+                                Path path = Paths.get("C:/aplicacionFarmacia" + medicamento.getUrlImagen());
+                                if(Files.exists(path)){
+                                    try {
+                                        Files.delete(path);
+                                        medicamento.setUrlImagen(medicamentoActualizado.getUrlImagen());
+                                    } catch (IOException e) {
+                                        throw new RuntimeException("Error al eliminar la imagen anterior", e);
+                                    }
+                                }
+                            }
                             return medicamento;
                         }).orElseThrow(() -> new RuntimeException("MEDICAMENTO NO IDENTIFICADO")));
     }
@@ -99,6 +114,14 @@ public class MedicamentosService {
         medicamentoDTO.setPresentacion(medicamento.getPresentacion().getNombrePresentacion());
         medicamentoDTO.setDosis(medicamento.getDosisMedicamento());
         return medicamentoDTO;
+    }
+
+    public Medicamento actualizarStock(Long id, int cantidadComprada){
+        Medicamento medicamento = this.obtenerMedicamento(id);
+        int cantidadStockActualizada = medicamento.getInventario().getCantidadStock() - cantidadComprada;
+        medicamento.getInventario().setCantidadStock(cantidadStockActualizada);
+        this.medicamentoRepository.save(medicamento);
+        return  medicamento;
     }
 
 }

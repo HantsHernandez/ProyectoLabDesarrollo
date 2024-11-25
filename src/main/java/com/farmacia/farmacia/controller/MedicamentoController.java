@@ -2,17 +2,22 @@ package com.farmacia.farmacia.controller;
 
 import com.farmacia.farmacia.DTO.MedicamentoDTO;
 import com.farmacia.farmacia.DTO.MedicamentoInventarioDTO;
-import com.farmacia.farmacia.entity.*;
 import com.farmacia.farmacia.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class MedicamentoController {
@@ -50,14 +55,32 @@ public class MedicamentoController {
 
     // CRUD
     @PostMapping("/guardar-medicamento")
-    public String guardarMedicamento(MedicamentoInventarioDTO medicamentoDTO) {
+    public String guardarMedicamento(MedicamentoInventarioDTO medicamentoDTO,
+                                     @RequestParam(required = false)MultipartFile imagen) throws IOException {
+        if(imagen.isEmpty()){
+            medicamentoDTO.getMedicamento().setUrlImagen("/img/imgEmpPredeterminado.jpg");
+        }else{
+            String direccionImagen = UUID.randomUUID().toString() + imagen.getOriginalFilename();
+            Path path = Paths.get("C:/aplicacionFarmacia/img/" + direccionImagen);
+            System.out.println("valor"  + imagen.getOriginalFilename());
+            System.out.println("Valor"  + imagen.getContentType());
+            Files.write(path, imagen.getBytes());
+            medicamentoDTO.getMedicamento().setUrlImagen("/img/" + direccionImagen);
+        }
         this.medicamentosService.agregarMedicamento(medicamentoDTO);
         return "redirect:/fragmentoMedicamentos";
     }
 
     @PostMapping("/actualizar-medicamento")
-    public String actualizarEmpleado(MedicamentoInventarioDTO medicamentoInventarioDTO){
-        this.medicamentosService.actualizarMedicamento(medicamentoInventarioDTO);
+    public String actualizarEmpleado(MedicamentoInventarioDTO medicamentoDTO,
+                                     @RequestParam(required = false)MultipartFile imagen) throws IOException {
+        if(!imagen.isEmpty()){
+            String direccion = UUID.randomUUID().toString() + imagen.getOriginalFilename();
+            Path path = Paths.get("C:/aplicacionFarmacia/img/" + direccion);
+            Files.write(path, imagen.getBytes());
+            medicamentoDTO.getMedicamento().setUrlImagen("/img/" + direccion);
+        }
+        this.medicamentosService.actualizarMedicamento(medicamentoDTO);
         return "redirect:/fragmentoMedicamentos";
     }
 

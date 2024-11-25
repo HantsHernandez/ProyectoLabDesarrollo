@@ -13,6 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -34,7 +39,7 @@ public class EmpleadoService {
         return this.empleadoRepository.findById(id).orElseThrow(() -> new RuntimeException("USUARIO NO ENCONTRADO"));
     }
 
-    public Empleado actualizarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO){
+    public Empleado actualizarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO) {
         Direccion direccion = this.direccionService.actualizarDireccion(empleadoDireccionDTO.getDireccion());
         empleadoDireccionDTO.getEmpleado().setDireccion(direccion);
         Empleado empleadoActualizado = empleadoDireccionDTO.getEmpleado();
@@ -50,6 +55,19 @@ public class EmpleadoService {
                     empleado.setFechaNacEmpleado(empleadoActualizado.getFechaNacEmpleado());
                     empleado.setTelefonoEmpleado(empleadoActualizado.getTelefonoEmpleado());
                     empleado.setDireccion(empleadoActualizado.getDireccion());
+                    if(empleado.getUrlImagen().equals("/img/imgEmpPredeterminado.jpg") && empleadoActualizado.getUrlImagen() != null){
+                        empleado.setUrlImagen(empleadoActualizado.getUrlImagen());
+                    }else if(!empleado.getUrlImagen().equals("/img/imgEmpPredeterminado.jpg") && empleadoActualizado.getUrlImagen() != null) {
+                        Path path = Paths.get("C:/aplicacionFarmacia" + empleado.getUrlImagen());
+                        if(Files.exists(path)){
+                            try {
+                                Files.delete(path);
+                                empleado.setUrlImagen(empleadoActualizado.getUrlImagen());
+                            } catch (IOException e) {
+                                throw new RuntimeException("Error al eliminar la imagen anterior", e);
+                            }
+                        }
+                    }
                     return empleado;
                 }).orElseThrow(() -> new RuntimeException("USUARIO NO ENCONTRADO")));
     }
