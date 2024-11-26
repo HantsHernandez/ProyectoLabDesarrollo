@@ -33,13 +33,13 @@ public class WebSecurityConfig {
                 .userDetailsService(usuarioService)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
-                            .requestMatchers("/index","/css/**", "/js/**", "/img/**")
+                            /*.requestMatchers("/index","/css/**", "/js/**", "/img/**")
                             .permitAll()
                             .anyRequest()
-                            .permitAll();
+                            .permitAll();*/
                     // Activar al final o minimo tener un usuario creado
-                            /*.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                            .anyRequest().authenticated();*/
+                            .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                            .anyRequest().authenticated();
                 }).formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer
                             .loginPage("/login")

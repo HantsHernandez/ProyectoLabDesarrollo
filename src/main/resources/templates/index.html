@@ -76,7 +76,7 @@
                <i class="ri-arrow-right-s-line ml-auto"></i>
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
-               <li><a href="#" onclick="cargarContenido('/fragmentoEmpleados')"
+               <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"><a href="#" onclick="cargarContenido('/fragmentoEmpleados')"
                      class="text-gray-300 text-sm hover:text-gray-100">Empleados</a></li>
             </ul>
          </li>
@@ -89,21 +89,21 @@
                <i class="ri-arrow-right-s-line ml-auto"></i>
             </a>
             <ul class="pl-7 mt-2 hidden group-[.active]:block">
-               <li><a href="#" onclick="cargarContenido('/fragmentoCategorias')"
+               <li sec:authorize="hasRole('ROLE_ADMIN',)"><a href="#" onclick="cargarContenido('/fragmentoCategorias')"
                      class="text-gray-300 text-sm hover:text-gray-100">Categorías</a></li>
-               <li><a href="#" onclick="cargarContenido('/fragmentoMarcas')"
+               <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" onclick="cargarContenido('/fragmentoMarcas')"
                      class="text-gray-300 text-sm hover:text-gray-100">Marcas</a></li>
-               <li><a href="#" onclick="cargarContenido('/fragmentoPresentacionMedicamentos')"
+               <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" onclick="cargarContenido('/fragmentoPresentacionMedicamentos')"
                      class="text-gray-300 text-sm hover:text-gray-100">Presentaciones de Medicamentos</a></li>
-               <li><a href="#" onclick="cargarContenido('/fragmentoMedicamentos')"
+               <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"><a href="#" onclick="cargarContenido('/fragmentoMedicamentos')"
                      class="text-gray-300 text-sm hover:text-gray-100">Medicamentos</a></li>
-               <li><a href="#" onclick="cargarContenido('/fragmentoLaboratorios')"
+               <li sec:authorize="hasRole('ROLE_ADMIN')"><a  href="#" onclick="cargarContenido('/fragmentoLaboratorios')"
                      class="text-gray-300 text-sm hover:text-gray-100">Laboratorios</a></li>
             </ul>
          </li>
 
          <!-- Gestión de Ventas -->
-         <li class="mb-1 group">
+         <li class="mb-1 group" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
             <a href="#"
                class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md sidebar-dropdown-toggle">
                <i class="ri-hand-coin-line mr-3 text-lg"></i> <span class="text-sm">Gestión de Ventas</span>
@@ -120,14 +120,14 @@
          </li>
 
          <!-- Gestión de Usuarios y Roles -->
-         <li class="mb-1 group">
+         <li class="mb-1 group" sec:authorize="hasRole('ROLE_ADMIN')">
             <a href="#"
                class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md sidebar-dropdown-toggle">
                <i class="ri-user-settings-line mr-3 text-lg"></i> <span class="text-sm">Gestión de Usuarios y
                   Roles</span>
                <i class="ri-arrow-right-s-line ml-auto"></i>
             </a>
-            <ul class="pl-7 mt-2 hidden group-[.active]:block">
+            <ul class="pl-7 mt-2 hidden group-[.active]:block" >
                <li><a href="#" onclick="cargarContenido('/fragmentoUsuario')"
                      class="text-gray-300 text-sm hover:text-gray-100">- Usuarios</a></li>
             </ul>
