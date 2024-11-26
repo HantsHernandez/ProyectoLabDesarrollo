@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,7 @@ public class VentaService {
     @Autowired
     private FacturasVentaService facturasVentaService;
 
-    public Venta agregarVenta(float totalVenta, int totalVentaProducto, Long idCliente){
+    public Venta agregarVenta(float totalVenta, int totalVentaProducto, Long idCliente, Long idMetodoPago){
         Optional<Usuario> oUsuario = this.usuarioRepository.findByNombre(SecurityContextHolder.getContext().getAuthentication().getName());
         if (oUsuario.isPresent()) {
             Usuario usuario = oUsuario.get();
@@ -39,7 +40,7 @@ public class VentaService {
                     .empleado(usuario.getEmpleado())
                     .build();
             venta = ventaRepository.save(venta);
-            facturasVentaService.agregarFactura(venta);
+            venta.setFacturaVenta(facturasVentaService.agregarFactura(venta, idMetodoPago));
             return venta;
         } else {
             //Es porque no se autentificado
@@ -50,5 +51,9 @@ public class VentaService {
     public Venta obtenerVenta(Long id){
         return this.ventaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("VENTA NO IDENTIFICADA"));
+    }
+
+    public List<Venta> listaVentas(){
+        return this.ventaRepository.findAll();
     }
 }

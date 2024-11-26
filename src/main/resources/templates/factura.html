@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{./css/output.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <title>Factura</title>
-
     <style>
         @page {
             size: A4;
@@ -21,44 +17,52 @@
         }
 
         .invoice-container {
-            width: 100%;
-            max-width: 210mm; /* Tamaño A4 */
-            margin: 0 auto;
-            padding: 10mm;
             background-color: white;
-            border: 1px solid #ddd;
+            border: 2px solid #4CAF50; /* Borde verde */
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            min-height: 270mm; /* Aumenta la altura mínima */
-            display: flex;
-            flex-direction: column;
+            padding: 10mm;
+            min-height: 230mm;
         }
 
         .invoice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            width: 100%;
+            display: table;
             margin-bottom: 20px;
         }
 
+        .invoice-header div {
+            display: table-cell;
+            vertical-align: top;
+        }
+
         .invoice-header h1 {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
+            color: #4CAF50; /* Título verde */
+            margin: 0;
+        }
+
+        .invoice-header p {
             color: #333;
         }
 
         .invoice-header img {
+            display: block;
             height: 50px;
+            margin-left: auto;
         }
 
         .invoice-details {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
+            border-bottom: 2px solid #4CAF50; /* Línea verde */
+            padding-bottom: 10px;
         }
 
         .invoice-details p {
             margin: 0;
+            color: #333;
         }
 
         .table-container {
@@ -71,18 +75,25 @@
             border-collapse: collapse;
         }
 
-        .table-container th, .table-container td {
-            padding: 8px;
+        .table-container th,
+        .table-container td {
+            padding: 10px;
             border: 1px solid #ddd;
             text-align: left;
         }
 
         .table-container th {
-            background-color: #f2f2f2;
+            background-color: #4CAF50; /* Fondo verde */
+            color: white;
+        }
+
+        .table-container td {
+            background-color: #f9f9f9;
         }
 
         .total-row {
-            background-color: #f2f2f2;
+            background-color: #4CAF50; /* Fondo verde para total */
+            color: white;
             font-weight: bold;
         }
 
@@ -91,25 +102,27 @@
             font-size: 12px;
             color: #777;
             margin-top: 30px;
-            margin-bottom: 10mm; /* Asegura que haya espacio en la parte inferior */
         }
 
-        /* Espaciado para el contenido */
-        .content-flex {
-            flex-grow: 1;
+        .footer p {
+            margin: 5px 0;
+            color: #4CAF50; /* Texto verde */
         }
     </style>
 </head>
 
-<body class="text-gray-800 font-inter flex flex-col h-screen w-full">
+<body>
 <div class="invoice-container">
+    <!-- Cabecera de la factura -->
     <div class="invoice-header">
         <div>
             <h1>FarmaLink</h1>
             <p>Urb Jardines de San Antonio Pasaje 20 casa #221</p>
             <p>Teléfono: +503 7221-3432</p>
         </div>
-        <img src="/img/logoFarmacia.svg" alt="Logo">
+        <div>
+            <img src="file:/C:/aplicacionFarmacia/img/logoFarmaciaPanel.png" alt="Logo" />
+        </div>
     </div>
 
     <!-- Detalles de la factura -->
@@ -117,13 +130,11 @@
         <div>
             <p>
                 <strong>Cliente:</strong>
-                <span th:text='${cliente.nombresCliente +" " + cliente.apellidosCliennte}'></span>
+                <span th:text='${cliente.nombresCliente + " " + cliente.apellidosCliennte}'></span>
             </p>
             <p>
                 <strong>Factura N°:</strong> #000123
-                <span></span>
             </p>
-            <!-- th:text="${venta.facturaVenta.numeroFactura}"-->
         </div>
         <div>
             <p>
@@ -133,7 +144,8 @@
         </div>
     </div>
 
-    <div class="table-container content-flex">
+    <!-- Tabla de detalles -->
+    <div class="table-container">
         <table>
             <thead>
             <tr>
@@ -144,19 +156,19 @@
                 <th>Subtotal</th>
             </tr>
             </thead>
-            <tbody th:each="detalles : ${listaDetalles}">
-                <tr>
-                    <td th:text="${detalles.medicamento.nombreMedicamento}"></td>
-                    <td th:text="${detalles.medicamento.descripcionMedicamento}"></td>
-                    <td th:text="${detalles.cantidadVendida}"></td>
-                    <td th:text="${detalles.precioUnitario}"></td>
-                    <td th:text="${detalles.subTotalVendida}"></td>
-                </tr>
+            <tbody th:each="detalle : ${listaDetalles}">
+            <tr>
+                <td th:text="${detalle.medicamento.nombreMedicamento}"></td>
+                <td th:text="${detalle.medicamento.descripcionMedicamento}"></td>
+                <td th:text="${detalle.cantidadVendida}"></td>
+                <td th:text="${detalle.precioUnitario}"></td>
+                <td th:text="${detalle.subTotalVendida}"></td>
+            </tr>
             </tbody>
             <tfoot>
-            <tr class="total-row">
-                <td colspan="4" style="text-align: right;">Total:</td>
-                <td th:text="${venta.totalVenta}"></td>
+            <tr class="total-row color: black;">
+                <td colspan="4" style="text-align: right; font-weight: bold; color: black;">Total:</td>
+                <td th:text="${venta.totalVenta}" style="color: black;"></td>
             </tr>
             </tfoot>
         </table>

@@ -42,6 +42,7 @@ public class HomeController {
     @Autowired
     private VentaService ventaService;
 
+
     @GetMapping("/index")
     public String getIndex(){
         return "index";
@@ -127,11 +128,17 @@ public class HomeController {
 
     @GetMapping("/factura")
     public String prueba(Model model){
-        Venta venta = this.ventaService.obtenerVenta(8L);
+        Venta venta = this.ventaService.obtenerVenta(2L);
         model.addAttribute("listaDetalles",venta.getListaDetalle());
         model.addAttribute("cliente", venta.getCliente());
         model.addAttribute("venta", venta);
         return "factura";
+    }
+
+    @GetMapping("/fragmentoDetallesVentas")
+    public String prueba2(Model model){
+        model.addAttribute("listaVentas",this.ventaService.listaVentas());
+        return "fragments/GestionDetallesVentas";
     }
 
 }

@@ -70,6 +70,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td colspan="2">
+                                <label for="" class="text-blac small">Metodo de Pago: </label>
+                                <select name="idMetodoPago" id="" class="form-control">
+                                    <option th:each="metodo : ${listaMetodosPagos}" th:value="${metodo.idMetodoPago}" th:text="${metodo.nombreMetodo}" >Seleccionar</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td><strong>Total:</strong></td>
                             <td>
                                 <input type="hidden" name="totalVenta" class="subtotal-venta" value="0">

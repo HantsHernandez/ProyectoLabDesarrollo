@@ -15,8 +15,9 @@
    <table class="min-w-full bg-white border border-gray-300">
       <thead>
          <tr class="bg-nuevo text-gray-200">
-            <th class="py-2 px-4 whitespace-nowrap">ID Detalle</th>
+            <th class="py-2 px-4 whitespace-nowrap">ID Venta</th>
             <th class="py-2 px-4 whitespace-nowrap">Cliente</th>
+            <th class="py-2 px-4 whitespace-nowrap">Atendido</th>
             <th class="py-2 px-4 whitespace-nowrap">Fecha y Hora</th>
             <th class="py-2 px-4 whitespace-nowrap">Método de Pago</th>
             <th class="py-2 px-4 whitespace-nowrap">Total</th>
@@ -24,12 +25,13 @@
          </tr>
       </thead>
       <tbody class="text-center font-light">
-         <tr class="hover:bg-green-100">
-            <td class="py-3 px-4 border-b border-r border-l"></td>
-            <td class="py-3 px-4 border-b border-r border-l"></td>
-            <td class="py-3 px-4 border-b border-r border-l"></td>
-            <td class="py-3 px-4 border-b border-r border-l"></td>
-            <td class="py-3 px-4 border-b border-r border-l"></td>
+         <tr class="hover:bg-green-100" th:each="venta : ${listaVentas}">
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${venta.idVenta}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${venta.cliente.nombresCliente}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${venta.empleado.nombreEmpleado}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${venta.facturaVenta.fechaHoraFacturacion}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${venta.facturaVenta.metodoPago.nombreMetodo}"></td>
+            <td class="py-3 px-4 border-b border-r border-l" th:text="${venta.totalVenta}"></td>
             <td class="py-3 px-4 border-b border-r border-l">
                <div class="flex items-center justify-center">
 
@@ -39,13 +41,11 @@
                      <i class="fas fa-eye"></i>
                   </button>
 
-                  <!-- Enlace para Generar Factura -->
-                  <a href="#" class="text-white py-1 px-3 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
-                     <i class=" fas fa-file"></i>
+                  <a href="#" th:href="@{/facturas/descargar/{idVenta}(idVenta=${venta.idVenta})}"
+                     class="text-white py-1 px-2 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
+                     <i class="fas fa-download"></i> Descargar Factura
                   </a>
-                  <a href="#" class="text-white py-1 px-2 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
-                     <i class=" fas fa-download"></i>
-                  </a>
+
                </div>
             </td>
          </tr>
@@ -55,3 +55,10 @@
    <!-- Ventana modal para ver más detalles -->
    <div th:insert="Plantilla :: ventanaModal"></div>
 </div>
+
+
+<!--
+<a href="#" class="text-white py-1 px-3 m-1 rounded hover:bg-yellow-600 font-semibold bg-nuevo">
+   <i class=" fas fa-file"></i>
+</a>
+-->

@@ -19,12 +19,12 @@ public class FacturasVentaService {
     @Autowired
     private MetodoPagoService metodoPagoService;
 
-    public FacturaVenta agregarFactura(Venta venta){
+    public FacturaVenta agregarFactura(Venta venta, Long idMetodoPago){
         FacturaVenta facturaVenta = new FacturaVenta();
         facturaVenta.setNumeroFactura(UUID.randomUUID().toString());
         facturaVenta.setFechaHoraFacturacion(LocalDateTime.now().toString());
         facturaVenta.setVenta(venta);
-        facturaVenta.setMetodoPago(this.metodoPagoService.obtenerMetodoPago(1L));
+        facturaVenta.setMetodoPago(this.metodoPagoService.obtenerMetodoPago(idMetodoPago));
         return facturasVentaRepository.save(facturaVenta);
     }
 

@@ -58,7 +58,7 @@ public class MedicamentoController {
     public String guardarMedicamento(MedicamentoInventarioDTO medicamentoDTO,
                                      @RequestParam(required = false)MultipartFile imagen) throws IOException {
         if(imagen.isEmpty()){
-            medicamentoDTO.getMedicamento().setUrlImagen("/img/imgEmpPredeterminado.jpg");
+            medicamentoDTO.getMedicamento().setUrlImagen("/img/imgMedPredeterminado.jpg");
         }else{
             String direccionImagen = UUID.randomUUID().toString() + imagen.getOriginalFilename();
             Path path = Paths.get("C:/aplicacionFarmacia/img/" + direccionImagen);
