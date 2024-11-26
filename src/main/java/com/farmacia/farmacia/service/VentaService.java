@@ -24,6 +24,9 @@ public class VentaService {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private FacturasVentaService facturasVentaService;
+
     public Venta agregarVenta(float totalVenta, int totalVentaProducto, Long idCliente){
         Optional<Usuario> oUsuario = this.usuarioRepository.findByNombre(SecurityContextHolder.getContext().getAuthentication().getName());
         if (oUsuario.isPresent()) {
@@ -35,10 +38,17 @@ public class VentaService {
                     .cliente(this.clienteService.obtenerCliente(idCliente))
                     .empleado(usuario.getEmpleado())
                     .build();
-            return ventaRepository.save(venta);
+            venta = ventaRepository.save(venta);
+            facturasVentaService.agregarFactura(venta);
+            return venta;
         } else {
             //Es porque no se autentificado
             throw new RuntimeException("EMPLEADO NO IDENTIFICADO");
         }
+    }
+
+    public Venta obtenerVenta(Long id){
+        return this.ventaRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("VENTA NO IDENTIFICADA"));
     }
 }

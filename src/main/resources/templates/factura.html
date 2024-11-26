@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{./css/output.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Factura</title>
+
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .invoice-container {
+            width: 100%;
+            max-width: 210mm; /* Tamaño A4 */
+            margin: 0 auto;
+            padding: 10mm;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-height: 270mm; /* Aumenta la altura mínima */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .invoice-header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .invoice-header img {
+            height: 50px;
+        }
+
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .invoice-details p {
+            margin: 0;
+        }
+
+        .table-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-container th, .table-container td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .table-container th {
+            background-color: #f2f2f2;
+        }
+
+        .total-row {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 30px;
+            margin-bottom: 10mm; /* Asegura que haya espacio en la parte inferior */
+        }
+
+        /* Espaciado para el contenido */
+        .content-flex {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 font-inter flex flex-col h-screen w-full">
+<div class="invoice-container">
+    <div class="invoice-header">
+        <div>
+            <h1>FarmaLink</h1>
+            <p>Urb Jardines de San Antonio Pasaje 20 casa #221</p>
+            <p>Teléfono: +503 7221-3432</p>
+        </div>
+        <img src="/img/logoFarmacia.svg" alt="Logo">
+    </div>
+
+    <!-- Detalles de la factura -->
+    <div class="invoice-details">
+        <div>
+            <p>
+                <strong>Cliente:</strong>
+                <span th:text='${cliente.nombresCliente +" " + cliente.apellidosCliennte}'></span>
+            </p>
+            <p>
+                <strong>Factura N°:</strong> #000123
+                <span></span>
+            </p>
+            <!-- th:text="${venta.facturaVenta.numeroFactura}"-->
+        </div>
+        <div>
+            <p>
+                <strong>Fecha:</strong>
+                <span th:text="${venta.fechaVenta}"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="table-container content-flex">
+        <table>
+            <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+            </thead>
+            <tbody th:each="detalles : ${listaDetalles}">
+                <tr>
+                    <td th:text="${detalles.medicamento.nombreMedicamento}"></td>
+                    <td th:text="${detalles.medicamento.descripcionMedicamento}"></td>
+                    <td th:text="${detalles.cantidadVendida}"></td>
+                    <td th:text="${detalles.precioUnitario}"></td>
+                    <td th:text="${detalles.subTotalVendida}"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr class="total-row">
+                <td colspan="4" style="text-align: right;">Total:</td>
+                <td th:text="${venta.totalVenta}"></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- Pie de la factura -->
+    <div class="footer">
+        <p>Gracias por su compra</p>
+        <p>Esta factura es válida hasta la fecha de pago.</p>
+    </div>
+</div>
+</body>
+
+</html>

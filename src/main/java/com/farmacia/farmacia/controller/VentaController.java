@@ -65,8 +65,11 @@ public class VentaController {
         }
         Venta venta = this.ventaService.agregarVenta(cantidadTotal, cantidadVendidaProducto, idCliente);
         this.detalleVentaService.agregarDetalleVenta(listaDetalleVenta, venta);
+
         model.addAttribute("listaMedicamentos", medicamentosService.listaMedicamentos());
         model.addAttribute("listaCliente", clienteService.listaClientes());
         return "fragments/NuevaVenta";
     }
+
+
 }

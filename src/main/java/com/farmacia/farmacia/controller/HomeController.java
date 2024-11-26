@@ -4,6 +4,7 @@ import com.farmacia.farmacia.entity.*;
 import com.farmacia.farmacia.repository.UsuarioRepository;
 import com.farmacia.farmacia.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,9 @@ public class HomeController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private VentaService ventaService;
 
     @GetMapping("/index")
     public String getIndex(){
@@ -118,6 +122,16 @@ public class HomeController {
     public String fragmentoLaboratorio(Model model) {
         model.addAttribute("listaLaboratorio",  this.laboratorioService.listaLaboratorios());
         return "fragments/GestionLaboratorios :: contenido";
+    }
+
+
+    @GetMapping("/factura")
+    public String prueba(Model model){
+        Venta venta = this.ventaService.obtenerVenta(8L);
+        model.addAttribute("listaDetalles",venta.getListaDetalle());
+        model.addAttribute("cliente", venta.getCliente());
+        model.addAttribute("venta", venta);
+        return "factura";
     }
 
 }
