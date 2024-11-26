@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MarcaControlador {
@@ -18,20 +19,26 @@ public class MarcaControlador {
     // CRUD
 
     @PostMapping("/guardar-marca")
-    public String guardarMarca(Marca marca){
+    public String guardarMarca(Marca marca, RedirectAttributes redirectAttributes) {
         this.marcaService.agregarMarca(marca);
-        return "redirect:/fragmentoMarcas";
+        redirectAttributes.addFlashAttribute("mensaje", "Marca Fue Guardada Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "agregar");
+        return "redirect:/fragmentoMarcas";  // Se redirige a la URL del fragmento
     }
 
     @PostMapping("/actualizar-marca")
-    public String actualizarMarca(Marca marca){
+    public String actualizarMarca(Marca marca, RedirectAttributes redirectAttributes){
         this.marcaService.actualizarMarca(marca);
+        redirectAttributes.addFlashAttribute("mensaje", "La Marca Fue Actualizada Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "actualizar");
         return "redirect:/fragmentoMarcas";
     }
 
     @GetMapping("/eliminar-marca/{id}")
-    public String eliminarMarca(@PathVariable Long id){
+    public String eliminarMarca(@PathVariable Long id, RedirectAttributes redirectAttributes){
         this.marcaService.eliminarCategoria(id);
+        redirectAttributes.addFlashAttribute("mensaje", "La Marca fue Eliminada Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "eliminar");
         return "redirect:/fragmentoMarcas";
     }
 

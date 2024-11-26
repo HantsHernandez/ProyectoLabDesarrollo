@@ -1,5 +1,7 @@
 <div th:fragment="contenido" class="container bg-white/65 rounded-lg py-6 px-6 shadow-md"
      xmlns:th="http://www.w3.org/1999/xhtml">
+   <input type="hidden" id="mensaje-alerta" th:value="${mensaje != null ? mensaje : 'NOCARGADO'}">
+   <input type="hidden" id="tipo-alerta" th:value="${tipoAlerta != null ? tipoAlerta : 'NOCARGADO'}">
    <!-- Titulo -->
    <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Clientes</h2>
 

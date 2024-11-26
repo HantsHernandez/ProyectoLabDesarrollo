@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -49,6 +50,7 @@ public class VentaController {
     @Autowired
     private TemplateEngine templateEngine;
 
+
     @GetMapping("/fragmentoVentas")
     public String mostrarVenta(Model model) {
         model.addAttribute("listaMetodosPagos", this.metodoPagoService.listaMetodosPago());
@@ -59,13 +61,14 @@ public class VentaController {
 
     @PostMapping("/guardarVenta")
     public String guardarVenta(
-        @RequestParam("detalleVenta[]['idMedicamento']") List<Long> idsMedicamentos,
-        @RequestParam("detalleVenta[]['precioUnitario']") List<Float> precios,
-        @RequestParam("detalleVenta[]['cantidadVendida']") List<Integer> cantidades,
-        @RequestParam("totalVenta") float totalVenta,
-        @RequestParam("idCliente") Long idCliente,
-        @RequestParam("idMetodoPago") Long idMetodoPago,
-        Model model) {
+            @RequestParam("detalleVenta[]['idMedicamento']") List<Long> idsMedicamentos,
+            @RequestParam("detalleVenta[]['precioUnitario']") List<Float> precios,
+            @RequestParam("detalleVenta[]['cantidadVendida']") List<Integer> cantidades,
+            @RequestParam("totalVenta") float totalVenta,
+            @RequestParam("idCliente") Long idCliente,
+            @RequestParam("idMetodoPago") Long idMetodoPago,
+            Model model,
+            RedirectAttributes redirectAttributes){
         int cantidadVendidaProducto = 0;
         System.out.println("VALOR: EMTODO " + idMetodoPago);
         float cantidadTotal = 0;
@@ -85,9 +88,9 @@ public class VentaController {
         Venta venta = this.ventaService.agregarVenta(cantidadTotal, cantidadVendidaProducto, idCliente, idMetodoPago);
         this.detalleVentaService.agregarDetalleVenta(listaDetalleVenta, venta);
 
-        model.addAttribute("listaMedicamentos", medicamentosService.listaMedicamentos());
-        model.addAttribute("listaCliente", clienteService.listaClientes());
-        return "fragments/NuevaVenta";
+        redirectAttributes.addFlashAttribute("mensaje", "La Venta se Completo con Exito");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "agregar");
+        return "redirect:/fragmentoVentas";
     }
 
     @GetMapping("/facturas/descargar/{idVenta}")
@@ -106,8 +109,7 @@ public class VentaController {
             if (pdfBytes.length == 0) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
-                HttpHeaders headers = new HttpHeaders();
+            HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=factura_" + idVenta + ".pdf");
 
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);

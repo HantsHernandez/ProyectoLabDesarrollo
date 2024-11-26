@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -29,20 +30,26 @@ public class LaboratorioControlador {
 
     // CRUD
     @PostMapping("/guardar-laboratorio")
-    public String guardarEmpleado(LaboratorioDireccionDTO laboratorioDireccionDTO){
+    public String guardarEmpleado(LaboratorioDireccionDTO laboratorioDireccionDTO, RedirectAttributes redirectAttributes){
         this.laboratorioService.guardarLaboratorio(laboratorioDireccionDTO);
-        return "redirect:/fragmentoLaboratorio";
+        redirectAttributes.addFlashAttribute("mensaje", "El Laboratorio Fue Guardado Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "agregar");
+        return "redirect:/fragmentoLaboratorios";
     }
 
     @PostMapping("/actualizar-laboratorio")
-    public String actualizarEmpleado(LaboratorioDireccionDTO laboratorioDireccionDTO){
+    public String actualizarEmpleado(LaboratorioDireccionDTO laboratorioDireccionDTO, RedirectAttributes redirectAttributes){
         this.laboratorioService.actualizarLaboratorio(laboratorioDireccionDTO);
+        redirectAttributes.addFlashAttribute("mensaje", "El Laboratorio Fue Actualizado Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "actualizar");
         return "redirect:/fragmentoLaboratorios";
     }
 
     @GetMapping("/eliminar-laboratorio/{id}")
-    public String eliminarEmpleado(@PathVariable Long id){
+    public String eliminarEmpleado(@PathVariable Long id, RedirectAttributes redirectAttributes){
         this.laboratorioService.eliminarLaboratorio(id);
+        redirectAttributes.addFlashAttribute("mensaje", "El Laboratorio fue Eliminado Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "eliminar");
         return "redirect:/fragmentoLaboratorios";
     }
 
@@ -61,8 +68,6 @@ public class LaboratorioControlador {
         model.addAttribute("listaDirecciones", this.direccionService.listaDirecciones());
         return "fragments/AgregarLaboratorio :: contenido";
     }
-
-
 
 
     @GetMapping("/laboratorio/{id}")

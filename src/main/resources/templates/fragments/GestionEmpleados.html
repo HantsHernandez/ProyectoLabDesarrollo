@@ -1,5 +1,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <div th:fragment="contenido" class="container mx-auto mt-10 overflow-x-auto">
+    <input type="hidden" id="mensaje-alerta" th:value="${mensaje != null ? mensaje : 'NOCARGADO'}">
+    <input type="hidden" id="tipo-alerta" th:value="${tipoAlerta != null ? tipoAlerta : 'NOCARGADO'}">
     <!-- Titulo -->
     <h2 class="text-3xl font-bold mb-6 text-gray-700">Gestión de Empleados</h2>
 

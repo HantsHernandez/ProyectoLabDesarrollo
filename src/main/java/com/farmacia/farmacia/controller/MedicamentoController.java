@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +57,8 @@ public class MedicamentoController {
     // CRUD
     @PostMapping("/guardar-medicamento")
     public String guardarMedicamento(MedicamentoInventarioDTO medicamentoDTO,
-                                     @RequestParam(required = false)MultipartFile imagen) throws IOException {
+                                     @RequestParam(required = false)MultipartFile imagen,
+                                     RedirectAttributes redirectAttributes) throws IOException {
         if(imagen.isEmpty()){
             medicamentoDTO.getMedicamento().setUrlImagen("/img/imgMedPredeterminado.jpg");
         }else{
@@ -68,12 +70,15 @@ public class MedicamentoController {
             medicamentoDTO.getMedicamento().setUrlImagen("/img/" + direccionImagen);
         }
         this.medicamentosService.agregarMedicamento(medicamentoDTO);
+        redirectAttributes.addFlashAttribute("mensaje", "El Medicamento Fue Guardado Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "agregar");
         return "redirect:/fragmentoMedicamentos";
     }
 
     @PostMapping("/actualizar-medicamento")
     public String actualizarEmpleado(MedicamentoInventarioDTO medicamentoDTO,
-                                     @RequestParam(required = false)MultipartFile imagen) throws IOException {
+                                     @RequestParam(required = false)MultipartFile imagen,
+                                     RedirectAttributes redirectAttributes) throws IOException {
         if(!imagen.isEmpty()){
             String direccion = UUID.randomUUID().toString() + imagen.getOriginalFilename();
             Path path = Paths.get("C:/aplicacionFarmacia/img/" + direccion);
@@ -81,12 +86,16 @@ public class MedicamentoController {
             medicamentoDTO.getMedicamento().setUrlImagen("/img/" + direccion);
         }
         this.medicamentosService.actualizarMedicamento(medicamentoDTO);
+        redirectAttributes.addFlashAttribute("mensaje", "El Medicamento Fue Actualizado Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "actualizar");
         return "redirect:/fragmentoMedicamentos";
     }
 
     @GetMapping("/eliminar-medicamento/{id}")
-    public String eliminarEmpleado(@PathVariable Long id){
+    public String eliminarEmpleado(@PathVariable Long id, RedirectAttributes redirectAttributes){
         this.medicamentosService.eliminarMedicamento(id);
+        redirectAttributes.addFlashAttribute("mensaje", "El Medicamento fue Eliminado Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "eliminar");
         return "redirect:/fragmentoMedicamentos";
     }
 

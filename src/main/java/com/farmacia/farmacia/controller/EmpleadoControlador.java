@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,7 +37,8 @@ public class EmpleadoControlador {
     // CRUD
     @PostMapping("/guardar-empleado")
     public String guardarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO,
-                                  @RequestParam(required = false) MultipartFile imagen) throws IOException {
+                                  @RequestParam(required = false) MultipartFile imagen,
+                                  RedirectAttributes redirectAttributes) throws IOException {
         if(imagen.isEmpty()){
             empleadoDireccionDTO.getEmpleado().setUrlImagen("/img/imgEmpPredeterminado.jpg");
         }else{
@@ -46,12 +48,15 @@ public class EmpleadoControlador {
             empleadoDireccionDTO.getEmpleado().setUrlImagen("/img/" + direccionImagen);
         }
         this.empleadoService.guardarEmpleado(empleadoDireccionDTO);
+        redirectAttributes.addFlashAttribute("mensaje", "El Empleado Fue Guardado Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "agregar");
         return "redirect:/fragmentoEmpleados";
     }
 
     @PostMapping("/actualizar-empleado")
     public String actualizarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO,
-                                     @RequestParam(required = false) MultipartFile imagen) throws IOException {
+                                     @RequestParam(required = false) MultipartFile imagen,
+                                     RedirectAttributes redirectAttributes) throws IOException {
         if(!imagen.isEmpty()){
             String direccionImagen = UUID.randomUUID().toString() + imagen.getOriginalFilename();
             Path path = Paths.get("C:/aplicacionFarmacia/img/" + direccionImagen);
@@ -59,12 +64,16 @@ public class EmpleadoControlador {
             empleadoDireccionDTO.getEmpleado().setUrlImagen("/img/" + direccionImagen);
         }
         this.empleadoService.actualizarEmpleado(empleadoDireccionDTO);
+        redirectAttributes.addFlashAttribute("mensaje", "El Empleado Fue Actualizado Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "actualizar");
         return "redirect:/fragmentoEmpleados";
     }
 
     @GetMapping("/eliminar-empleado/{id}")
-    public String eliminarEmpleado(@PathVariable Long id){
+    public String eliminarEmpleado(@PathVariable Long id, RedirectAttributes redirectAttributes){
         this.empleadoService.eliminarEmpleado(id);
+        redirectAttributes.addFlashAttribute("mensaje", "El Empleado Fue Eliminada Exitosamente");
+        redirectAttributes.addFlashAttribute("tipoAlerta", "eliminar");
         return "redirect:/fragmentoEmpleados";
     }
 

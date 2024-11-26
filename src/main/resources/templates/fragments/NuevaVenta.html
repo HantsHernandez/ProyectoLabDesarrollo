@@ -1,4 +1,6 @@
 <link rel="stylesheet" th:href="@{./css/ventas.css}" xmlns:th="http://www.w3.org/1999/xhtml">
+<input type="hidden" id="mensaje-alerta" th:value="${mensaje != null ? mensaje : 'NOCARGADO'}">
+<input type="hidden" id="tipo-alerta" th:value="${tipoAlerta != null ? tipoAlerta : 'NOCARGADO'}">
 <div class="row">
     <div class="col-8">
         <div class="card">

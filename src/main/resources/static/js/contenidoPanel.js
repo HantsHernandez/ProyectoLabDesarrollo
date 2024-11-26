@@ -6,8 +6,28 @@ function cargarContenido(url) {
   fetch(url)
     .then((response) => response.text())
     .then((html) => {
-      contentDiv.dataset.current = url; // Actualiza la URL actual en el dataset
+      contentDiv.dataset.current = url;
       contentDiv.innerHTML = html;
+       if(document.getElementById('tipo-alerta')){
+           const tipoAlerta = document.getElementById('tipo-alerta');
+           console.log("VALOR de alerta: " + tipoAlerta.value);
+
+          if (tipoAlerta.value === 'eliminar') {
+             const mensajeInput = document.getElementById('mensaje-alerta');
+             const mensaje = mensajeInput.value;
+             console.log("VALOR: " + mensaje);
+             var alertaDiv = document.getElementById('alerta3');
+                   var alertaMensaje = document.getElementById('alerta-mensaje3');
+                   console.log("INGRESO");
+                   alertaMensaje.textContent = mensaje;
+                   alertaDiv.style.display = 'block';
+
+                   setTimeout(function() {
+                       alertaDiv.style.display = 'none';
+                   }, 3000);
+
+          }
+       }
     })
     .catch((error) => {
       console.error('Error al cargar el contenido:', error);
@@ -81,6 +101,62 @@ function guardar_registros(form){
     .then(html => {
         const divResultado = document.getElementById('contenido-principal');
         divResultado.innerHTML = html;
+
+
+    if(document.getElementById('mensaje-alerta')){
+            const tipoAlerta = document.getElementById('tipo-alerta');
+            console.log("VALOR de alerta: " + tipoAlerta.value);
+            if (tipoAlerta.value === 'agregar') {
+                const mensajeInput = document.getElementById('mensaje-alerta');
+                const mensaje = mensajeInput.value;
+                console.log("VALOR: " + mensaje);
+                var alertaDiv = document.getElementById('alerta1');
+                      var alertaMensaje = document.getElementById('alerta-mensaje1');
+                      console.log("INGRESO");
+                      alertaMensaje.textContent = mensaje;
+                      alertaDiv.style.display = 'block';
+
+                      setTimeout(function() {
+                          alertaDiv.style.display = 'none';
+                      }, 3000);
+            } else if (tipoAlerta.value === 'actualizar') {
+                    const mensajeInput = document.getElementById('mensaje-alerta');
+                    const mensaje = mensajeInput.value;
+                    console.log("VALOR: " + mensaje);
+                    var alertaDiv = document.getElementById('alerta2');
+                          var alertaMensaje = document.getElementById('alerta-mensaje2');
+                          console.log("INGRESO");
+                          alertaMensaje.textContent = mensaje;
+                          alertaDiv.style.display = 'block';
+
+                          setTimeout(function() {
+                              alertaDiv.style.display = 'none';
+                          }, 3000);
+
+            }
+    }
+
+
+    /*
+
+        if (document.getElementById('mensaje-alerta')) {
+        const mensajeInput = document.getElementById('mensaje-alerta');
+        const mensaje = mensajeInput.value;
+        console.log("VALOR: " + mensaje);
+        var alertaDiv = document.getElementById('alerta');
+              var alertaMensaje = document.getElementById('alerta-mensaje');
+              console.log("INGRESO");
+              // Asignar el mensaje y mostrar la alerta
+              alertaMensaje.textContent = mensaje;
+              alertaDiv.style.display = 'block';
+
+              // Ocultar la alerta después de 3 segundos (3000 ms)
+              setTimeout(function() {
+                  alertaDiv.style.display = 'none';
+              }, 3000);
+      }
+        console.log("INGRESOOOOOOOOO");
+*/
     })
     .catch(error => console.error('Error en la petición:', error));
 }
