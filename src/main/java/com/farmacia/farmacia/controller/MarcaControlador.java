@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MarcaControlador {
@@ -18,8 +19,9 @@ public class MarcaControlador {
     // CRUD
 
     @PostMapping("/guardar-marca")
-    public String guardarMarca(Marca marca){
+    public String guardarMarca(Marca marca, RedirectAttributes redirectAttribute){
         this.marcaService.agregarMarca(marca);
+        redirectAttribute.addFlashAttribute("mensaje", "Marca guardada con éxito!");
         return "redirect:/fragmentoMarcas";
     }
 
