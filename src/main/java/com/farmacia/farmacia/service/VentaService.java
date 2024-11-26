@@ -1,6 +1,7 @@
 package com.farmacia.farmacia.service;
 
 
+import com.farmacia.farmacia.entity.DetalleVenta;
 import com.farmacia.farmacia.entity.Usuario;
 import com.farmacia.farmacia.entity.Venta;
 import com.farmacia.farmacia.repository.UsuarioRepository;
@@ -56,4 +57,5 @@ public class VentaService {
     public List<Venta> listaVentas(){
         return this.ventaRepository.findAll();
     }
+
 }

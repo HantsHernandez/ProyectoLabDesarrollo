@@ -23,4 +23,8 @@ public class DetalleVentaService {
         }
         return this.detalleVentaRepository.saveAll(listadoDetalleVentas);
     }
+
+    public List<DetalleVenta> obtenerDetallesPorIdVenta(Long idVenta) {
+        return detalleVentaRepository.findByVenta_IdVenta(idVenta);
+    }
 }

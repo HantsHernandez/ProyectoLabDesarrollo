@@ -133,7 +133,8 @@
                 <span th:text='${cliente.nombresCliente + " " + cliente.apellidosCliennte}'></span>
             </p>
             <p>
-                <strong>Factura N°:</strong> #000123
+                <strong>Factura N°:</strong> #
+                <span th:text="${venta.facturaVenta.numeroFactura}"></span>
             </p>
         </div>
         <div>

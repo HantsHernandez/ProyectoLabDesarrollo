@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Service
@@ -21,11 +22,18 @@ public class FacturasVentaService {
 
     public FacturaVenta agregarFactura(Venta venta, Long idMetodoPago){
         FacturaVenta facturaVenta = new FacturaVenta();
-        facturaVenta.setNumeroFactura(UUID.randomUUID().toString());
+        facturaVenta.setNumeroFactura(this.generarNumeroFactura());
         facturaVenta.setFechaHoraFacturacion(LocalDateTime.now().toString());
         facturaVenta.setVenta(venta);
         facturaVenta.setMetodoPago(this.metodoPagoService.obtenerMetodoPago(idMetodoPago));
         return facturasVentaRepository.save(facturaVenta);
     }
 
+
+    private String generarNumeroFactura() {
+        String prefijo = "F--"; // Prefijo para identificar facturas
+        String fechaActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String identificadorUnico = UUID.randomUUID().toString().substring(0, 4); // Reducir el UUID para hacerlo más corto
+        return prefijo + fechaActual + "--" + identificadorUnico;
+    }
 }

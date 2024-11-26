@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -41,6 +42,9 @@ public class HomeController {
 
     @Autowired
     private VentaService ventaService;
+
+    @Autowired
+    private DetalleVentaService detalleVentaService;
 
 
     @GetMapping("/index")
@@ -139,6 +143,13 @@ public class HomeController {
     public String prueba2(Model model){
         model.addAttribute("listaVentas",this.ventaService.listaVentas());
         return "fragments/GestionDetallesVentas";
+    }
+
+    @GetMapping("/detalleVenta/{id}")
+    public String detalleventaVista(Model model, @PathVariable Long id){
+        model.addAttribute("detallesVenta", this.detalleVentaService.obtenerDetallesPorIdVenta(id));
+        model.addAttribute("venta", this.ventaService.obtenerVenta(id));
+        return "fragments/GestionVenta";
     }
 
 }

@@ -138,4 +138,10 @@ public class Controllers {
     public String mostrarFormularioLaboratorio() {
         return "fragments/AgregarLaboratorio :: contenido";
     }
+
+    @GetMapping("/ppp")
+    public String mostrar404p() { return "error404"; }
+
+    @GetMapping("/ddd")
+    public String mostrar500p() { return "error500"; }
 }
